@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About New Money Muse – Tested Firsthand, Reported Honestly</title>
+  <meta name="description" content="New Money Muse was built after testing a dozen gig platforms firsthand — DoorDash, Uber Eats, Fiverr, and more. Here" />
+  <link rel="canonical" href="https://newmoneymuse.com/about/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/components/nav.css" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GVSW4WXWLK"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVSW4WXWLK');</script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --gold:#C9A84C;--gold-light:#F0D98B;--gold-dim:#8C6D28;
+      --ink:#0D0D0D;--ink-soft:#1A1A1A;--ink-3:#1C1C1C;
+      --paper:#FAFAF7;--paper-warm:#F5F3EE;--mist:#E8E5DC;
+      --green:#1E7A5A;--green-light:#2EAA7E;--green-dim:#D0EFE6;
+      --text-body:#3A3A3A;--text-muted:#7A7870;
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--text-body);line-height:1.7;-webkit-font-smoothing:antialiased;}
+    .font-display{font-family:'Playfair Display',Georgia,serif;}
+
+    /* ── HERO ── */
+    .page-hero{background:var(--ink);padding:72px 0 60px;position:relative;overflow:hidden;}
+    .page-hero::before{content:'';position:absolute;inset:0;
+      background:radial-gradient(ellipse at 85% 30%,rgba(201,168,76,0.14) 0%,transparent 55%),
+                 radial-gradient(ellipse at 5% 85%,rgba(30,122,90,0.18) 0%,transparent 50%);}
+    .hero-inner{max-width:1040px;margin:0 auto;padding:0 2rem;position:relative;z-index:1;
+      display:grid;grid-template-columns:1fr 340px;gap:3rem;align-items:center;}
+    .page-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.25);color:var(--gold-light);font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;padding:5px 12px;border-radius:100px;margin-bottom:1.1rem;}
+    .page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.2rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:1rem;}
+    .page-hero h1 em{font-style:italic;color:var(--gold-light);}
+    .page-hero .hero-sub{font-size:1rem;color:rgba(255,255,255,0.55);line-height:1.7;max-width:480px;}
+
+    /* Founder card */
+    .founder-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:1.75rem;text-align:center;}
+    .founder-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--gold));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:#fff;margin:0 auto 1rem;}
+    .founder-name{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:3px;}
+    .founder-role{font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:1rem;}
+    .founder-creds{display:flex;flex-direction:column;gap:6px;}
+    .cred-item{display:flex;align-items:center;gap:8px;font-size:0.78rem;color:rgba(255,255,255,0.5);}
+    .cred-dot{width:5px;height:5px;border-radius:50%;background:var(--green-light);flex-shrink:0;}
+
+    /* ── MISSION BAND ── */
+    .mission-band{background:var(--green);padding:3rem 2rem;}
+    .mission-inner{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:2.5rem;}
+    .mission-item{text-align:center;}
+    .mi-icon{font-size:2rem;margin-bottom:0.6rem;}
+    .mi-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:6px;}
+    .mi-desc{font-size:0.83rem;color:rgba(255,255,255,0.65);line-height:1.6;}
+
+    /* ── BODY ── */
+    .page-body{max-width:1040px;margin:0 auto;padding:4rem 2rem 5rem;display:grid;grid-template-columns:1fr 300px;gap:3.5rem;align-items:start;}
+
+    /* Prose */
+    .prose h2{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--ink);margin:3rem 0 0.85rem;padding-top:2.5rem;border-top:1px solid var(--mist);}
+    .prose h2:first-child{border-top:none;padding-top:0;margin-top:0;}
+    .prose h3{font-size:1rem;font-weight:700;color:var(--ink);margin:1.75rem 0 0.5rem;}
+    .prose p{font-size:0.95rem;color:var(--text-body);margin-bottom:1.1rem;line-height:1.8;}
+    .prose ul{padding-left:1.5rem;margin-bottom:1.1rem;}
+    .prose li{font-size:0.95rem;color:var(--text-body);margin-bottom:0.6rem;line-height:1.7;}
+    .prose a{color:var(--green);text-decoration:underline;text-underline-offset:2px;}
+    .prose strong{color:var(--ink);font-weight:600;}
+
+    /* Pull quote */
+    .pull-quote{border-left:4px solid var(--gold);padding:1.1rem 1.5rem;margin:2rem 0;background:var(--paper-warm);border-radius:0 10px 10px 0;}
+    .pq-text{font-family:'Playfair Display',serif;font-size:1.15rem;font-style:italic;color:var(--ink);line-height:1.5;}
+    .pq-attr{font-size:0.75rem;color:var(--text-muted);margin-top:6px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;}
+
+    /* Callouts */
+    .callout{border-radius:10px;padding:1.25rem 1.5rem;margin:1.5rem 0;}
+    .callout-green{background:var(--green-dim);border:1.5px solid #B8E4D4;}
+    .callout-gold{background:#FEF9EC;border:1.5px solid #F0D98B;}
+    .callout-ink{background:var(--paper-warm);border:1px solid var(--mist);}
+    .callout-label{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;margin-bottom:0.5rem;}
+    .callout-green .callout-label{color:var(--green);}
+    .callout-gold .callout-label{color:var(--gold-dim);}
+    .callout-ink .callout-label{color:var(--text-muted);}
+    .callout p{font-size:0.9rem;margin-bottom:0;line-height:1.65;}
+
+    /* Editorial standards grid */
+    .standards-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.5rem 0;}
+    .standard-card{background:#fff;border:1px solid var(--mist);border-radius:10px;padding:1.1rem;border-top:3px solid var(--green);}
+    .sc-icon{font-size:1.2rem;margin-bottom:6px;}
+    .sc-title{font-weight:700;font-size:0.88rem;color:var(--ink);margin-bottom:4px;}
+    .sc-desc{font-size:0.78rem;color:var(--text-muted);line-height:1.5;}
+
+    /* Real numbers section */
+    .real-numbers{background:var(--ink-3);border-radius:14px;padding:1.75rem;margin:2rem 0;}
+    .rn-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:1.25rem;}
+    .rn-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.07);font-size:0.88rem;}
+    .rn-row:last-child{border-bottom:none;}
+    .rn-label{color:rgba(255,255,255,0.5);}
+    .rn-val{font-family:'DM Mono',monospace;font-weight:700;}
+    .rn-val.green{color:#6EE7B7;}
+    .rn-val.gold{color:var(--gold-light);}
+    .rn-val.red{color:#FCA5A5;}
+    .rn-note{font-size:0.72rem;color:rgba(255,255,255,0.25);margin-top:0.75rem;line-height:1.5;}
+
+    /* Team / solo card */
+    .team-card{background:var(--paper-warm);border:1px solid var(--mist);border-radius:12px;padding:1.5rem;margin:1.5rem 0;display:flex;gap:1.25rem;align-items:flex-start;}
+    .tc-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--gold));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:#fff;flex-shrink:0;}
+    .tc-info{}
+    .tc-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:2px;}
+    .tc-role{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--green);margin-bottom:6px;}
+    .tc-bio{font-size:0.85rem;color:var(--text-muted);line-height:1.6;}
+    .tc-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+    .tc-tag{font-size:0.65rem;font-weight:700;padding:3px 9px;border-radius:100px;background:var(--green-dim);color:var(--green);}
+
+    /* Sidebar */
+    .sidebar-card{background:var(--paper-warm);border:1px solid var(--mist);border-radius:12px;padding:1.25rem;margin-bottom:1rem;}
+    .sidebar-title{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);margin-bottom:1rem;}
+    .sidebar-link{display:flex;justify-content:space-between;align-items:center;font-size:0.85rem;color:var(--text-body);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--mist);transition:color 0.2s;}
+    .sidebar-link:last-child{border-bottom:none;}
+    .sidebar-link:hover{color:var(--green);}
+    .stat-highlight{text-align:center;padding:0.5rem 0;}
+    .sh-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--green);display:block;}
+    .sh-label{font-size:0.75rem;color:var(--text-muted);}
+    .sh-divider{height:1px;background:var(--mist);margin:0.75rem 0;}
+
+    /* CTA */
+    .cta-band{background:var(--ink);border-radius:16px;padding:2.5rem;margin:3rem 0;text-align:center;position:relative;overflow:hidden;}
+    .cta-band::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(201,168,76,0.12) 0%,transparent 60%);}
+    .cta-band-content{position:relative;z-index:1;}
+    .cta-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#fff;margin-bottom:0.5rem;}
+    .cta-sub{font-size:0.9rem;color:rgba(255,255,255,0.5);margin-bottom:1.5rem;line-height:1.6;}
+    .cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+    .cta-btn-primary{display:inline-flex;align-items:center;gap:6px;background:var(--green);color:#fff;font-weight:700;font-size:0.88rem;padding:12px 24px;border-radius:100px;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 14px rgba(30,122,90,0.3);}
+    .cta-btn-primary:hover{background:var(--green-light);transform:translateY(-1px);}
+    .cta-btn-ghost{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.75);font-weight:600;font-size:0.88rem;padding:12px 24px;border-radius:100px;text-decoration:none;transition:all 0.2s;}
+    .cta-btn-ghost:hover{background:rgba(255,255,255,0.12);color:#fff;}
+
+    .fade-up{opacity:0;transform:translateY(18px);transition:opacity 0.5s,transform 0.5s;}
+    .fade-up.visible{opacity:1;transform:translateY(0);}
+
+    @media(max-width:900px){
+      .hero-inner{grid-template-columns:1fr;}
+      .founder-card{display:none;}
+      .mission-inner{grid-template-columns:1fr;}
+      .page-body{grid-template-columns:1fr;}
+      .standards-grid{grid-template-columns:1fr;}
+    }
+    @media(max-width:560px){
+      .page-hero{padding:48px 0 40px;}
+      .cta-btns{flex-direction:column;align-items:center;}
+    }
+  </style>
+</head>
+<body>
+
+<script src="/components/nav.js"></script>
+
+<!-- ── HERO ── -->
+<div class="page-hero">
+  <div class="hero-inner">
+    <div>
+      <div class="page-tag">About Us</div>
+      <h1 class="font-display">Honest money advice<br>from someone <em>actually doing it</em></h1>
+      <p class="hero-sub">New Money Muse was built after signing up to a dozen gig platforms — DoorDash, Uber Eats, Fiverr, Instacart, TaskRabbit and more — to find out what they actually pay. Not the marketing numbers. The real take-home after expenses, taxes, and the hours nobody talks about.</p>
+    </div>
+    <div class="founder-card">
+      <div class="founder-avatar">D</div>
+      <div class="founder-name">The Editor</div>
+      <div class="founder-role">Founder & Editor</div>
+      <div class="founder-creds">
+        <div class="cred-item"><div class="cred-dot"></div>Tested 12+ gig platforms firsthand</div>
+        <div class="cred-item"><div class="cred-dot"></div>Composer, producer &amp; multi-brand entrepreneur</div>
+        <div class="cred-item"><div class="cred-dot"></div>Multi-brand entrepreneur</div>
+        <div class="cred-item"><div class="cred-dot"></div>Every dollar tracked, every shift documented</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── MISSION BAND ── -->
+<div class="mission-band">
+  <div class="mission-inner">
+    <div class="mission-item">
+      <div class="mi-icon">💰</div>
+      <div class="mi-title font-display">Earning first</div>
+      <div class="mi-desc">Most financial advice starts with saving. We start with earning — because you can't save money you don't have.</div>
+    </div>
+    <div class="mission-item">
+      <div class="mi-icon">📊</div>
+      <div class="mi-title font-display">Real numbers only</div>
+      <div class="mi-desc">Gross vs. net. Before tax vs. after. We show the math most sites hide because we think you deserve the full picture.</div>
+    </div>
+    <div class="mission-item">
+      <div class="mi-icon">🤝</div>
+      <div class="mi-title font-display">Trust first</div>
+      <div class="mi-desc">Every recommendation we make, we'd make to a friend. If it doesn't pass that test, it doesn't go on the site.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── BODY ── -->
+<div class="page-body">
+  <main>
+
+    <!-- WHY WE EXIST -->
+    <div class="prose fade-up">
+      <h2>Why New Money Muse exists</h2>
+      <p>We signed up to more than a dozen gig platforms — drivers, freelancers, shoppers, taskers — and tracked every dollar earned, every mile driven, every hour worked. When we went looking for honest information about what these platforms actually pay, we couldn't find it.</p>
+      <p>What existed instead were articles written by people who'd never turned on the app, quoting platform marketing numbers without doing the math. DoorDash advertises $18–$25 an hour. Nobody was publishing what that actually becomes after gas, self-employment tax, and vehicle wear. So we did it ourselves. DoorDash says drivers make $18–$25 an hour. That's gross. Before gas. Before self-employment tax. Before the IRS mileage deduction you'll miss if nobody tells you about it. The real number is often $8–$14 an hour — and that's what matters when you're deciding whether to spend your Saturday driving.</p>
+
+      <div class="pull-quote">
+        <div class="pq-text">"We signed up, we drove, we delivered, we freelanced — and we tracked every dollar. The gap between what the platforms advertise and what you actually keep is the thing nobody was publishing honestly. That's the gap New Money Muse exists to fill."</div>
+        <div class="pq-attr">— The Founder, New Money Muse</div>
+      </div>
+
+      <p>New Money Muse is built on a simple principle: write the article you'd want to read if you were making this decision yourself. No hype, no inflated earnings claims, no burying the real math in a disclaimer three screens down. The honest number, upfront, every time.</p>
+    </div>
+
+    <!-- THE REAL NUMBERS -->
+    <div class="fade-up">
+      <div class="real-numbers">
+        <div class="rn-title font-display">What the math actually looks like — Uber Eats, tested in a dense urban market</div>
+        <div class="rn-row"><span class="rn-label">Platform advertised rate</span><span class="rn-val">$18–$25/hr</span></div>
+        <div class="rn-row"><span class="rn-label">Actual gross earned</span><span class="rn-val gold">$15–$22/hr</span></div>
+        <div class="rn-row"><span class="rn-label">After gas (~$0.14/mile)</span><span class="rn-val">$12–$18/hr</span></div>
+        <div class="rn-row"><span class="rn-label">After vehicle wear (IRS: $0.70/mi)</span><span class="rn-val">$10–$15/hr</span></div>
+        <div class="rn-row"><span class="rn-label">After self-employment tax (15.3%)</span><span class="rn-val red">$8–$13/hr</span></div>
+        <div class="rn-row"><span class="rn-label">True take-home (dense urban, peak hours)</span><span class="rn-val green">$10–$14/hr</span></div>
+        <div class="rn-note">These figures come from actual documented shifts across multiple platforms — not platform marketing materials. Your market, vehicle, and shift timing will affect your numbers. That's why we built the <a href="/tools/side-hustle-quiz/" style="color:var(--gold-light);">Side Hustle Finder</a> and earnings tools — so you can run your own math.</div>
+      </div>
+    </div>
+
+    <!-- WHO WE ARE -->
+    <div class="prose fade-up">
+      <h2>Who's behind this</h2>
+      <p>New Money Muse is an independent publication. There's no VC money, no corporate parent, no editorial team answering to advertisers. It's built and run by one independent editor who personally tested gig platforms, freelance marketplaces, and side hustle apps to find out what they actually pay — then built the tools and articles they wished had existed before starting.</p>
+    </div>
+
+    <div class="team-card fade-up">
+      <div class="tc-avatar">D</div>
+      <div class="tc-info">
+        <div class="tc-name">The Editor</div>
+        <div class="tc-role">Founder, Editor & Gig Platform Researcher</div>
+        <div class="tc-bio">Chicago-based composer, producer, and multi-brand entrepreneur with credits in Grammy-nominated recordings, film and documentary scoring, video game composition, and major agency commercial work. Personally tested more than a dozen gig platforms to document what they actually pay — gross to net, before and after tax. New Money Muse is built on the belief that the most credible financial advice comes from people who have actually done the work.</div>
+        <div class="tc-tags">
+          <span class="tc-tag">Chicago</span>
+          <span class="tc-tag">Gig Economy</span>
+          <span class="tc-tag">Music & Film</span>
+          <span class="tc-tag">Entrepreneur</span>
+          <span class="tc-tag">Gig Platform Researcher</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDITORIAL STANDARDS -->
+    <div class="prose fade-up">
+      <h2>How we decide what to publish</h2>
+      <p>Every article, tool, and recommendation on New Money Muse goes through the same test before it goes live: would I say this to a friend who was making this decision with real money on the line? If the answer is no — or if I'd need to add a lot of caveats — it doesn't go up.</p>
+    </div>
+
+    <div class="standards-grid fade-up">
+      <div class="standard-card">
+        <div class="sc-icon">🔢</div>
+        <div class="sc-title">Show all the math</div>
+        <div class="sc-desc">Gross earnings, net earnings, after-tax take-home. All of it. We never lead with the biggest number and hide the real one.</div>
+      </div>
+      <div class="standard-card">
+        <div class="sc-icon">⏱</div>
+        <div class="sc-title">Honest timelines</div>
+        <div class="sc-desc">If something takes 6 months to build, we say 6 months. We don't write "make $1,000 this weekend" headlines for things that take a year.</div>
+      </div>
+      <div class="standard-card">
+        <div class="sc-icon">🔄</div>
+        <div class="sc-title">Keep it current</div>
+        <div class="sc-desc">Platform pay rates, tax rules, and affiliate program terms change. We update articles when the facts change, not just when it's convenient.</div>
+      </div>
+      <div class="standard-card">
+        <div class="sc-icon">🚫</div>
+        <div class="sc-title">No paid rankings</div>
+        <div class="sc-desc">We don't accept payment to rank a product higher than it deserves. Affiliate commissions don't change our editorial judgment.</div>
+      </div>
+    </div>
+
+    <!-- HOW WE MAKE MONEY -->
+    <div class="prose fade-up">
+      <h2>How New Money Muse makes money</h2>
+      <p>We're transparent about this because we think you should know. New Money Muse earns revenue in three ways:</p>
+      <ul>
+        <li><strong>Affiliate commissions</strong> — when you sign up for a platform we recommend (DoorDash, Fiverr, Upwork, etc.) through our links, we may earn a commission. This never affects which products we recommend or how we rank them. We only link to products we'd use or recommend regardless of whether we earn a commission.</li>
+        <li><strong>Dashboard subscriptions</strong> — our Pro subscriber dashboard ($9/month) gives members access to the income tracker, goal planner, exclusive deals, and other tools. The free tier stays free.</li>
+        <li><strong>Brand partnerships</strong> — occasionally we work with brands on sponsored content. These are always clearly labeled. We only partner with companies whose products we'd recommend to a friend.</li>
+      </ul>
+
+      <div class="callout callout-gold">
+        <div class="callout-label">Our affiliate policy in plain language</div>
+        <p>If a product isn't genuinely good for our readers, we don't promote it — regardless of what it pays. A bad recommendation destroys the trust that makes this site worth reading. That trust is worth more than any affiliate commission.</p>
+      </div>
+
+      <h2>What we're building toward</h2>
+      <p>New Money Muse is an independent media brand with a long runway. The goal isn't to become NerdWallet. The goal is to become the most trusted resource for people who earn money through gigs, freelancing, and side hustles — a group that's 59 million people in the US alone and growing.</p>
+      <p>That means more tools, more honest income experiments documented in real time, a YouTube channel built on real numbers from real shifts, and a subscriber community where people share what's actually working in their markets. It's being built in public, one article at a time.</p>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-band fade-up">
+      <div class="cta-band-content">
+        <div class="cta-title font-display">Start with your side hustle match</div>
+        <div class="cta-sub">Answer 4 questions and get a personalized recommendation — including realistic income estimates and a 90-day action plan.</div>
+        <div class="cta-btns">
+          <a href="/tools/side-hustle-quiz/" class="cta-btn-primary">Take the Free Quiz →</a>
+          <a href="/dashboard/" class="cta-btn-ghost">View Dashboard</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ── SIDEBAR ── -->
+  <aside>
+    <div class="sidebar-card fade-up" style="background:var(--ink);border-color:rgba(255,255,255,0.08);">
+      <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:rgba(255,255,255,0.3);margin-bottom:1.25rem;">By the Numbers</div>
+      <div class="stat-highlight">
+        <span class="sh-num">18</span>
+        <span class="sh-label" style="color:rgba(255,255,255,0.4);">pages of free content</span>
+      </div>
+      <div class="sh-divider"></div>
+      <div class="stat-highlight">
+        <span class="sh-num" style="color:var(--gold-light);">4</span>
+        <span class="sh-label" style="color:rgba(255,255,255,0.4);">free financial tools</span>
+      </div>
+      <div class="sh-divider"></div>
+      <div class="stat-highlight">
+        <span class="sh-num" style="color:#6EE7B7;">$0</span>
+        <span class="sh-label" style="color:rgba(255,255,255,0.4);">to access free tier</span>
+      </div>
+    </div>
+
+    <div class="sidebar-card fade-up">
+      <div class="sidebar-title">On This Site</div>
+      <a href="/tools/side-hustle-quiz/" class="sidebar-link">Side Hustle Finder Quiz <span>→</span></a>
+      <a href="/make-money/best-gig-economy-platforms/" class="sidebar-link">Best Gig Platforms 2026 <span>→</span></a>
+      <a href="/blog/how-much-does-doordash-pay/" class="sidebar-link">Real DoorDash Earnings <span>→</span></a>
+      <a href="/tools/debt-payoff-planner/" class="sidebar-link">Debt Payoff Planner <span>→</span></a>
+      <a href="/dashboard/" class="sidebar-link">Subscriber Dashboard <span>→</span></a>
+    </div>
+
+    <div class="sidebar-card fade-up">
+      <div class="sidebar-title">Policies</div>
+      <a href="/affiliate-disclosure/" class="sidebar-link">Affiliate Disclosure <span>→</span></a>
+      <a href="/privacy/" class="sidebar-link">Privacy Policy <span>→</span></a>
+      <a href="/disclaimer/" class="sidebar-link">Disclaimer <span>→</span></a>
+      <a href="/contact/" class="sidebar-link">Contact Us <span>→</span></a>
+    </div>
+
+    <div class="sidebar-card fade-up" style="background:var(--green-dim);border-color:#B8E4D4;">
+      <div class="sidebar-title" style="color:var(--green);">Get Weekly Tips Free</div>
+      <p style="font-size:0.82rem;color:var(--text-body);margin-bottom:1rem;line-height:1.55;">Honest gig income strategies, tax tips, and platform updates — every week.</p>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <input type="email" placeholder="your@email.com" style="padding:10px 12px;border:1.5px solid #B8E4D4;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.85rem;outline:none;width:100%;" id="aboutEmail" />
+        <button onclick="aboutSubscribe()" style="padding:10px;background:var(--green);color:#fff;font-weight:700;font-size:0.82rem;border:none;border-radius:8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.2s;" onmouseover="this.style.background='#2EAA7E'" onmouseout="this.style.background='#1E7A5A'">Subscribe Free</button>
+      </div>
+      <div style="font-size:0.68rem;color:var(--text-muted);margin-top:6px;">No spam. Unsubscribe anytime.</div>
+    </div>
+  </aside>
+</div>
+
+<script src="/components/footer.js"></script>
+
+<script>
+  function aboutSubscribe() {
+    const email = document.getElementById('aboutEmail').value;
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+    fetch('/api/router.php?endpoint=subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, source: 'about_page' })
+    }).then(() => {
+      document.getElementById('aboutEmail').value = '';
+      const btn = document.querySelector('[onclick="aboutSubscribe()"]');
+      btn.textContent = '✓ Subscribed!';
+      btn.style.background = '#1E7A5A';
+    }).catch(() => {
+      alert('Something went wrong. Please try again.');
+    });
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

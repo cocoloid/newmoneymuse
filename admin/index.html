@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NMM Admin — SEO & Analytics</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --gold:#C9A84C;--gold-light:#F0D98B;
+      --ink:#0D0D0D;--ink-2:#141414;--ink-3:#1C1C1C;--ink-4:#242424;
+      --green:#1E7A5A;--green-light:#2EAA7E;--green-dim:#D0EFE6;
+      --red:#E05252;--red-dim:#2D1515;
+      --blue:#4A90D9;--blue-dim:#0F1E2D;
+      --mist:rgba(255,255,255,0.07);--mist-2:rgba(255,255,255,0.04);
+      --text:#C8C8C8;--text-muted:#666;--text-dim:#444;
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;}
+
+    /* ── LOGIN ── */
+    .login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--ink);background-image:radial-gradient(ellipse at 20% 50%,rgba(30,122,90,0.1) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(201,168,76,0.08) 0%,transparent 50%);}
+    .login-card{background:var(--ink-3);border:1px solid var(--mist);border-radius:16px;padding:2.5rem;width:100%;max-width:380px;margin:1rem;}
+    .login-logo{display:flex;align-items:center;gap:10px;margin-bottom:2rem;}
+    .login-icon{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#1E7A5A,#2EAA7E);display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:1rem;}
+    .login-brand{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#fff;}
+    .login-brand span{color:var(--gold);}
+    .login-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:4px;}
+    .login-sub{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.75rem;}
+    .login-label{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-muted);margin-bottom:5px;display:block;}
+    .login-input{width:100%;padding:12px 14px;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.9rem;color:#fff;outline:none;transition:border-color 0.2s;margin-bottom:1rem;}
+    .login-input:focus{border-color:var(--green);}
+    .login-input::placeholder{color:rgba(255,255,255,0.2);}
+    .login-btn{width:100%;padding:13px;background:var(--green);color:#fff;font-weight:700;font-size:0.9rem;border:none;border-radius:100px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;box-shadow:0 4px 16px rgba(30,122,90,0.3);}
+    .login-btn:hover{background:var(--green-light);}
+    .login-error{background:var(--red-dim);border:1px solid rgba(224,82,82,0.3);border-radius:8px;padding:10px 14px;font-size:0.82rem;color:var(--red);margin-bottom:1rem;display:none;}
+    .login-error.show{display:block;}
+
+    /* ── APP ── */
+    .app{display:none;min-height:100vh;flex-direction:column;}
+    .app.visible{display:flex;}
+
+    /* Top bar */
+    .topbar{background:var(--ink-2);border-bottom:1px solid var(--mist);height:58px;display:flex;align-items:center;padding:0 1.5rem;gap:1rem;position:sticky;top:0;z-index:50;}
+    .topbar-logo{display:flex;align-items:center;gap:8px;text-decoration:none;margin-right:1rem;}
+    .tl-icon{width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#1E7A5A,#2EAA7E);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:0.8rem;flex-shrink:0;}
+    .tl-name{font-family:'Playfair Display',serif;font-size:0.9rem;font-weight:700;color:#fff;}
+    .tl-name span{color:var(--gold);}
+    .topbar-badge{font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;background:rgba(201,168,76,0.15);color:var(--gold);border:1px solid rgba(201,168,76,0.25);padding:3px 9px;border-radius:100px;}
+    .topbar-spacer{flex:1;}
+    .topbar-site{font-size:0.78rem;color:var(--text-muted);text-decoration:none;transition:color 0.2s;}
+    .topbar-site:hover{color:var(--text);}
+    .topbar-logout{font-size:0.78rem;font-weight:600;color:var(--text-muted);background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:color 0.2s;padding:6px 0;}
+    .topbar-logout:hover{color:var(--red);}
+
+    /* Tabs */
+    .tabs{background:var(--ink-2);border-bottom:1px solid var(--mist);display:flex;padding:0 1.5rem;gap:2px;}
+    .tab{padding:12px 18px;font-size:0.84rem;font-weight:500;color:var(--text-muted);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;background:none;border-top:none;border-left:none;border-right:none;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:7px;}
+    .tab:hover{color:var(--text);}
+    .tab.active{color:#fff;border-bottom-color:var(--green);}
+    .tab-icon{font-size:0.95rem;}
+
+    /* Content */
+    .content{flex:1;padding:2rem 1.5rem;max-width:1100px;width:100%;}
+
+    /* Panel */
+    .panel{display:none;}
+    .panel.active{display:block;}
+    .panel-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#fff;margin-bottom:4px;}
+    .panel-sub{font-size:0.85rem;color:var(--text-muted);margin-bottom:2rem;}
+
+    /* Cards */
+    .card{background:var(--ink-3);border:1px solid var(--mist);border-radius:12px;overflow:hidden;margin-bottom:1.25rem;}
+    .card-header{padding:1rem 1.25rem;border-bottom:1px solid var(--mist);display:flex;align-items:center;justify-content:space-between;}
+    .card-title{font-size:0.88rem;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px;}
+    .card-title-icon{font-size:1rem;}
+    .card-desc{font-size:0.75rem;color:var(--text-muted);margin-top:2px;}
+    .card-body{padding:1.25rem;}
+
+    /* Form elements */
+    .field{margin-bottom:1.1rem;}
+    .field:last-child{margin-bottom:0;}
+    .field-label{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-muted);margin-bottom:5px;display:flex;justify-content:space-between;align-items:center;}
+    .field-hint{font-size:0.65rem;color:var(--text-dim);font-weight:400;text-transform:none;letter-spacing:0;}
+    .field-input,.field-textarea,.field-select{width:100%;padding:10px 12px;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);border-radius:8px;font-family:'DM Mono',monospace;font-size:0.84rem;color:#fff;outline:none;transition:border-color 0.2s;}
+    .field-input:focus,.field-textarea:focus,.field-select:focus{border-color:var(--green);}
+    .field-input::placeholder,.field-textarea::placeholder{color:rgba(255,255,255,0.2);}
+    .field-select option{background:var(--ink-3);color:#fff;}
+    .field-textarea{resize:vertical;min-height:90px;line-height:1.5;font-family:'DM Sans',sans-serif;font-size:0.88rem;}
+    .field-textarea.code{font-family:'DM Mono',monospace;font-size:0.8rem;min-height:120px;}
+    .char-bar{display:flex;justify-content:space-between;margin-top:4px;font-size:0.68rem;color:var(--text-dim);}
+    .char-bar .count{font-family:'DM Mono',monospace;}
+    .char-bar .count.warn{color:var(--gold);}
+    .char-bar .count.over{color:var(--red);}
+
+    /* Toggle */
+    .toggle-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;}
+    .toggle-info{}
+    .toggle-name{font-size:0.88rem;font-weight:600;color:#fff;}
+    .toggle-desc{font-size:0.75rem;color:var(--text-muted);margin-top:1px;}
+    .toggle{position:relative;width:40px;height:22px;flex-shrink:0;}
+    .toggle input{opacity:0;width:0;height:0;}
+    .toggle-slider{position:absolute;inset:0;background:rgba(255,255,255,0.1);border-radius:11px;cursor:pointer;transition:all 0.25s;}
+    .toggle-slider::before{content:'';position:absolute;width:16px;height:16px;left:3px;top:3px;background:#fff;border-radius:50%;transition:transform 0.25s;}
+    .toggle input:checked+.toggle-slider{background:var(--green);}
+    .toggle input:checked+.toggle-slider::before{transform:translateX(18px);}
+
+    /* Buttons */
+    .btn{display:inline-flex;align-items:center;gap:6px;padding:9px 20px;border-radius:100px;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;border:none;}
+    .btn-green{background:var(--green);color:#fff;box-shadow:0 3px 12px rgba(30,122,90,0.25);}
+    .btn-green:hover{background:var(--green-light);transform:translateY(-1px);}
+    .btn-green:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+    .btn-ghost{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:var(--text);}
+    .btn-ghost:hover{background:rgba(255,255,255,0.1);}
+    .btn-red{background:rgba(224,82,82,0.15);border:1px solid rgba(224,82,82,0.25);color:var(--red);}
+    .btn-red:hover{background:rgba(224,82,82,0.25);}
+    .btn-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:1rem;}
+
+    /* Status toast */
+    .toast{position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;padding:12px 20px;border-radius:10px;font-size:0.84rem;font-weight:600;display:none;align-items:center;gap:8px;box-shadow:0 8px 24px rgba(0,0,0,0.4);animation:slideUp 0.3s ease;}
+    .toast.show{display:flex;}
+    .toast.success{background:var(--green);color:#fff;}
+    .toast.error{background:var(--red);color:#fff;}
+    .toast.info{background:var(--blue);color:#fff;}
+    @keyframes slideUp{from{transform:translateY(20px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+
+    /* SEO Preview */
+    .seo-preview{background:#fff;border-radius:10px;padding:1.25rem;margin:1rem 0;}
+    .sp-url{font-size:0.75rem;color:#1a0dab;margin-bottom:2px;font-family:'DM Sans',sans-serif;}
+    .sp-title{font-size:1.1rem;color:#1a0dab;font-weight:400;margin-bottom:3px;font-family:'DM Sans',sans-serif;cursor:pointer;}
+    .sp-title:hover{text-decoration:underline;}
+    .sp-desc{font-size:0.82rem;color:#545454;line-height:1.5;font-family:'DM Sans',sans-serif;}
+    .sp-label{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-muted);margin-bottom:8px;}
+
+    /* Pages table */
+    .pages-table{width:100%;border-collapse:collapse;}
+    .pages-table th{padding:10px 12px;text-align:left;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);border-bottom:1px solid var(--mist);}
+    .pages-table td{padding:10px 12px;font-size:0.84rem;border-bottom:1px solid rgba(255,255,255,0.04);vertical-align:middle;}
+    .pages-table tr:hover td{background:var(--mist-2);}
+    .pages-table tr:last-child td{border-bottom:none;}
+    .page-path{font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--text-muted);}
+    .page-title-cell{color:#fff;font-weight:500;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .page-desc-cell{color:var(--text-muted);max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:0.78rem;}
+    .status-dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:6px;}
+    .status-dot.good{background:var(--green);}
+    .status-dot.warn{background:var(--gold);}
+    .status-dot.missing{background:var(--red);}
+    .edit-link{font-size:0.75rem;font-weight:600;color:var(--green-light);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;padding:0;transition:color 0.2s;}
+    .edit-link:hover{color:#fff;}
+
+    /* Script cards */
+    .script-card{background:var(--ink-4);border:1px solid var(--mist);border-radius:10px;padding:1.1rem;margin-bottom:10px;}
+    .sc-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;}
+    .sc-name{font-size:0.88rem;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px;}
+    .sc-badge{font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:2px 8px;border-radius:100px;}
+    .sc-badge.active{background:rgba(30,122,90,0.2);color:#6EE7B7;}
+    .sc-badge.inactive{background:rgba(255,255,255,0.06);color:var(--text-muted);}
+    .sc-code{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--text-muted);background:rgba(0,0,0,0.3);border-radius:6px;padding:8px 10px;overflow-x:auto;white-space:pre;max-height:80px;overflow-y:auto;}
+
+    /* Two col */
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+    .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
+    .stat-mini{background:var(--ink-3);border:1px solid var(--mist);border-radius:10px;padding:1rem;text-align:center;}
+    .sm-num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:#fff;display:block;}
+    .sm-label{font-size:0.72rem;color:var(--text-muted);}
+
+    @media(max-width:768px){
+      .two-col{grid-template-columns:1fr;}
+      .three-col{grid-template-columns:1fr 1fr;}
+      .content{padding:1.25rem 1rem;}
+      .tabs{overflow-x:auto;}
+      .tab{white-space:nowrap;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── LOGIN ── -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-icon">$</div>
+      <div class="login-brand">New Money <span>Muse</span></div>
+    </div>
+    <div class="login-title">Admin Panel</div>
+    <div class="login-sub">SEO & Analytics Management</div>
+    <div class="login-error" id="loginError">Incorrect password. Try again.</div>
+    <label class="login-label" for="loginPass">Password</label>
+    <input type="password" class="login-input" id="loginPass" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doLogin()" />
+    <button class="login-btn" onclick="doLogin()">Sign In →</button>
+  </div>
+</div>
+
+<!-- ── APP ── -->
+<div class="app" id="app">
+
+  <div class="topbar">
+    <div class="topbar-logo">
+      <div class="tl-icon">$</div>
+      <div class="tl-name">New Money <span>Muse</span></div>
+    </div>
+    <div class="topbar-badge">Admin</div>
+    <div class="topbar-spacer"></div>
+    <a href="https://newmoneymuse.com" target="_blank" class="topbar-site">↗ View Site</a>
+    <button class="topbar-logout" onclick="doLogout()">Sign Out</button>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('analytics',this)">
+      <span class="tab-icon">📊</span> Analytics & Scripts
+    </button>
+    <button class="tab" onclick="switchTab('social',this)">
+      <span class="tab-icon">📱</span> Social Media
+    </button>
+    <button class="tab" onclick="switchTab('seo',this)">
+      <span class="tab-icon">🔍</span> SEO Manager
+    </button>
+    <button class="tab" onclick="switchTab('overview',this)">
+      <span class="tab-icon">📋</span> Pages Overview
+    </button>
+    <button class="tab" onclick="switchTab('users',this)">
+      <span class="tab-icon">👥</span> Users & Subscribers
+    </button>
+    <button class="tab" onclick="switchTab('ga',this)">
+      <span class="tab-icon">📈</span> Google Analytics
+    </button>
+  </div>
+
+  <div class="content">
+
+    <!-- ══ ANALYTICS PANEL ══ -->
+    <div class="panel active" id="panel-analytics">
+      <div class="panel-title">Analytics & Scripts</div>
+      <div class="panel-sub">Add tracking codes once — they inject into every page automatically.</div>
+
+      <div class="three-col">
+        <div class="stat-mini">
+          <span class="sm-num" id="statScripts">0</span>
+          <span class="sm-label">Active scripts</span>
+        </div>
+        <div class="stat-mini">
+          <span class="sm-num" id="statPages">18</span>
+          <span class="sm-label">Pages tracked</span>
+        </div>
+        <div class="stat-mini">
+          <span class="sm-num" id="statGtm" style="font-size:1rem;padding-top:0.5rem;">—</span>
+          <span class="sm-label">GTM Container</span>
+        </div>
+      </div>
+
+      <!-- GTM -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title"><span class="card-title-icon">🏷</span> Google Tag Manager</div>
+            <div class="card-desc">Recommended — manages Analytics, pixels, and all other tags from one place</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="gtmEnabled" onchange="toggleScript('gtm')" />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div class="card-body">
+          <div class="field">
+            <div class="field-label">GTM Container ID <span class="field-hint">e.g. GTM-XXXXXXX</span></div>
+            <input type="text" class="field-input" id="gtmId" placeholder="GTM-XXXXXXX" oninput="updateGtmPreview()" />
+          </div>
+          <div class="field">
+            <div class="field-label">Generated Snippet Preview</div>
+            <div class="sc-code" id="gtmPreview">Enter your GTM ID above to see the generated snippet</div>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-green" onclick="saveScript('gtm')">Save & Apply to All Pages</button>
+            <button class="btn btn-ghost" onclick="testGtm()">Test Connection</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- GA4 Direct -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title"><span class="card-title-icon">📈</span> Google Analytics 4 (Direct)</div>
+            <div class="card-desc">Use this if you prefer GA4 without Tag Manager</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="ga4Enabled" onchange="toggleScript('ga4')" />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div class="card-body">
+          <div class="field">
+            <div class="field-label">Measurement ID <span class="field-hint">e.g. G-XXXXXXXXXX</span></div>
+            <input type="text" class="field-input" id="ga4Id" placeholder="G-GVSW4WXWLK" value="G-GVSW4WXWLK" />
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-green" onclick="saveScript('ga4')">Save & Apply to All Pages</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Custom Scripts -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title"><span class="card-title-icon">⚡</span> Additional Scripts</div>
+            <div class="card-desc">Pinterest tag, TikTok pixel, Meta pixel, Hotjar, or any custom script</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div id="customScriptsList"></div>
+          <div style="background:var(--ink-4);border:1px dashed rgba(255,255,255,0.1);border-radius:10px;padding:1.25rem;margin-top:10px;">
+            <div style="font-size:0.78rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;">Add New Script</div>
+            <div class="two-col" style="margin-bottom:10px;">
+              <div class="field" style="margin:0;">
+                <div class="field-label">Script Name</div>
+                <input type="text" class="field-input" id="newScriptName" placeholder="e.g. Pinterest Tag" />
+              </div>
+              <div class="field" style="margin:0;">
+                <div class="field-label">Position</div>
+                <select class="field-select" id="newScriptPosition">
+                  <option value="head">In &lt;head&gt;</option>
+                  <option value="body">After &lt;body&gt;</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <div class="field-label">Script Code</div>
+              <textarea class="field-textarea code" id="newScriptCode" placeholder="Paste your full script tag here including <script> tags..."></textarea>
+            </div>
+            <button class="btn btn-green" onclick="addCustomScript()">Add Script</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ══ SOCIAL MEDIA PANEL ══ -->
+    <div class="panel" id="panel-social">
+      <div class="panel-title">Social Media</div>
+      <div class="panel-sub">Update your social URLs once — they update in the nav, footer, and every page automatically.</div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span class="card-title-icon">🎬</span> YouTube</div>
+          <div id="yt-status" class="sc-badge inactive" style="font-size:0.68rem;padding:3px 10px;border-radius:100px;">Not set</div>
+        </div>
+        <div class="card-body">
+          <div class="field">
+            <div class="field-label">Channel URL <span class="field-hint">Full URL including https://</span></div>
+            <input type="url" class="field-input" id="socialYT" placeholder="https://www.youtube.com/@YourChannel" oninput="updateSocialStatus('yt',this.value)" />
+          </div>
+          <div class="field">
+            <div class="field-label">Channel Handle <span class="field-hint">Just the @handle for display</span></div>
+            <input type="text" class="field-input" id="socialYTHandle" placeholder="@YourChannel" />
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span class="card-title-icon">📸</span> Instagram</div>
+          <div id="ig-status" class="sc-badge inactive" style="font-size:0.68rem;padding:3px 10px;border-radius:100px;">Not set</div>
+        </div>
+        <div class="card-body">
+          <div class="field">
+            <div class="field-label">Profile URL <span class="field-hint">Full URL including https://</span></div>
+            <input type="url" class="field-input" id="socialIG" placeholder="https://www.instagram.com/YourHandle" oninput="updateSocialStatus('ig',this.value)" />
+          </div>
+          <div class="field">
+            <div class="field-label">Username <span class="field-hint">Just the @username for display</span></div>
+            <input type="text" class="field-input" id="socialIGHandle" placeholder="@YourHandle" />
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span class="card-title-icon">📌</span> Pinterest</div>
+          <div id="pin-status" class="sc-badge inactive" style="font-size:0.68rem;padding:3px 10px;border-radius:100px;">Not set</div>
+        </div>
+        <div class="card-body">
+          <div class="field">
+            <div class="field-label">Profile URL <span class="field-hint">Full URL including https://</span></div>
+            <input type="url" class="field-input" id="socialPIN" placeholder="https://www.pinterest.com/YourHandle" oninput="updateSocialStatus('pin',this.value)" />
+          </div>
+          <div class="field">
+            <div class="field-label">Username <span class="field-hint">Just the username for display</span></div>
+            <input type="text" class="field-input" id="socialPINHandle" placeholder="YourHandle" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Future platforms -->
+      <div class="card" style="border-style:dashed;border-color:rgba(255,255,255,0.08);background:var(--ink-4);">
+        <div class="card-header" style="border-bottom:none;">
+          <div class="card-title"><span class="card-title-icon">➕</span> Coming Soon</div>
+        </div>
+        <div class="card-body" style="padding-top:0;">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <div style="font-size:0.8rem;color:var(--text-dim);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:8px 14px;">TikTok</div>
+            <div style="font-size:0.8rem;color:var(--text-dim);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:8px 14px;">Twitter / X</div>
+            <div style="font-size:0.8rem;color:var(--text-dim);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:8px 14px;">Facebook</div>
+            <div style="font-size:0.8rem;color:var(--text-dim);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:8px 14px;">LinkedIn</div>
+          </div>
+          <div style="font-size:0.75rem;color:var(--text-dim);margin-top:0.75rem;">Add more platforms when you're ready — they'll appear alongside the existing icons.</div>
+        </div>
+      </div>
+
+      <!-- Preview -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span class="card-title-icon">👁</span> Preview</div>
+        </div>
+        <div class="card-body">
+          <div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;">How icons appear in your footer</div>
+          <div id="socialPreview" style="display:flex;gap:10px;align-items:center;background:#1A1A1A;padding:1.1rem;border-radius:10px;">
+            <div style="font-family:'Playfair Display',serif;font-size:0.9rem;color:#fff;margin-right:6px;">New Money <span style="color:#C9A84C;">Muse</span></div>
+            <div id="prevYT"  style="width:34px;height:34px;border-radius:7px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;opacity:0.3;" title="YouTube">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="rgba(255,255,255,0.5)"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </div>
+            <div id="prevIG"  style="width:34px;height:34px;border-radius:7px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;opacity:0.3;" title="Instagram">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="rgba(255,255,255,0.5)"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+            </div>
+            <div id="prevPIN" style="width:34px;height:34px;border-radius:7px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;opacity:0.3;" title="Pinterest">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="rgba(255,255,255,0.5)"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+            </div>
+          </div>
+          <div style="font-size:0.72rem;color:var(--text-dim);margin-top:8px;">Icons light up in the preview as you fill in the URLs above.</div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-green" onclick="saveSocial()">💾 Save & Update All Pages</button>
+        <span id="socialSaveStatus" style="font-size:0.78rem;color:var(--text-muted);"></span>
+      </div>
+    </div>
+
+    <!-- ══ SEO PANEL ══ -->
+    <div class="panel" id="panel-seo">
+      <div class="panel-title">SEO Manager</div>
+      <div class="panel-sub">Edit meta tags for any page. Changes save to the server and update the live page instantly.</div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span class="card-title-icon">📄</span> Select Page to Edit</div>
+        </div>
+        <div class="card-body">
+          <div class="field">
+            <div class="field-label">Page</div>
+            <select class="field-select" id="pageSelector" onchange="loadPageSeo()">
+              <option value="">— Choose a page —</option>
+              <option value="index">Homepage (/)</option>
+              <option value="about/index">About (/about/)</option>
+              <option value="contact/index">Contact (/contact/)</option>
+              <option value="affiliate-disclosure/index">Affiliate Disclosure</option>
+              <option value="privacy/index">Privacy Policy</option>
+              <option value="disclaimer/index">Disclaimer</option>
+              <option value="make-money/best-gig-economy-platforms/index">Best Gig Platforms</option>
+              <option value="make-money/best-side-hustle-apps/index">Best Side Hustle Apps</option>
+              <option value="tools/side-hustle-quiz/index">Side Hustle Quiz</option>
+              <option value="tools/debt-payoff-planner/index">Debt Payoff Planner</option>
+              <option value="tools/budget-calculator/index">Budget Calculator</option>
+              <option value="tools/savings-calculator/index">Savings Calculator</option>
+              <option value="blog/how-much-does-doordash-pay/index">Blog: DoorDash Pay</option>
+              <option value="blog/how-to-make-money-on-fiverr/index">Blog: Fiverr Beginners</option>
+              <option value="blog/how-to-build-emergency-fund/index">Blog: Emergency Fund</option>
+              <option value="blog/52-week-savings-challenge/index">Blog: 52-Week Challenge</option>
+              <option value="blog/gig-worker-taxes/index">Blog: Gig Worker Taxes</option>
+              <option value="dashboard/index">Dashboard</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div id="seoEditor" style="display:none;">
+        <div class="two-col">
+          <div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title"><span class="card-title-icon">🏷</span> Page Title & Description</div>
+              </div>
+              <div class="card-body">
+                <div class="field">
+                  <div class="field-label">
+                    Page Title
+                    <span class="field-hint">50–60 characters ideal</span>
+                  </div>
+                  <input type="text" class="field-input" id="seoTitle" placeholder="Page title for Google..." maxlength="70" oninput="updateSeoPreview();updateCharCount('seoTitle','titleCount',60)" />
+                  <div class="char-bar"><span>Characters</span><span class="count" id="titleCount">0</span></div>
+                </div>
+                <div class="field">
+                  <div class="field-label">
+                    Meta Description
+                    <span class="field-hint">150–160 characters ideal</span>
+                  </div>
+                  <textarea class="field-textarea" id="seoDesc" placeholder="A compelling description that appears in Google search results..." maxlength="200" oninput="updateSeoPreview();updateCharCount('seoDesc','descCount',160)"></textarea>
+                  <div class="char-bar"><span>Characters</span><span class="count" id="descCount">0</span></div>
+                </div>
+                <div class="field">
+                  <div class="field-label">Canonical URL <span class="field-hint">Full URL</span></div>
+                  <input type="text" class="field-input" id="seoCanonical" placeholder="https://newmoneymuse.com/page/" />
+                </div>
+                <div class="field">
+                  <div class="field-label">Index Setting</div>
+                  <select class="field-select" id="seoRobots">
+                    <option value="index, follow">Index & Follow (default — show in Google)</option>
+                    <option value="noindex, nofollow">No Index (hide from Google)</option>
+                    <option value="index, nofollow">Index but don't follow links</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title"><span class="card-title-icon">🔗</span> Social Sharing (OG Tags)</div>
+              </div>
+              <div class="card-body">
+                <div class="field">
+                  <div class="field-label">OG Title <span class="field-hint">For Facebook, LinkedIn sharing</span></div>
+                  <input type="text" class="field-input" id="ogTitle" placeholder="Title when shared on social..." />
+                </div>
+                <div class="field">
+                  <div class="field-label">OG Description</div>
+                  <textarea class="field-textarea" id="ogDesc" placeholder="Description when shared on social..." style="min-height:70px;"></textarea>
+                </div>
+                <div class="field">
+                  <div class="field-label">OG Image URL <span class="field-hint">1200×630px recommended</span></div>
+                  <input type="text" class="field-input" id="ogImage" placeholder="https://newmoneymuse.com/images/og/page.jpg" />
+                </div>
+                <div class="field">
+                  <div class="field-label">Twitter Card Type</div>
+                  <select class="field-select" id="twitterCard">
+                    <option value="summary_large_image">Large Image (recommended)</option>
+                    <option value="summary">Small Image</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Google Preview -->
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title"><span class="card-title-icon">👁</span> Google Preview</div>
+              </div>
+              <div class="card-body" style="padding:1rem;">
+                <div class="sp-label">How this page appears in Google search results:</div>
+                <div class="seo-preview">
+                  <div class="sp-url" id="previewUrl">https://newmoneymuse.com/</div>
+                  <div class="sp-title" id="previewTitle">Page title will appear here</div>
+                  <div class="sp-desc" id="previewDesc">Your meta description will appear here. Make it compelling — this is what people read before deciding to click.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-green" id="saveSeoBtn" onclick="saveSeo()">
+            💾 Save & Update Live Page
+          </button>
+          <button class="btn btn-ghost" onclick="resetSeoForm()">Reset</button>
+          <span id="seoSaveStatus" style="font-size:0.78rem;color:var(--text-muted);"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ OVERVIEW PANEL ══ -->
+    <div class="panel" id="panel-overview">
+      <div class="panel-title">Pages Overview</div>
+      <div class="panel-sub">All 18 pages at a glance. Green = SEO complete · Gold = needs attention · Red = missing.</div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span class="card-title-icon">📋</span> All Pages</div>
+          <button class="btn btn-ghost" style="font-size:0.75rem;padding:6px 14px;" onclick="refreshOverview()">↻ Refresh</button>
+        </div>
+        <div class="card-body" style="padding:0;overflow-x:auto;">
+          <table class="pages-table">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Page</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="overviewTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ══ USERS PANEL ══ -->
+    <div class="panel" id="panel-users">
+      <div class="panel-title">Users & Subscribers</div>
+      <div class="panel-sub">Manage dashboard users, Pro subscribers, and email list.</div>
+
+      <!-- Stats -->
+      <div class="three-col" id="userStatsRow">
+        <div class="stat-mini"><span class="sm-num" id="uStatTotal">—</span><span class="sm-label">Total Users</span></div>
+        <div class="stat-mini"><span class="sm-num" id="uStatPro" style="color:var(--gold);">—</span><span class="sm-label">Pro Subscribers</span></div>
+        <div class="stat-mini"><span class="sm-num" id="uStatMRR" style="color:#6EE7B7;">—</span><span class="sm-label">Est. MRR</span></div>
+        <div class="stat-mini"><span class="sm-num" id="uStatEmail">—</span><span class="sm-label">Email Subscribers</span></div>
+        <div class="stat-mini"><span class="sm-num" id="uStatFree">—</span><span class="sm-label">Free Users</span></div>
+        <div class="stat-mini"><span class="sm-num" id="uStatConv" style="color:var(--gold);">—</span><span class="sm-label">Conversion Rate</span></div>
+      </div>
+
+      <!-- Quick links -->
+      <div class="card" style="margin-bottom:1.25rem;">
+        <div class="card-header">
+          <div class="card-title"><span class="card-title-icon">⚡</span> Quick Actions</div>
+        </div>
+        <div class="card-body" style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn btn-ghost" onclick="exportUsers()">⬇ Export Users CSV</button>
+          <button class="btn btn-ghost" onclick="exportSubscribers()">⬇ Export Subscribers CSV</button>
+          <a href="https://analytics.google.com" target="_blank" class="btn btn-ghost" style="text-decoration:none;">📊 Google Analytics</a>
+          <button class="btn btn-ghost" onclick="refreshUsers()">↻ Refresh Data</button>
+        </div>
+      </div>
+
+      <!-- User/Subscriber tables -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span class="card-title-icon">👥</span> Data</div>
+        </div>
+        <div class="card-body">
+          <div style="display:flex;gap:6px;margin-bottom:1rem;">
+            <button class="btn btn-green" id="uTabUsers" onclick="switchUserTab('users')" style="font-size:0.78rem;padding:7px 16px;">Users</button>
+            <button class="btn btn-ghost" id="uTabSubs" onclick="switchUserTab('subs')" style="font-size:0.78rem;padding:7px 16px;">Email Subscribers</button>
+          </div>
+          <input type="text" id="userSearch" placeholder="Search by name or email..." oninput="renderUserTable()"
+            style="width:100%;padding:9px 12px;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.85rem;color:#fff;outline:none;margin-bottom:1rem;" />
+          <div id="userTableWrap" style="overflow-x:auto;"></div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ══ GOOGLE ANALYTICS PANEL ══ -->
+    <div class="panel" id="panel-ga">
+      <div class="panel-title">Google Analytics</div>
+      <div class="panel-sub">View your live site data — visitors, traffic sources, top pages, and more.</div>
+
+      <!-- Embed state — shows setup guide or live dashboard -->
+      <div id="gaEmbedState">
+
+        <!-- Setup guide (shown when no embed URL saved) -->
+        <div id="gaSetupGuide">
+
+          <div class="card" style="border-color:rgba(74,144,217,0.25);background:rgba(74,144,217,0.05);">
+            <div class="card-header" style="border-color:rgba(74,144,217,0.15);">
+              <div class="card-title" style="color:#7BB3E8;"><span class="card-title-icon">ℹ️</span> How to connect Google Analytics</div>
+            </div>
+            <div class="card-body">
+              <div style="display:flex;flex-direction:column;gap:14px;">
+
+                <div style="display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:flex-start;">
+                  <div style="width:32px;height:32px;border-radius:50%;background:rgba(74,144,217,0.2);border:1px solid rgba(74,144,217,0.3);display:flex;align-items:center;justify-content:center;font-size:0.82rem;font-weight:700;color:#7BB3E8;flex-shrink:0;">1</div>
+                  <div>
+                    <div style="font-size:0.88rem;font-weight:700;color:#fff;margin-bottom:3px;">Open Google Looker Studio</div>
+                    <div style="font-size:0.82rem;color:var(--text-muted);line-height:1.6;">Go to <a href="https://lookerstudio.google.com" target="_blank" style="color:#7BB3E8;">lookerstudio.google.com</a> and sign in with the same Google account that owns your Analytics property.</div>
+                  </div>
+                </div>
+
+                <div style="display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:flex-start;">
+                  <div style="width:32px;height:32px;border-radius:50%;background:rgba(74,144,217,0.2);border:1px solid rgba(74,144,217,0.3);display:flex;align-items:center;justify-content:center;font-size:0.82rem;font-weight:700;color:#7BB3E8;flex-shrink:0;">2</div>
+                  <div>
+                    <div style="font-size:0.88rem;font-weight:700;color:#fff;margin-bottom:3px;">Create a new report</div>
+                    <div style="font-size:0.82rem;color:var(--text-muted);line-height:1.6;">Click <strong style="color:rgba(255,255,255,0.7);">Create → Report</strong>. When prompted to add a data source, select <strong style="color:rgba(255,255,255,0.7);">Google Analytics</strong> and connect your <strong style="color:rgba(255,255,255,0.7);">New Money Muse</strong> property (G-GVSW4WXWLK).</div>
+                  </div>
+                </div>
+
+                <div style="display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:flex-start;">
+                  <div style="width:32px;height:32px;border-radius:50%;background:rgba(74,144,217,0.2);border:1px solid rgba(74,144,217,0.3);display:flex;align-items:center;justify-content:center;font-size:0.82rem;font-weight:700;color:#7BB3E8;flex-shrink:0;">3</div>
+                  <div>
+                    <div style="font-size:0.88rem;font-weight:700;color:#fff;margin-bottom:3px;">Add these charts to your report</div>
+                    <div style="font-size:0.82rem;color:var(--text-muted);line-height:1.6;">
+                      Use <strong style="color:rgba(255,255,255,0.7);">Insert → Chart</strong> to add:
+                      <ul style="padding-left:1.25rem;margin-top:6px;display:flex;flex-direction:column;gap:4px;">
+                        <li>Scorecard: Sessions (this month)</li>
+                        <li>Scorecard: Active users</li>
+                        <li>Scorecard: New users</li>
+                        <li>Time series: Sessions over time</li>
+                        <li>Table: Top pages by page views</li>
+                        <li>Pie chart: Traffic by source/medium</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:flex-start;">
+                  <div style="width:32px;height:32px;border-radius:50%;background:rgba(74,144,217,0.2);border:1px solid rgba(74,144,217,0.3);display:flex;align-items:center;justify-content:center;font-size:0.82rem;font-weight:700;color:#7BB3E8;flex-shrink:0;">4</div>
+                  <div>
+                    <div style="font-size:0.88rem;font-weight:700;color:#fff;margin-bottom:3px;">Get the embed URL</div>
+                    <div style="font-size:0.82rem;color:var(--text-muted);line-height:1.6;">Click <strong style="color:rgba(255,255,255,0.7);">File → Share → Embed report</strong>. Copy the URL from the iframe src attribute — it looks like:<br><code style="background:rgba(255,255,255,0.06);padding:3px 8px;border-radius:4px;font-size:0.78rem;margin-top:4px;display:inline-block;">https://lookerstudio.google.com/embed/reporting/...</code></div>
+                  </div>
+                </div>
+
+                <div style="display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:flex-start;">
+                  <div style="width:32px;height:32px;border-radius:50%;background:rgba(30,122,90,0.2);border:1px solid rgba(30,122,90,0.3);display:flex;align-items:center;justify-content:center;font-size:0.82rem;font-weight:700;color:#6EE7B7;flex-shrink:0;">5</div>
+                  <div>
+                    <div style="font-size:0.88rem;font-weight:700;color:#fff;margin-bottom:3px;">Paste the URL below and save</div>
+                    <div style="font-size:0.82rem;color:var(--text-muted);line-height:1.6;">Your Analytics dashboard will display right here in the admin panel — live data, auto-refreshing.</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- URL input -->
+          <div class="card" style="margin-top:1.25rem;">
+            <div class="card-header">
+              <div class="card-title"><span class="card-title-icon">🔗</span> Paste Your Looker Studio Embed URL</div>
+            </div>
+            <div class="card-body">
+              <div class="field">
+                <div class="field-label">Looker Studio Embed URL</div>
+                <input type="url" class="field-input" id="gaEmbedUrl"
+                  placeholder="https://lookerstudio.google.com/embed/reporting/..."
+                  style="font-family:'DM Mono',monospace;font-size:0.82rem;" />
+              </div>
+              <div class="field" style="margin-top:1rem;">
+                <div class="field-label">Dashboard Height <span class="field-hint">px — adjust to fit your report</span></div>
+                <input type="number" class="field-input" id="gaHeight" value="700" min="400" max="1200" style="width:150px;" />
+              </div>
+              <div class="btn-row">
+                <button class="btn btn-green" onclick="saveGaEmbed()">Connect Dashboard</button>
+                <a href="https://lookerstudio.google.com" target="_blank" class="btn btn-ghost" style="text-decoration:none;">Open Looker Studio →</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Alternative: Direct GA link -->
+          <div class="card" style="margin-top:1.25rem;border-color:rgba(255,255,255,0.06);">
+            <div class="card-header">
+              <div class="card-title"><span class="card-title-icon">⚡</span> Quick Access — Open Analytics Directly</div>
+            </div>
+            <div class="card-body" style="display:flex;gap:10px;flex-wrap:wrap;">
+              <a href="https://analytics.google.com" target="_blank" class="btn btn-ghost" style="text-decoration:none;">📊 Google Analytics</a>
+              <a href="https://lookerstudio.google.com" target="_blank" class="btn btn-ghost" style="text-decoration:none;">📈 Looker Studio</a>
+              <a href="https://search.google.com/search-console" target="_blank" class="btn btn-ghost" style="text-decoration:none;">🔍 Search Console</a>
+              <a href="https://tagmanager.google.com" target="_blank" class="btn btn-ghost" style="text-decoration:none;">🏷 Tag Manager</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live dashboard (shown when embed URL is saved) -->
+        <div id="gaLiveDashboard" style="display:none;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:10px;">
+            <div style="font-size:0.82rem;color:var(--text-muted);">Live data from Google Analytics via Looker Studio</div>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-ghost" style="font-size:0.75rem;padding:6px 14px;" onclick="refreshGa()">↻ Refresh</button>
+              <button class="btn btn-ghost" style="font-size:0.75rem;padding:6px 14px;" onclick="editGaUrl()">Edit URL</button>
+              <a id="gaOpenLink" href="#" target="_blank" class="btn btn-ghost" style="text-decoration:none;font-size:0.75rem;padding:6px 14px;">Open in new tab ↗</a>
+            </div>
+          </div>
+          <div style="background:var(--ink-3);border:1px solid var(--mist);border-radius:12px;overflow:hidden;">
+            <iframe id="gaIframe"
+              src=""
+              style="width:100%;border:none;display:block;"
+              allowfullscreen
+              sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+            </iframe>
+          </div>
+          <div style="font-size:0.72rem;color:var(--text-dim);margin-top:8px;text-align:center;">
+            Data updates automatically · Powered by Google Looker Studio · <span id="gaLastLoaded"></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── CONFIG ──────────────────────────────────────────
+const ADMIN_PASS = 'Coldplay0616!';
+const API_BASE   = '/api/seo-admin.php';
+
+// ── STATE ───────────────────────────────────────────
+let state = {
+  scripts: {
+    gtm:  { enabled: false, id: '' },
+    ga4:  { enabled: false, id: 'G-GVSW4WXWLK' },
+    custom: []
+  },
+  seoData: {},
+  currentPage: ''
+};
+
+const PAGES = [
+  { value: 'index',                                      label: 'Homepage',              path: '/' },
+  { value: 'about/index',                                label: 'About',                 path: '/about/' },
+  { value: 'contact/index',                              label: 'Contact',               path: '/contact/' },
+  { value: 'affiliate-disclosure/index',                 label: 'Affiliate Disclosure',  path: '/affiliate-disclosure/' },
+  { value: 'privacy/index',                              label: 'Privacy Policy',         path: '/privacy/' },
+  { value: 'disclaimer/index',                           label: 'Disclaimer',            path: '/disclaimer/' },
+  { value: 'make-money/best-gig-economy-platforms/index',label: 'Best Gig Platforms',    path: '/make-money/best-gig-economy-platforms/' },
+  { value: 'make-money/best-side-hustle-apps/index',     label: 'Best Side Hustle Apps', path: '/make-money/best-side-hustle-apps/' },
+  { value: 'tools/side-hustle-quiz/index',               label: 'Side Hustle Quiz',      path: '/tools/side-hustle-quiz/' },
+  { value: 'tools/debt-payoff-planner/index',            label: 'Debt Payoff Planner',   path: '/tools/debt-payoff-planner/' },
+  { value: 'tools/budget-calculator/index',              label: 'Budget Calculator',     path: '/tools/budget-calculator/' },
+  { value: 'tools/savings-calculator/index',             label: 'Savings Calculator',    path: '/tools/savings-calculator/' },
+  { value: 'blog/how-much-does-doordash-pay/index',      label: 'Blog: DoorDash Pay',    path: '/blog/how-much-does-doordash-pay/' },
+  { value: 'blog/how-to-make-money-on-fiverr/index',     label: 'Blog: Fiverr',          path: '/blog/how-to-make-money-on-fiverr/' },
+  { value: 'blog/how-to-build-emergency-fund/index',     label: 'Blog: Emergency Fund',  path: '/blog/how-to-build-emergency-fund/' },
+  { value: 'blog/52-week-savings-challenge/index',       label: 'Blog: 52-Week',         path: '/blog/52-week-savings-challenge/' },
+  { value: 'blog/gig-worker-taxes/index',                label: 'Blog: Gig Taxes',       path: '/blog/gig-worker-taxes/' },
+  { value: 'dashboard/index',                            label: 'Dashboard',             path: '/dashboard/' },
+];
+
+// ── AUTH ────────────────────────────────────────────
+function doLogin() {
+  const pass = document.getElementById('loginPass').value;
+  if (pass === ADMIN_PASS) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('app').classList.add('visible');
+    loadState();
+  } else {
+    document.getElementById('loginError').classList.add('show');
+    document.getElementById('loginPass').value = '';
+    document.getElementById('loginPass').focus();
+  }
+}
+
+function doLogout() {
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('app').classList.remove('visible');
+  document.getElementById('loginPass').value = '';
+}
+
+// ── STATE MANAGEMENT ─────────────────────────────────
+function loadState() {
+  const saved = localStorage.getItem('nmm_admin_state');
+  if (saved) {
+    try { state = JSON.parse(saved); } catch(e) {}
+  }
+  renderAnalytics();
+  renderOverview();
+  updateStatCounts();
+  loadSocial();
+  if (localStorage.getItem('nmm_ga_embed')) state.gaEmbed = localStorage.getItem('nmm_ga_embed');
+}
+
+function saveState() {
+  localStorage.setItem('nmm_admin_state', JSON.stringify(state));
+}
+
+// ── TABS ─────────────────────────────────────────────
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-' + name).classList.add('active');
+  if (name === 'overview') renderOverview();
+  if (name === 'social') loadSocial();
+  if (name === 'users') initUsersPanel();
+  if (name === 'ga') initGaPanel();
+}
+
+// ── ANALYTICS ────────────────────────────────────────
+function updateGtmPreview() {
+  const id = document.getElementById('gtmId').value.trim();
+  const preview = document.getElementById('gtmPreview');
+  const statEl  = document.getElementById('statGtm');
+  if (!id) {
+    preview.textContent = 'Enter your GTM ID above to see the generated snippet';
+    statEl.textContent = '—';
+    return;
+  }
+  statEl.textContent = id;
+  preview.textContent = `<!-- Google Tag Manager -->
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;
+f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${id}');
+<!-- End Google Tag Manager -->`;
+}
+
+function toggleScript(type) {
+  const enabled = document.getElementById(type + 'Enabled').checked;
+  state.scripts[type].enabled = enabled;
+  saveState();
+  updateStatCounts();
+}
+
+function saveScript(type) {
+  if (type === 'gtm') {
+    state.scripts.gtm.id = document.getElementById('gtmId').value.trim();
+    state.scripts.gtm.enabled = document.getElementById('gtmEnabled').checked;
+  } else if (type === 'ga4') {
+    state.scripts.ga4.id = document.getElementById('ga4Id').value.trim();
+    state.scripts.ga4.enabled = document.getElementById('ga4Enabled').checked;
+  }
+  saveState();
+  updateStatCounts();
+
+  // Call server API to inject into pages
+  callApi('inject_scripts', { scripts: state.scripts })
+    .then(r => {
+      if (r.success) {
+        showToast('✓ Script saved and applied to all pages', 'success');
+      } else {
+        showToast('Saved locally. ' + (r.message || 'Manual injection may be needed.'), 'info');
+      }
+    })
+    .catch(() => {
+      showToast('Saved locally — connect API to auto-inject into pages', 'info');
+    });
+}
+
+function addCustomScript() {
+  const name = document.getElementById('newScriptName').value.trim();
+  const code = document.getElementById('newScriptCode').value.trim();
+  const pos  = document.getElementById('newScriptPosition').value;
+
+  if (!name || !code) { showToast('Please enter a name and script code', 'error'); return; }
+
+  state.scripts.custom.push({ id: Date.now(), name, code, position: pos, enabled: true });
+  saveState();
+
+  document.getElementById('newScriptName').value = '';
+  document.getElementById('newScriptCode').value = '';
+
+  renderAnalytics();
+  updateStatCounts();
+  showToast('✓ Script added', 'success');
+}
+
+function removeCustomScript(id) {
+  state.scripts.custom = state.scripts.custom.filter(s => s.id !== id);
+  saveState();
+  renderAnalytics();
+  updateStatCounts();
+  showToast('Script removed', 'info');
+}
+
+function toggleCustomScript(id) {
+  const s = state.scripts.custom.find(s => s.id === id);
+  if (s) { s.enabled = !s.enabled; saveState(); renderAnalytics(); updateStatCounts(); }
+}
+
+function renderAnalytics() {
+  // GTM
+  if (state.scripts.gtm.id) {
+    document.getElementById('gtmId').value = state.scripts.gtm.id;
+    updateGtmPreview();
+  }
+  document.getElementById('gtmEnabled').checked = state.scripts.gtm.enabled;
+
+  // GA4
+  if (state.scripts.ga4.id) document.getElementById('ga4Id').value = state.scripts.ga4.id;
+  document.getElementById('ga4Enabled').checked = state.scripts.ga4.enabled;
+
+  // Custom
+  const list = document.getElementById('customScriptsList');
+  if (!state.scripts.custom.length) {
+    list.innerHTML = '<div style="font-size:0.82rem;color:var(--text-muted);padding:0.5rem 0;">No custom scripts added yet.</div>';
+    return;
+  }
+  list.innerHTML = state.scripts.custom.map(s => `
+    <div class="script-card">
+      <div class="sc-header">
+        <div class="sc-name">
+          ${s.name}
+          <span class="sc-badge ${s.enabled ? 'active' : 'inactive'}">${s.enabled ? 'Active' : 'Disabled'}</span>
+        </div>
+        <div style="display:flex;gap:6px;">
+          <button class="btn btn-ghost" style="padding:5px 12px;font-size:0.72rem;" onclick="toggleCustomScript(${s.id})">${s.enabled ? 'Disable' : 'Enable'}</button>
+          <button class="btn btn-red" style="padding:5px 12px;font-size:0.72rem;" onclick="removeCustomScript(${s.id})">Remove</button>
+        </div>
+      </div>
+      <div class="sc-code">${s.code.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+    </div>`).join('');
+}
+
+function updateStatCounts() {
+  let active = 0;
+  if (state.scripts.gtm.enabled && state.scripts.gtm.id) active++;
+  if (state.scripts.ga4.enabled && state.scripts.ga4.id) active++;
+  active += state.scripts.custom.filter(s => s.enabled).length;
+  document.getElementById('statScripts').textContent = active;
+}
+
+function testGtm() {
+  const id = document.getElementById('gtmId').value.trim();
+  if (!id) { showToast('Enter your GTM Container ID first', 'error'); return; }
+  window.open(`https://tagmanager.google.com/#/container/${id}`, '_blank');
+}
+
+// ── SEO ──────────────────────────────────────────────
+function loadPageSeo() {
+  const page = document.getElementById('pageSelector').value;
+  if (!page) { document.getElementById('seoEditor').style.display = 'none'; return; }
+
+  state.currentPage = page;
+  document.getElementById('seoEditor').style.display = 'block';
+
+  const saved = state.seoData[page] || {};
+  const pageInfo = PAGES.find(p => p.value === page);
+  const path = pageInfo ? pageInfo.path : '/';
+
+  document.getElementById('seoTitle').value      = saved.title || '';
+  document.getElementById('seoDesc').value       = saved.desc || '';
+  document.getElementById('seoCanonical').value  = saved.canonical || 'https://newmoneymuse.com' + path;
+  document.getElementById('seoRobots').value     = saved.robots || 'index, follow';
+  document.getElementById('ogTitle').value       = saved.ogTitle || '';
+  document.getElementById('ogDesc').value        = saved.ogDesc || '';
+  document.getElementById('ogImage').value       = saved.ogImage || '';
+  document.getElementById('twitterCard').value   = saved.twitterCard || 'summary_large_image';
+
+  updateSeoPreview();
+  updateCharCount('seoTitle', 'titleCount', 60);
+  updateCharCount('seoDesc', 'descCount', 160);
+
+  // Try to load from server
+  callApi('get_seo', { page })
+    .then(r => {
+      if (r.success && r.data) {
+        const d = r.data;
+        if (d.title)       document.getElementById('seoTitle').value = d.title;
+        if (d.description) document.getElementById('seoDesc').value = d.description;
+        if (d.canonical)   document.getElementById('seoCanonical').value = d.canonical;
+        updateSeoPreview();
+        updateCharCount('seoTitle', 'titleCount', 60);
+        updateCharCount('seoDesc', 'descCount', 160);
+      }
+    }).catch(() => {});
+}
+
+function updateSeoPreview() {
+  const title    = document.getElementById('seoTitle').value || 'Page title will appear here';
+  const desc     = document.getElementById('seoDesc').value || 'Your meta description will appear here.';
+  const canonical= document.getElementById('seoCanonical').value || 'https://newmoneymuse.com/';
+
+  document.getElementById('previewTitle').textContent = title.length > 60 ? title.slice(0,57) + '...' : title;
+  document.getElementById('previewDesc').textContent  = desc.length > 160 ? desc.slice(0,157) + '...' : desc;
+  document.getElementById('previewUrl').textContent   = canonical;
+}
+
+function updateCharCount(inputId, countId, ideal) {
+  const len = document.getElementById(inputId).value.length;
+  const el  = document.getElementById(countId);
+  el.textContent = len;
+  el.className = 'count' + (len > ideal + 10 ? ' over' : len > ideal ? ' warn' : '');
+}
+
+function saveSeo() {
+  const page = state.currentPage;
+  if (!page) return;
+
+  const data = {
+    title:       document.getElementById('seoTitle').value.trim(),
+    desc:        document.getElementById('seoDesc').value.trim(),
+    canonical:   document.getElementById('seoCanonical').value.trim(),
+    robots:      document.getElementById('seoRobots').value,
+    ogTitle:     document.getElementById('ogTitle').value.trim(),
+    ogDesc:      document.getElementById('ogDesc').value.trim(),
+    ogImage:     document.getElementById('ogImage').value.trim(),
+    twitterCard: document.getElementById('twitterCard').value,
+  };
+
+  state.seoData[page] = data;
+  saveState();
+
+  const btn = document.getElementById('saveSeoBtn');
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+
+  callApi('save_seo', { page, data })
+    .then(r => {
+      if (r.success) {
+        showToast('✓ SEO saved and applied to live page', 'success');
+        document.getElementById('seoSaveStatus').textContent = 'Last saved: ' + new Date().toLocaleTimeString();
+      } else {
+        showToast('Saved locally. ' + (r.message || 'API connection needed to update live files.'), 'info');
+      }
+    })
+    .catch(() => {
+      showToast('Saved locally — deploy API to auto-update live pages', 'info');
+    })
+    .finally(() => {
+      btn.disabled = false;
+      btn.textContent = '💾 Save & Update Live Page';
+      refreshOverview();
+    });
+}
+
+function resetSeoForm() {
+  ['seoTitle','seoDesc','seoCanonical','ogTitle','ogDesc','ogImage'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  updateSeoPreview();
+}
+
+// ── OVERVIEW ─────────────────────────────────────────
+function renderOverview() {
+  const tbody = document.getElementById('overviewTableBody');
+  tbody.innerHTML = PAGES.map(p => {
+    const saved = state.seoData[p.value] || {};
+    const hasTitle = saved.title && saved.title.length > 0;
+    const hasDesc  = saved.desc  && saved.desc.length > 0;
+    const status   = hasTitle && hasDesc ? 'good' : hasTitle || hasDesc ? 'warn' : 'missing';
+    const titleDisplay = saved.title || '<span style="color:var(--text-dim);font-style:italic;">Not set</span>';
+    const descDisplay  = saved.desc  || '<span style="color:var(--text-dim);font-style:italic;">Not set</span>';
+    return `
+      <tr>
+        <td><span class="status-dot ${status}"></span></td>
+        <td>
+          <div style="color:#fff;font-size:0.84rem;font-weight:500;">${p.label}</div>
+          <div class="page-path">${p.path}</div>
+        </td>
+        <td class="page-title-cell">${titleDisplay}</td>
+        <td class="page-desc-cell">${descDisplay}</td>
+        <td>
+          <button class="edit-link" onclick="editPage('${p.value}')">Edit SEO</button>
+        </td>
+      </tr>`;
+  }).join('');
+}
+
+function editPage(pageValue) {
+  switchTab('seo', document.querySelectorAll('.tab')[2]);
+  document.getElementById('pageSelector').value = pageValue;
+  loadPageSeo();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function refreshOverview() { renderOverview(); }
+
+// ── API ──────────────────────────────────────────────
+async function callApi(action, payload = {}) {
+  const res = await fetch(API_BASE, {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify({ action, ...payload })
+  });
+  return res.json();
+}
+
+// ── TOAST ─────────────────────────────────────────────
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + type;
+  setTimeout(() => { t.classList.remove('show'); }, 3500);
+}
+
+// ── SOCIAL MEDIA ──────────────────────────────────────
+function loadSocial() {
+  const s = state.social || {};
+  const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
+  set('socialYT',        s.yt);
+  set('socialYTHandle',  s.ytHandle);
+  set('socialIG',        s.ig);
+  set('socialIGHandle',  s.igHandle);
+  set('socialPIN',       s.pin);
+  set('socialPINHandle', s.pinHandle);
+  updateSocialStatus('yt',  s.yt  || '');
+  updateSocialStatus('ig',  s.ig  || '');
+  updateSocialStatus('pin', s.pin || '');
+
+  // Load from server config
+  callApi('get_social')
+    .then(r => {
+      if (r.success && r.data) {
+        const d = r.data;
+        if (d.youtube?.url)    { set('socialYT', d.youtube.url);       updateSocialStatus('yt',  d.youtube.url); }
+        if (d.youtube?.handle)   set('socialYTHandle', d.youtube.handle);
+        if (d.instagram?.url)  { set('socialIG', d.instagram.url);     updateSocialStatus('ig',  d.instagram.url); }
+        if (d.instagram?.handle) set('socialIGHandle', d.instagram.handle);
+        if (d.pinterest?.url)  { set('socialPIN', d.pinterest.url);    updateSocialStatus('pin', d.pinterest.url); }
+        if (d.pinterest?.handle) set('socialPINHandle', d.pinterest.handle);
+      }
+    }).catch(() => {});
+}
+
+function updateSocialStatus(platform, val) {
+  const statusEl  = document.getElementById(platform + '-status');
+  const previewId = { yt:'prevYT', ig:'prevIG', pin:'prevPIN' }[platform];
+  const previewEl = previewId ? document.getElementById(previewId) : null;
+  const isSet = val && val.startsWith('http');
+  if (statusEl) {
+    statusEl.textContent = isSet ? 'Set ✓' : 'Not set';
+    statusEl.className   = 'sc-badge ' + (isSet ? 'active' : 'inactive');
+  }
+  if (previewEl) previewEl.style.opacity = isSet ? '1' : '0.3';
+}
+
+async function saveSocial() {
+  const get = id => document.getElementById(id)?.value.trim() || '';
+  const social = {
+    yt:        get('socialYT'),
+    ytHandle:  get('socialYTHandle'),
+    ig:        get('socialIG'),
+    igHandle:  get('socialIGHandle'),
+    pin:       get('socialPIN'),
+    pinHandle: get('socialPINHandle'),
+  };
+
+  // Validate at least one URL
+  if (!social.yt && !social.ig && !social.pin) {
+    showToast('Please enter at least one social URL', 'error');
+    return;
+  }
+
+  // Validate URL format
+  const urlFields = [social.yt, social.ig, social.pin].filter(Boolean);
+  for (const url of urlFields) {
+    if (!url.startsWith('http')) {
+      showToast('URLs must start with https://', 'error');
+      return;
+    }
+  }
+
+  state.social = social;
+  saveState();
+
+  const statusEl = document.getElementById('socialSaveStatus');
+  if (statusEl) statusEl.textContent = 'Saving...';
+
+  try {
+    const r = await callApi('save_social', { social });
+    if (r.success && r.updated > 0) {
+      showToast('✓ Social URLs saved and pushed to nav + footer on all pages', 'success');
+      if (statusEl) statusEl.textContent = 'Saved to server: ' + new Date().toLocaleTimeString();
+    } else if (r.success && r.config_saved) {
+      const detail = r.log ? r.log.join(' | ') : (r.message || '');
+      showToast('Config saved. Files: ' + detail, 'info');
+      if (statusEl) statusEl.textContent = 'Config saved — ' + detail;
+      console.log('Social save detail:', r);
+    } else {
+      showToast('Error: ' + (r.error || r.message || 'Unknown'), 'error');
+      if (statusEl) statusEl.textContent = 'Error — check console';
+      console.error('Social save error:', r);
+    }
+  } catch (err) {
+    showToast('API not reachable — URLs saved locally in browser', 'info');
+    if (statusEl) statusEl.textContent = 'Saved locally (API offline)';
+    console.error('API error:', err);
+  }
+}
+
+// ── USERS & SUBSCRIBERS (Live MailerLite) ────────────
+  const ML_PROXY = '/api/mailerlite.php';
+  let userTab = 'subs';
+  let mlSubscribers = [];
+  let mlStats = { total: 0, active: 0 };
+  let mlLoaded = false;
+
+  async function initUsersPanel() {
+    ['uStatTotal','uStatPro','uStatMRR','uStatEmail','uStatFree','uStatConv'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = '...';
+    });
+    switchUserTab('subs');
+    try {
+      const r = await fetch(ML_PROXY, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'get_stats' })
+      }).then(r => r.json());
+      if (r.success) {
+        mlStats = r;
+        document.getElementById('uStatEmail').textContent = r.total || 0;
+        document.getElementById('uStatTotal').textContent = r.active || 0;
+        document.getElementById('uStatFree').textContent  = r.unsubscribed || 0;
+        document.getElementById('uStatPro').textContent   = '—';
+        document.getElementById('uStatMRR').textContent   = '—';
+        document.getElementById('uStatConv').textContent  = r.total > 0 ? Math.round(r.active / r.total * 100) + '%' : '—';
+      }
+    } catch(e) { showToast('Could not load MailerLite stats', 'error'); }
+    await loadMLSubscribers();
+  }
+
+  async function loadMLSubscribers(page) {
+    page = page || 1;
+    const wrap = document.getElementById('userTableWrap');
+    if (wrap) wrap.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text-muted);font-size:0.85rem;">Loading live subscribers from MailerLite...</div>';
+    try {
+      const r = await fetch(ML_PROXY, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'get_subscribers', page: page, limit: 25 })
+      }).then(r => r.json());
+      if (r.success) {
+        mlSubscribers = r.subscribers || [];
+        mlLoaded = true;
+        document.getElementById('uStatEmail').textContent = r.total || mlSubscribers.length;
+        renderUserTable();
+        showToast('✓ Live data loaded from MailerLite', 'success');
+      } else {
+        if (wrap) wrap.innerHTML = '<div style="text-align:center;padding:2rem;color:#FCA5A5;font-size:0.85rem;">Error: ' + (r.message || 'API error') + '<br><small>Make sure mailerlite.php is uploaded to public_html/api/</small></div>';
+        showToast('MailerLite error: ' + (r.message || 'check proxy'), 'error');
+      }
+    } catch(e) {
+      if (wrap) wrap.innerHTML = '<div style="text-align:center;padding:2rem;color:#FCA5A5;font-size:0.85rem;">Could not reach MailerLite proxy.<br><small>Upload mailerlite.php to public_html/api/</small></div>';
+    }
+  }
+
+  function switchUserTab(tab) {
+    userTab = tab;
+    const uBtn = document.getElementById('uTabUsers');
+    const sBtn = document.getElementById('uTabSubs');
+    if (uBtn && sBtn) {
+      uBtn.className = tab === 'users' ? 'btn btn-green' : 'btn btn-ghost';
+      sBtn.className = tab === 'subs'  ? 'btn btn-green' : 'btn btn-ghost';
+      uBtn.style.fontSize = sBtn.style.fontSize = '0.78rem';
+      uBtn.style.padding  = sBtn.style.padding  = '7px 16px';
+    }
+    renderUserTable();
+  }
+
+  function renderUserTable() {
+    const q    = (document.getElementById('userSearch')?.value || '').toLowerCase();
+    const wrap = document.getElementById('userTableWrap');
+    if (!wrap) return;
+    if (userTab === 'users') {
+      wrap.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text-muted);font-size:0.85rem;">Dashboard user accounts require MySQL backend.<br>Switch to <strong style="color:#fff;">Email Subscribers</strong> to see your live MailerLite list.</div>';
+      return;
+    }
+    if (!mlLoaded) { loadMLSubscribers(); return; }
+    const rows = mlSubscribers.filter(s =>
+      s.email.toLowerCase().includes(q) || (s.name && s.name.toLowerCase().includes(q))
+    );
+    if (rows.length === 0) {
+      wrap.innerHTML = '<div class="empty-table">' + (q ? 'No subscribers match your search.' : 'No subscribers yet — your MailerLite list is empty.') + '</div>';
+      return;
+    }
+    wrap.innerHTML = '<table class="u-table"><thead><tr><th>Email</th><th>Name</th><th>Status</th><th>Source</th><th>Joined</th><th></th></tr></thead><tbody>' +
+      rows.map(s => '<tr>' +
+        '<td class="mono white">' + s.email + '</td>' +
+        '<td>' + (s.name || '<span style="color:var(--text-dim)">—</span>') + '</td>' +
+        '<td><span class="u-plan ' + (s.status === 'active' ? 'pro' : 'free') + '">' + s.status + '</span></td>' +
+        '<td><span class="u-source">' + (s.source || 'form') + '</span></td>' +
+        '<td>' + s.joined + '</td>' +
+        '<td><button class="u-action" style="border-color:rgba(220,82,82,0.3);color:#FCA5A5;" onclick="unsubscribeML(\'' + s.email + '\')">Remove</button></td>' +
+      '</tr>').join('') +
+      '</tbody></table>';
+  }
+
+  async function unsubscribeML(email) {
+    if (!confirm('Unsubscribe ' + email + ' from MailerLite?')) return;
+    try {
+      const r = await fetch(ML_PROXY, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'unsubscribe', email: email })
+      }).then(r => r.json());
+      if (r.success) {
+        mlSubscribers = mlSubscribers.filter(s => s.email !== email);
+        renderUserTable();
+        showToast('✓ ' + email + ' unsubscribed', 'success');
+      } else { showToast('Error: ' + r.message, 'error'); }
+    } catch(e) { showToast('Could not reach API', 'error'); }
+  }
+
+  async function refreshUsers() {
+    mlLoaded = false;
+    await initUsersPanel();
+  }
+
+  function exportUsers() {
+    showToast('Switch to Subscribers tab to export your MailerLite list', 'info');
+  }
+
+  async function exportSubscribers() {
+    showToast('Preparing export...', 'info');
+    try {
+      const r = await fetch(ML_PROXY, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'export_csv' })
+      }).then(r => r.json());
+      if (r.success) {
+        const blob = new Blob([r.csv], { type: 'text/csv' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'nmm-mailerlite-' + new Date().toISOString().slice(0,10) + '.csv';
+        a.click();
+        showToast('✓ Exported ' + r.count + ' subscribers', 'success');
+      } else { showToast('Export failed: ' + r.message, 'error'); }
+    } catch(e) { showToast('Could not reach API', 'error'); }
+  }
+
+// ── INIT ──────────────────────────────────────────────
+document.getElementById('loginPass').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+</script>
+</body>
+</html>

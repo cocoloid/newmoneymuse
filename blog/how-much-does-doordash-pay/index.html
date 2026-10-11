@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How Much Does DoorDash Pay in 2026? (Real Numbers, After Expenses) | New Money Muse</title>
+  <meta name="description" content="DoorDash reports $18–$25/hr. Here's what drivers actually take home after gas, maintenance, and taxes — with real numbers by city and shift type." />
+  <link rel="canonical" href="https://newmoneymuse.com/blog/how-much-does-doordash-pay/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9A84C; --gold-light: #F0D98B; --gold-dim: #8C6D28;
+      --ink: #0D0D0D; --ink-soft: #1A1A1A;
+      --paper: #FAFAF7; --paper-warm: #F5F3EE; --mist: #E8E5DC;
+      --green: #1E7A5A; --green-light: #2EAA7E; --green-dim: #D0EFE6;
+      --text-body: #3A3A3A; --text-muted: #7A7870;
+      --red: #DC2626; --orange: #E8621A;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--text-body); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    .font-display { font-family: 'Playfair Display', Georgia, serif; }
+    .font-mono { font-family: 'DM Mono', monospace; }
+
+    header { position: sticky; top: 0; z-index: 100; background: rgba(250,250,247,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--mist); height: 60px; display: flex; align-items: center; }
+    .header-inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .logo-icon { width: 32px; height: 32px; border-radius: 6px; background: linear-gradient(135deg, #1E7A5A, #2EAA7E); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 0.9rem; }
+    .logo-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--ink); }
+    .logo-name span { color: var(--gold); }
+    .header-back { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .header-back:hover { color: var(--green); }
+
+    /* Hero */
+    .article-hero { background: var(--ink); padding: 56px 0 48px; position: relative; overflow: hidden; }
+    .article-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 75% 40%, rgba(201,168,76,0.15) 0%, transparent 55%), radial-gradient(ellipse at 15% 80%, rgba(30,122,90,0.2) 0%, transparent 50%); }
+    .hero-inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 340px; gap: 3rem; align-items: center; }
+    .article-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.25); color: var(--gold-light); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; padding: 5px 12px; border-radius: 100px; margin-bottom: 1rem; }
+    .article-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3.5vw, 2.8rem); font-weight: 900; color: #fff; line-height: 1.15; margin-bottom: 1rem; }
+    .article-hero h1 em { font-style: italic; color: var(--gold-light); }
+    .article-meta { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; font-size: 0.8rem; color: rgba(255,255,255,0.45); }
+    .article-meta strong { color: rgba(255,255,255,0.75); }
+    .meta-sep { color: rgba(255,255,255,0.2); }
+
+    /* Quick answer hero card */
+    .hero-answer { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 14px; padding: 1.5rem; }
+    .ha-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; color: var(--gold); margin-bottom: 1rem; }
+    .ha-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 0.85rem; }
+    .ha-row:last-child { border-bottom: none; }
+    .ha-type { color: rgba(255,255,255,0.5); }
+    .ha-val { color: #fff; font-weight: 700; font-family: 'DM Mono', monospace; }
+    .ha-val.green { color: #6EE7B7; }
+    .ha-val.orange { color: #FCD34D; }
+
+    /* Breadcrumb */
+    .breadcrumb { background: var(--paper-warm); border-bottom: 1px solid var(--mist); padding: 10px 0; }
+    .breadcrumb-inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--text-muted); }
+    .breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--green); }
+
+    /* Layout */
+    .article-body { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem 5rem; display: grid; grid-template-columns: 1fr 300px; gap: 3rem; align-items: start; }
+    .article-content { min-width: 0; }
+    .article-sidebar { position: sticky; top: 80px; }
+
+    /* Prose */
+    .prose h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--ink); margin: 2.5rem 0 0.75rem; padding-top: 2rem; border-top: 1px solid var(--mist); }
+    .prose h2:first-child { border-top: none; padding-top: 0; margin-top: 0; }
+    .prose h3 { font-size: 1rem; font-weight: 700; color: var(--ink); margin: 1.5rem 0 0.5rem; }
+    .prose p { font-size: 0.95rem; color: var(--text-body); margin-bottom: 1.1rem; line-height: 1.8; }
+    .prose ul, .prose ol { padding-left: 1.5rem; margin-bottom: 1.1rem; }
+    .prose li { font-size: 0.95rem; color: var(--text-body); margin-bottom: 0.5rem; line-height: 1.7; }
+    .prose a { color: var(--green); text-decoration: underline; text-underline-offset: 2px; }
+    .prose strong { color: var(--ink); font-weight: 600; }
+
+    /* Callouts */
+    .callout { border-radius: 10px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
+    .callout-green { background: var(--green-dim); border: 1.5px solid #B8E4D4; }
+    .callout-gold { background: #FEF9EC; border: 1.5px solid #F0D98B; }
+    .callout-red { background: #FEF2F2; border: 1.5px solid #FECACA; }
+    .callout-ink { background: var(--paper-warm); border: 1px solid var(--mist); }
+    .callout-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 0.5rem; }
+    .callout-green .callout-label { color: var(--green); }
+    .callout-gold .callout-label { color: var(--gold-dim); }
+    .callout-red .callout-label { color: var(--red); }
+    .callout-ink .callout-label { color: var(--text-muted); }
+    .callout p { font-size: 0.9rem; margin-bottom: 0; line-height: 1.65; }
+
+    /* Data table */
+    .data-table-wrap { overflow-x: auto; margin: 1.5rem 0; border: 1px solid var(--mist); border-radius: 10px; }
+    .data-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 500px; }
+    .data-table thead th { background: var(--ink); color: rgba(255,255,255,0.7); padding: 10px 14px; text-align: left; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+    .data-table thead th:first-child { border-radius: 10px 0 0 0; }
+    .data-table thead th:last-child { border-radius: 0 10px 0 0; }
+    .data-table tbody tr { border-bottom: 1px solid var(--mist); }
+    .data-table tbody tr:last-child { border-bottom: none; }
+    .data-table tbody tr:hover { background: var(--paper-warm); }
+    .data-table td { padding: 11px 14px; vertical-align: middle; color: var(--text-body); }
+    .data-table td strong { color: var(--ink); }
+    .data-table td.green { color: var(--green); font-weight: 700; font-family: 'DM Mono', monospace; }
+    .data-table td.orange { color: var(--orange); font-weight: 700; font-family: 'DM Mono', monospace; }
+    .data-table td.mono { font-family: 'DM Mono', monospace; }
+
+    /* Affiliate CTA */
+    .affiliate-cta { background: var(--ink); border-radius: 14px; padding: 1.75rem; margin: 2rem 0; display: flex; align-items: center; gap: 1.5rem; }
+    .ac-icon { font-size: 2.5rem; flex-shrink: 0; }
+    .ac-content { flex: 1; }
+    .ac-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .ac-desc { font-size: 0.82rem; color: rgba(255,255,255,0.55); margin-bottom: 0; }
+    .ac-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--green); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 10px 20px; border-radius: 100px; text-decoration: none; flex-shrink: 0; transition: all 0.2s; white-space: nowrap; }
+    .ac-btn:hover { background: var(--green-light); }
+    .ac-note { font-size: 0.68rem; color: rgba(255,255,255,0.3); margin-top: 6px; }
+
+    /* Internal link box */
+    .related-box { background: var(--paper-warm); border: 1px solid var(--mist); border-radius: 10px; padding: 1.1rem 1.25rem; margin: 1.5rem 0; display: flex; align-items: center; gap: 12px; text-decoration: none; transition: all 0.2s; }
+    .related-box:hover { border-color: var(--green); background: var(--green-dim); }
+    .related-box-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .related-box-text { }
+    .rbt-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted); margin-bottom: 2px; }
+    .rbt-title { font-size: 0.9rem; font-weight: 700; color: var(--ink); }
+
+    /* Sidebar */
+    .sidebar-card { background: var(--paper-warm); border: 1px solid var(--mist); border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; }
+    .sidebar-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted); margin-bottom: 1rem; }
+    .toc-links { display: flex; flex-direction: column; gap: 6px; }
+    .toc-link { font-size: 0.84rem; color: var(--text-body); text-decoration: none; padding: 5px 0; border-bottom: 1px solid var(--mist); transition: color 0.2s; display: flex; align-items: center; gap: 6px; }
+    .toc-link:last-child { border-bottom: none; }
+    .toc-link:hover { color: var(--green); }
+    .sidebar-related { display: flex; flex-direction: column; gap: 10px; }
+    .sr-item { text-decoration: none; display: flex; flex-direction: column; gap: 2px; padding: 8px 0; border-bottom: 1px solid var(--mist); }
+    .sr-item:last-child { border-bottom: none; }
+    .sr-cat { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold-dim); }
+    .sr-title { font-size: 0.85rem; font-weight: 600; color: var(--ink); transition: color 0.2s; }
+    .sr-item:hover .sr-title { color: var(--green); }
+
+    /* Newsletter */
+    .newsletter-inline { background: linear-gradient(135deg, #0D2B1F, #1E7A5A); border-radius: 14px; padding: 1.75rem; margin: 2.5rem 0; }
+    .ni-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 0.4rem; }
+    .ni-sub { font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-bottom: 1.1rem; }
+    .ni-form { display: flex; gap: 8px; }
+    .ni-input { flex: 1; padding: 11px 16px; border-radius: 100px; border: none; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; outline: none; }
+    .ni-btn { padding: 11px 20px; background: var(--gold); color: var(--ink); font-weight: 700; font-size: 0.82rem; border: none; border-radius: 100px; cursor: pointer; font-family: 'DM Sans', sans-serif; white-space: nowrap; }
+    .ni-note { font-size: 0.72rem; color: rgba(255,255,255,0.35); margin-top: 6px; }
+
+    .page-footer { background: var(--ink-soft); color: rgba(255,255,255,0.4); padding: 2rem; text-align: center; font-size: 0.78rem; }
+    .page-footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    .footer-links { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+    .fade-up { opacity: 0; transform: translateY(18px); transition: opacity 0.5s, transform 0.5s; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-answer { display: none; }
+      .article-body { grid-template-columns: 1fr; }
+      .article-sidebar { position: static; }
+      .affiliate-cta { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 560px) { .ni-form { flex-direction: column; } }
+  </style>
+  <link rel="stylesheet" href="/components/nav.css" />
+</head>
+<body>
+
+<script src="/components/nav.js"></script>
+
+<div class="article-hero">
+  <div class="hero-inner">
+    <div>
+      <div class="article-tag">Make Money · Gig Economy</div>
+      <h1 class="font-display">How Much Does DoorDash Pay in 2026? <em>The Honest Numbers</em></h1>
+      <div class="article-meta">
+        <span>By <strong>New Money Muse Editorial Team</strong></span>
+        <span class="meta-sep">·</span>
+        <span>⏱ 7 min read</span>
+        <span class="meta-sep">·</span>
+        <span>Last updated <strong>April 6, 2026</strong></span>
+      </div>
+    </div>
+    <div class="hero-answer">
+      <div class="ha-label">At a Glance</div>
+      <div class="ha-row"><span class="ha-type">Gross per hour</span><span class="ha-val">$15–$25</span></div>
+      <div class="ha-row"><span class="ha-type">After gas & expenses</span><span class="ha-val orange">$10–$17</span></div>
+      <div class="ha-row"><span class="ha-type">After self-employment tax</span><span class="ha-val orange">$8–$14</span></div>
+      <div class="ha-row"><span class="ha-type">Best markets</span><span class="ha-val green">Dense urban</span></div>
+      <div class="ha-row"><span class="ha-type">Best hours</span><span class="ha-val green">Lunch & dinner peaks</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="/">Home</a> <span>›</span>
+    <a href="/make-money/">Make Money</a> <span>›</span>
+    <span>How Much Does DoorDash Pay?</span>
+  </div>
+</div>
+
+<div class="article-body">
+  <article class="article-content fade-up">
+    <div class="prose">
+
+      <div class="callout callout-green">
+        <div class="callout-label">The Short Answer</div>
+        <p>DoorDash drivers earn <strong>$15–$25/hour gross</strong> in most markets. After accounting for gas, vehicle wear, and self-employment tax, net take-home is typically <strong>$8–$14/hour</strong>. The gap between gross and net is the thing most comparison sites don't tell you — and it matters a lot before you decide if this is worth your time.</p>
+      </div>
+
+      <h2 id="gross">What DoorDash Reports vs. What Drivers Actually Take Home</h2>
+      <p>DoorDash's own data and most comparison sites quote $18–$25/hour. That figure is real — but it's gross earnings before any expenses are deducted. As an independent contractor, you bear all the costs of doing the work: fuel, vehicle maintenance, and self-employment taxes.</p>
+      <p>Here's what the math actually looks like for a driver doing 20 hours/week in a mid-size market:</p>
+
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Item</th><th>Monthly (20 hrs/wk)</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Gross earnings</strong></td><td class="green">$1,560</td><td>~$19.50/hr average</td></tr>
+            <tr><td>Gas</td><td class="orange">−$220</td><td>~30 miles/hr, $3.50/gal, 25mpg</td></tr>
+            <tr><td>Vehicle depreciation</td><td class="orange">−$160</td><td>IRS: 70¢/mile depreciation component</td></tr>
+            <tr><td>Maintenance pro-rated</td><td class="orange">−$60</td><td>Oil changes, tires, wear</td></tr>
+            <tr><td><strong>Net before tax</strong></td><td class="mono">$1,120</td><td>~$14/hr</td></tr>
+            <tr><td>Self-employment tax (15.3%)</td><td class="orange">−$171</td><td>After mileage deduction</td></tr>
+            <tr><td><strong>True net take-home</strong></td><td class="green">~$950</td><td>~$11.90/hr</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>This isn't meant to discourage you — $950/month for part-time work is real money. But knowing the actual figure before you start means you won't be disappointed when the numbers don't match what you read online.</p>
+
+      <div class="callout callout-gold">
+        <div class="callout-label">The Mileage Deduction</div>
+        <p>The IRS standard mileage rate for 2026 is 70 cents per mile. Track every mile from the moment you go online to when you go offline — not just delivery miles. Using a mileage app like Stride or Gridwise from day one can save you $800–$2,000 at tax time and meaningfully improves your effective hourly rate.</p>
+      </div>
+
+      <h2 id="breakdown">How DoorDash Pay Is Calculated</h2>
+      <p>Every delivery pays three components. Understanding them helps you make better decisions about which orders to accept:</p>
+
+      <h3>1. Base Pay</h3>
+      <p>DoorDash sets a base pay for each order ranging from $2 to $10+, based on distance, estimated time, and desirability of the order. This is guaranteed regardless of tip. In practice, most base pays land between $2 and $4 for a standard restaurant delivery.</p>
+
+      <h3>2. Tips</h3>
+      <p>You keep 100% of customer tips. Tips are the biggest variable in your hourly rate — on a good shift in a tipping-friendly market, tips can equal or exceed base pay. On a bad shift, you're working for $2–$4 per delivery. This is why experienced drivers decline low-tip orders aggressively and why the same shift in two different markets can feel very different.</p>
+
+      <h3>3. Peak Pay</h3>
+      <p>During high-demand periods, DoorDash adds $1–$5 extra per order. Peak Pay is real but unpredictable — it shows up during lunch, dinner, bad weather, and busy weekends, but you can't reliably plan around it. Treat it as a bonus when it appears, not a baseline.</p>
+
+      <h2 id="by-city">Earnings by City and Market Type</h2>
+      <p>Market density is the single biggest factor affecting your hourly rate. A driver in Chicago's Lincoln Park neighborhood will earn more per hour than one in a mid-size suburb — not because orders pay more, but because delivery distances are shorter and order volume is higher.</p>
+
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Market Type</th><th>Typical Gross/hr</th><th>Typical Net/hr</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Dense urban (NYC, Chicago, LA)</strong></td><td class="green">$20–$28</td><td class="green">$13–$18</td><td>Short distances, high order volume</td></tr>
+            <tr><td>Mid-size city</td><td class="mono">$16–$22</td><td class="mono">$10–$14</td><td>Moderate density, reasonable tips</td></tr>
+            <tr><td>Suburban</td><td class="mono">$13–$18</td><td class="orange">$8–$11</td><td>Longer drives cut into net rate</td></tr>
+            <tr><td>Rural / small town</td><td class="orange">$10–$14</td><td class="orange">$6–$9</td><td>Few orders, long distances</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>If you're in a rural or low-density area, DoorDash is a harder proposition. The miles driven per dollar earned are higher, which eats significantly into your net rate. In those markets, TaskRabbit or Instacart in-store (which requires no driving) are often better options.</p>
+
+      <h2 id="shifts">Best and Worst Times to Dash</h2>
+
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Shift</th><th>Earnings Quality</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Fri–Sun dinner (5–10pm)</strong></td><td class="green">Best</td><td>Highest order volume + tips + Peak Pay</td></tr>
+            <tr><td>Weekday lunch (11am–2pm)</td><td class="green">Good</td><td>Fast office orders, consistent volume</td></tr>
+            <tr><td>Sat–Sun brunch (10am–1pm)</td><td class="mono">Good</td><td>Brunch tips are strong in most markets</td></tr>
+            <tr><td>Weekday dinner (5–9pm)</td><td class="mono">Average</td><td>Good but more competition than weekends</td></tr>
+            <tr><td>Weekday mornings (7–11am)</td><td class="orange">Below average</td><td>Low coffee/breakfast order volume</td></tr>
+            <tr><td>Late night (10pm+)</td><td class="orange">Inconsistent</td><td>High tips when busy, very slow otherwise</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="first90">What to Expect Your First 30 Days</h2>
+      <p>Week one is almost always worse than your long-term average. You don't yet know which zones have the best volume, which restaurants are fastest to pick up from, or which order types are worth accepting. Most new drivers report earning 20–30% below their eventual steady-state average during the first two weeks.</p>
+      <p><strong>A realistic first-month expectation:</strong> 15 hours/week, $10–$13/hr net, $600–$780 total net for the month. Not spectacular — but a real foundation to build from once you know your market.</p>
+
+      <div class="callout callout-red">
+        <div class="callout-label">Don't Ignore This</div>
+        <p>DoorDash does not withhold taxes. As an independent contractor, you owe self-employment tax (15.3%) on your net earnings plus income tax at your marginal rate. Set aside 25–30% of every payment or pay quarterly estimated taxes. Ignoring this is the single most common financial mistake new gig workers make.</p>
+      </div>
+
+      <h2 id="worth-it">Is DoorDash Worth It in 2026?</h2>
+      <p>That depends on what you're comparing it to.</p>
+      <p><strong>Compared to a minimum wage job:</strong> In most US markets, DoorDash net earnings ($10–$14/hr) are comparable or slightly above minimum wage — but without benefits, guaranteed hours, or employer tax contribution. If flexibility matters more than stability, it's a reasonable trade. If you need predictable income, a traditional job is more reliable.</p>
+      <p><strong>Compared to other gig apps:</strong> DoorDash has more consistent order volume than Uber Eats or Instacart in most markets, which reduces dead time. For a first gig app, it's a solid starting point. Running it alongside Uber Eats during the same shift is the most common way experienced drivers increase their hourly rate.</p>
+      <p><strong>As a long-term income strategy:</strong> Delivery driving is best treated as a bridge — reliable short-term income while you build something with more upside. The hourly ceiling is limited by your hours on the road and vehicle costs. It doesn't compound the way freelance skills or a business does.</p>
+
+      <a href="/make-money/best-gig-economy-platforms/" class="related-box">
+        <div class="related-box-icon">📊</div>
+        <div class="related-box-text">
+          <div class="rbt-label">Related Guide</div>
+          <div class="rbt-title">Best Gig Economy Platforms 2026 — Full Comparison with Earnings Calculator</div>
+        </div>
+      </a>
+
+      <div class="affiliate-cta">
+        <div class="ac-icon">🍕</div>
+        <div class="ac-content">
+          <div class="ac-title font-display">Ready to start dashing?</div>
+          <div class="ac-desc">Sign up takes about 10 minutes. Approval 2–5 days. Most markets have consistent demand at lunch and dinner peaks.</div>
+          <div class="ac-note">🔗 Affiliate link — we may earn a commission if you sign up. See our <a href="/affiliate-disclosure/" style="color:rgba(255,255,255,0.4);">disclosure</a>.</div>
+        </div>
+        <a href="#" class="ac-btn" onclick="return false;">Sign Up for DoorDash →</a>
+      </div>
+
+      <h2 id="alternatives">Alternatives Worth Considering</h2>
+      <p>If DoorDash's net hourly rate doesn't work for your situation, here are the alternatives most worth your time:</p>
+      <ul>
+        <li><strong>Uber Eats + DoorDash simultaneously</strong> — running both apps at once increases order frequency by 20–30%, which improves your effective hourly rate without changing your driving time.</li>
+        <li><strong>Instacart (in-store shopper)</strong> — no car required, fastest approval, and similar net pay. Better if you're in a rural area where delivery distances kill your DoorDash rate.</li>
+        <li><strong>TaskRabbit</strong> — lower volume but higher per-hour rate ($25–$60/hr) for people with hands-on skills. Takes longer to get started but has a higher ceiling.</li>
+      </ul>
+
+      <div class="newsletter-inline">
+        <div class="ni-title font-display">Get gig earning tips every week</div>
+        <div class="ni-sub">Market-specific strategies, tax tips, and platform updates — delivered free.</div>
+        <div class="ni-form">
+          <input type="email" class="ni-input" placeholder="your@email.com" />
+          <button class="ni-btn" onclick="this.textContent='✓ Subscribed!'">Subscribe Free</button>
+        </div>
+        <div class="ni-note">No spam. Unsubscribe anytime.</div>
+      </div>
+
+    </div>
+  </article>
+
+  <aside class="article-sidebar">
+    <div class="sidebar-card fade-up">
+      <div class="sidebar-title">In This Article</div>
+      <div class="toc-links">
+        <a href="#gross" class="toc-link">→ Gross vs. net earnings</a>
+        <a href="#breakdown" class="toc-link">→ How pay is calculated</a>
+        <a href="#by-city" class="toc-link">→ Earnings by city type</a>
+        <a href="#shifts" class="toc-link">→ Best times to dash</a>
+        <a href="#first90" class="toc-link">→ First 30 days reality</a>
+        <a href="#worth-it" class="toc-link">→ Is it worth it in 2026?</a>
+        <a href="#alternatives" class="toc-link">→ Alternatives</a>
+      </div>
+    </div>
+
+    <div class="sidebar-card fade-up" style="background:var(--ink); border-color:var(--ink);">
+      <div style="font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.15em; color:rgba(255,255,255,0.35); margin-bottom:0.75rem;">Quick Numbers</div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; justify-content:space-between; font-size:0.82rem; padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.08);">
+          <span style="color:rgba(255,255,255,0.5);">Gross avg/hr</span>
+          <span style="color:#fff; font-family:'DM Mono',monospace; font-weight:700;">$15–$25</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:0.82rem; padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.08);">
+          <span style="color:rgba(255,255,255,0.5);">Net after expenses</span>
+          <span style="color:#FCD34D; font-family:'DM Mono',monospace; font-weight:700;">$8–$14</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:0.82rem; padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.08);">
+          <span style="color:rgba(255,255,255,0.5);">IRS mileage rate</span>
+          <span style="color:#6EE7B7; font-family:'DM Mono',monospace; font-weight:700;">$0.70/mi</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:0.82rem; padding:6px 0;">
+          <span style="color:rgba(255,255,255,0.5);">Tax set-aside</span>
+          <span style="color:#FCD34D; font-family:'DM Mono',monospace; font-weight:700;">25–30%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-card fade-up">
+      <div class="sidebar-title">Related Reading</div>
+      <div class="sidebar-related">
+        <a href="/make-money/best-gig-economy-platforms/" class="sr-item">
+          <span class="sr-cat">Comparison Guide</span>
+          <span class="sr-title">Best Gig Economy Platforms 2026</span>
+        </a>
+        <a href="/blog/gig-worker-taxes/" class="sr-item">
+          <span class="sr-cat">Tax Guide</span>
+          <span class="sr-title">How to File Taxes as a Gig Worker</span>
+        </a>
+        <a href="/tools/side-hustle-quiz/" class="sr-item">
+          <span class="sr-cat">Free Tool</span>
+          <span class="sr-title">Side Hustle Finder Quiz</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<script src="/components/footer.js"></script>
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

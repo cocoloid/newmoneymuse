@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Savings Goal Calculator – New Money Muse</title>
+  <meta name="description" content="See exactly how long it takes to reach any savings goal, and how interest accelerates your progress. Free savings calculator with high-yield savings comparison." />
+  <link rel="canonical" href="https://newmoneymuse.com/tools/savings-calculator/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9A84C; --gold-light: #F0D98B; --gold-dim: #8C6D28;
+      --ink: #0D0D0D; --ink-soft: #1A1A1A;
+      --paper: #FAFAF7; --paper-warm: #F5F3EE; --mist: #E8E5DC;
+      --green: #1E7A5A; --green-light: #2EAA7E; --green-dim: #D0EFE6;
+      --text-body: #3A3A3A; --text-muted: #7A7870;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--text-body); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .font-display { font-family: 'Playfair Display', Georgia, serif; }
+    .font-mono { font-family: 'DM Mono', monospace; }
+
+    header { position: sticky; top: 0; z-index: 100; background: rgba(250,250,247,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--mist); height: 60px; display: flex; align-items: center; }
+    .header-inner { max-width: 960px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .logo-icon { width: 32px; height: 32px; border-radius: 6px; background: linear-gradient(135deg, #1E7A5A, #2EAA7E); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 0.9rem; }
+    .logo-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--ink); }
+    .logo-name span { color: var(--gold); }
+    .header-back { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .header-back:hover { color: var(--green); }
+
+    .page-hero { background: var(--ink); padding: 48px 0 40px; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 40%, rgba(201,168,76,0.2) 0%, transparent 55%), radial-gradient(ellipse at 10% 80%, rgba(30,122,90,0.2) 0%, transparent 50%); }
+    .hero-inner { max-width: 960px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
+    .page-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.25); color: var(--gold-light); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; padding: 5px 12px; border-radius: 100px; margin-bottom: 1rem; }
+    .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3.5vw, 2.6rem); font-weight: 900; color: #fff; line-height: 1.15; margin-bottom: 0.6rem; }
+    .page-hero p { font-size: 0.93rem; color: rgba(255,255,255,0.55); max-width: 500px; }
+
+    .tool-body { max-width: 960px; margin: 0 auto; padding: 2.5rem 2rem 5rem; }
+    .tool-layout { display: grid; grid-template-columns: 360px 1fr; gap: 2rem; align-items: start; }
+    .inputs-col { position: sticky; top: 80px; }
+
+    /* Goal presets */
+    .goal-presets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 1.5rem; }
+    .preset-btn { padding: 10px 8px; border: 1.5px solid var(--mist); border-radius: 10px; background: var(--paper-warm); font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: all 0.2s; text-align: center; }
+    .preset-btn:hover, .preset-btn.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .preset-icon { display: block; font-size: 1.2rem; margin-bottom: 3px; }
+
+    /* Input card */
+    .input-card { background: #fff; border: 1px solid var(--mist); border-radius: 14px; padding: 1.5rem; margin-bottom: 1rem; }
+    .input-card-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 1.25rem; }
+    .field-row { margin-bottom: 1rem; }
+    .field-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 6px; display: flex; justify-content: space-between; }
+    .field-label span { color: var(--green); font-family: 'DM Mono', monospace; font-size: 0.8rem; }
+    .field-input-wrap { position: relative; }
+    .field-prefix { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-weight: 700; color: var(--text-muted); }
+    .field-suffix { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-weight: 600; color: var(--text-muted); font-size: 0.85rem; }
+    .field-input { width: 100%; padding: 11px 12px 11px 26px; border: 1.5px solid var(--mist); border-radius: 8px; font-family: 'DM Mono', monospace; font-size: 0.95rem; color: var(--ink); outline: none; transition: border-color 0.2s; }
+    .field-input.no-prefix { padding-left: 12px; }
+    .field-input.with-suffix { padding-right: 36px; }
+    .field-input:focus { border-color: var(--green); }
+    input[type=range] { width: 100%; accent-color: var(--green); cursor: pointer; margin-top: 4px; }
+
+    /* Results col */
+    .results-col { }
+
+    /* Big result */
+    .big-result { background: var(--ink); border-radius: 16px; padding: 2rem; margin-bottom: 1.5rem; }
+    .br-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; color: rgba(255,255,255,0.4); margin-bottom: 8px; }
+    .br-value { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: var(--gold-light); line-height: 1; margin-bottom: 4px; }
+    .br-sub { font-size: 0.85rem; color: rgba(255,255,255,0.55); margin-bottom: 1.5rem; }
+    .br-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .br-stat { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 0.9rem; text-align: center; }
+    .brs-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.35); margin-bottom: 4px; }
+    .brs-val { font-family: 'DM Mono', monospace; font-size: 0.95rem; font-weight: 600; color: #fff; }
+    .brs-val.gold { color: var(--gold-light); }
+    .brs-val.green { color: #6EE7B7; }
+
+    /* Progress visualization */
+    .progress-section { background: #fff; border: 1px solid var(--mist); border-radius: 14px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .ps-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 1rem; }
+    .milestone-timeline { display: flex; flex-direction: column; gap: 10px; }
+    .milestone { display: flex; align-items: center; gap: 12px; }
+    .ms-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+    .ms-dot.reached { background: var(--green); }
+    .ms-dot.future { background: var(--mist); border: 2px solid var(--text-muted); }
+    .ms-line { flex: 1; }
+    .ms-label { display: flex; justify-content: space-between; font-size: 0.82rem; }
+    .ms-name { color: var(--text-body); font-weight: 500; }
+    .ms-date { color: var(--text-muted); font-family: 'DM Mono', monospace; font-size: 0.78rem; }
+    .ms-bar { height: 4px; background: var(--mist); border-radius: 2px; margin-top: 4px; overflow: hidden; }
+    .ms-fill { height: 100%; background: var(--green); border-radius: 2px; transition: width 0.6s ease; }
+
+    /* Comparison table */
+    .comparison-section { background: #fff; border: 1px solid var(--mist); border-radius: 14px; overflow: hidden; margin-bottom: 1.5rem; }
+    .cs-header { background: var(--paper-warm); padding: 1rem 1.25rem; border-bottom: 1px solid var(--mist); }
+    .cs-title { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+    .cs-sub { font-size: 0.78rem; color: var(--text-muted); }
+    .compare-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .compare-table thead th { padding: 10px 14px; text-align: left; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); border-bottom: 1px solid var(--mist); }
+    .compare-table tbody tr { border-bottom: 1px solid var(--mist); transition: background 0.15s; }
+    .compare-table tbody tr:last-child { border-bottom: none; }
+    .compare-table tbody tr:hover { background: var(--paper-warm); }
+    .compare-table td { padding: 12px 14px; vertical-align: middle; }
+    .ct-name { font-weight: 700; color: var(--ink); font-size: 0.88rem; }
+    .ct-apy { font-family: 'DM Mono', monospace; font-weight: 700; }
+    .ct-apy.best { color: var(--green); }
+    .ct-time { font-family: 'DM Mono', monospace; font-size: 0.82rem; }
+    .ct-earned { font-family: 'DM Mono', monospace; font-size: 0.82rem; color: var(--green); }
+    .best-badge { display: inline-block; background: var(--green); color: #fff; font-size: 0.6rem; font-weight: 700; padding: 2px 6px; border-radius: 100px; margin-left: 4px; }
+    .cta-link { display: inline-flex; align-items: center; gap: 4px; font-size: 0.78rem; font-weight: 700; color: var(--green); text-decoration: none; }
+    .cta-link:hover { text-decoration: underline; }
+
+    /* Insight */
+    .insight-box { background: var(--green-dim); border: 1.5px solid #B8E4D4; border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem; }
+    .ib-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--green); margin-bottom: 6px; }
+    .ib-text { font-size: 0.9rem; color: var(--ink); line-height: 1.65; }
+    .ib-num { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--green); }
+
+    /* Email capture */
+    .email-capture { background: var(--ink); border-radius: 12px; padding: 1.5rem; }
+    .ec-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0.3rem; }
+    .ec-sub { font-size: 0.8rem; color: rgba(255,255,255,0.55); margin-bottom: 1rem; }
+    .ec-form { display: flex; gap: 8px; }
+    .ec-input { flex: 1; padding: 10px 14px; border-radius: 100px; border: none; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; outline: none; }
+    .ec-btn { padding: 10px 18px; background: var(--gold); color: var(--ink); font-weight: 700; font-size: 0.82rem; border: none; border-radius: 100px; cursor: pointer; font-family: 'DM Sans', sans-serif; white-space: nowrap; }
+    .ec-btn:hover { background: var(--gold-light); }
+
+    .page-footer { background: var(--ink-soft, #1A1A1A); color: rgba(255,255,255,0.4); padding: 2rem; text-align: center; font-size: 0.78rem; margin-top: 1rem; }
+    .page-footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    .footer-links { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+
+    @media (max-width: 800px) {
+      .tool-layout { grid-template-columns: 1fr; }
+      .inputs-col { position: static; }
+      .br-grid { grid-template-columns: repeat(2, 1fr); }
+      .goal-presets { grid-template-columns: repeat(3, 1fr); }
+      .ec-form { flex-direction: column; }
+    }
+  </style>
+  <link rel="stylesheet" href="/components/nav.css" />
+</head>
+<body>
+
+<script src="/components/nav.js"></script>
+
+<div class="page-hero">
+  <div class="hero-inner">
+    <div class="page-tag">Free Tool</div>
+    <h1 class="font-display">Savings Goal Calculator</h1>
+    <p>See exactly how long it takes to reach any savings goal — and how the right account rate changes the timeline.</p>
+  </div>
+</div>
+
+<div class="tool-body">
+  <div class="tool-layout">
+
+    <!-- INPUTS -->
+    <div class="inputs-col">
+      <div style="font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; color:var(--ink); margin-bottom:1rem;">What are you saving for?</div>
+      <div class="goal-presets">
+        <button class="preset-btn active" onclick="setPreset(this, 1000, 'Emergency Fund')"><span class="preset-icon">🆘</span>Emergency Fund</button>
+        <button class="preset-btn" onclick="setPreset(this, 5000, 'Car Down Payment')"><span class="preset-icon">🚗</span>Car Down Payment</button>
+        <button class="preset-btn" onclick="setPreset(this, 20000, 'Home Down Payment')"><span class="preset-icon">🏠</span>Home Down Payment</button>
+        <button class="preset-btn" onclick="setPreset(this, 3000, 'Vacation Fund')"><span class="preset-icon">✈️</span>Vacation</button>
+        <button class="preset-btn" onclick="setPreset(this, 10000, 'Investment Starter')"><span class="preset-icon">📈</span>Investment Starter</button>
+        <button class="preset-btn" onclick="setPreset(this, 0, 'Custom Goal')"><span class="preset-icon">🎯</span>Custom</button>
+      </div>
+
+      <div class="input-card">
+        <div class="input-card-title font-display">Your Numbers</div>
+        <div class="field-row">
+          <div class="field-label">Savings goal</div>
+          <div class="field-input-wrap">
+            <span class="field-prefix">$</span>
+            <input type="number" class="field-input" id="goalInput" value="1000" oninput="calculate()" />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field-label">Current savings</div>
+          <div class="field-input-wrap">
+            <span class="field-prefix">$</span>
+            <input type="number" class="field-input" id="currentInput" value="0" placeholder="0" oninput="calculate()" />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field-label">Monthly contribution <span id="contribLabel">$200</span></div>
+          <input type="range" min="25" max="2000" step="25" value="200" id="contribSlider" oninput="updateContrib()" />
+        </div>
+        <div class="field-row">
+          <div class="field-label">Annual interest rate (APY) <span id="rateLabel">4.5%</span></div>
+          <input type="range" min="0" max="6" step="0.1" value="4.5" id="rateSlider" oninput="updateRate()" />
+          <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:var(--text-muted); margin-top:3px;"><span>0% (no interest)</span><span>4–5% HYSA</span><span>6%+</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="results-col">
+
+      <div class="big-result">
+        <div class="br-label">Time to reach your goal</div>
+        <div class="br-value font-display" id="timeResult">5 months</div>
+        <div class="br-sub" id="dateResult">Reach goal by September 2026</div>
+        <div class="br-grid">
+          <div class="br-stat">
+            <div class="brs-label">You'll save</div>
+            <div class="brs-val" id="statContrib">$1,000</div>
+          </div>
+          <div class="br-stat">
+            <div class="brs-label">Interest earned</div>
+            <div class="brs-val gold" id="statInterest">$18</div>
+          </div>
+          <div class="br-stat">
+            <div class="brs-label">Total balance</div>
+            <div class="brs-val green" id="statTotal">$1,018</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Milestones -->
+      <div class="progress-section">
+        <div class="ps-title font-display">Progress Milestones</div>
+        <div class="milestone-timeline" id="milestoneList"></div>
+      </div>
+
+      <!-- Insight -->
+      <div class="insight-box" id="insightBox">
+        <div class="ib-label">💡 Key Insight</div>
+        <div class="ib-text" id="insightText">Enter your goal and contribution to see personalized insight.</div>
+      </div>
+
+      <!-- HYSA Comparison -->
+      <div class="comparison-section">
+        <div class="cs-header">
+          <div class="cs-title font-display">How account type affects your timeline</div>
+          <div class="cs-sub">Same $<span id="cmpContrib">200</span>/month, same goal — different accounts</div>
+        </div>
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Account Type</th>
+              <th>APY</th>
+              <th>Time to Goal</th>
+              <th>Interest Earned</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="compareBody"></tbody>
+        </table>
+      </div>
+
+      <div class="email-capture">
+        <div class="ec-title font-display">Track your savings progress</div>
+        <div class="ec-sub">We'll send your plan plus tips to hit your goal faster — including current HYSA rates.</div>
+        <div class="ec-form">
+          <input type="email" class="ec-input" placeholder="your@email.com" />
+          <button class="ec-btn" onclick="this.textContent='✓ Sent!'">Send My Plan</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="/components/footer.js"></script>
+<script>
+  const accountTypes = [
+    { name: 'Regular Savings', apy: 0.5, badge: false, link: '#' },
+    { name: 'Online Savings (avg)', apy: 2.0, badge: false, link: '#' },
+    { name: 'High-Yield Savings (HYSA)', apy: 4.5, badge: true, link: '/save-money/best-high-yield-savings/' },
+    { name: 'Money Market Account', apy: 4.2, badge: false, link: '#' },
+    { name: '12-Month CD', apy: 5.0, badge: false, link: '#' },
+  ];
+
+  function fmt(n) { return '$' + Math.round(n).toLocaleString(); }
+
+  function calcMonthsToGoal(goal, current, monthly, apy) {
+    if (monthly <= 0) return Infinity;
+    const monthlyRate = apy / 100 / 12;
+    let balance = current;
+    let months = 0;
+    let totalContrib = 0;
+    const maxMonths = 600;
+    while (balance < goal && months < maxMonths) {
+      balance = balance * (1 + monthlyRate) + monthly;
+      totalContrib += monthly;
+      months++;
+    }
+    const interest = balance - current - totalContrib;
+    return { months, interest: Math.max(0, interest), finalBalance: balance };
+  }
+
+  function monthsToText(m) {
+    if (m === Infinity) return 'Never';
+    if (m < 12) return m + ' month' + (m === 1 ? '' : 's');
+    const yrs = Math.floor(m / 12);
+    const mos = m % 12;
+    return yrs + ' yr' + (yrs > 1 ? 's' : '') + (mos > 0 ? ' ' + mos + ' mo' : '');
+  }
+
+  function futureDate(months) {
+    const d = new Date();
+    d.setMonth(d.getMonth() + months);
+    return d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  }
+
+  function updateContrib() {
+    const v = document.getElementById('contribSlider').value;
+    document.getElementById('contribLabel').textContent = '$' + parseInt(v).toLocaleString();
+    calculate();
+  }
+
+  function updateRate() {
+    const v = parseFloat(document.getElementById('rateSlider').value).toFixed(1);
+    document.getElementById('rateLabel').textContent = v + '%';
+    calculate();
+  }
+
+  function setPreset(btn, amount, name) {
+    document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    if (amount > 0) document.getElementById('goalInput').value = amount;
+    calculate();
+  }
+
+  function calculate() {
+    const goal = parseFloat(document.getElementById('goalInput').value) || 0;
+    const current = parseFloat(document.getElementById('currentInput').value) || 0;
+    const monthly = parseFloat(document.getElementById('contribSlider').value) || 0;
+    const apy = parseFloat(document.getElementById('rateSlider').value) || 0;
+
+    if (goal <= 0) return;
+
+    const result = calcMonthsToGoal(goal, current, monthly, apy);
+
+    document.getElementById('timeResult').textContent = monthsToText(result.months);
+    document.getElementById('dateResult').textContent = result.months < 600 ? 'Reach your goal by ' + futureDate(result.months) : 'Increase monthly contribution to reach goal';
+    document.getElementById('statContrib').textContent = fmt(monthly * result.months);
+    document.getElementById('statInterest').textContent = fmt(result.interest);
+    document.getElementById('statTotal').textContent = fmt(result.finalBalance);
+
+    // Milestones
+    const pcts = [0.25, 0.5, 0.75, 1.0];
+    const pctLabels = ['25%', '50%', '75%', 'Goal reached! 🎉'];
+    const milestoneHtml = pcts.map((p, i) => {
+      const target = current + (goal - current) * p;
+      const ms = calcMonthsToGoal(target, current, monthly, apy);
+      const reached = current >= target;
+      return `<div class="milestone">
+        <div class="ms-dot ${reached ? 'reached' : 'future'}"></div>
+        <div class="ms-line">
+          <div class="ms-label">
+            <span class="ms-name">${pctLabels[i]} — ${fmt(target)}</span>
+            <span class="ms-date">${reached ? 'Already there' : futureDate(ms.months)}</span>
+          </div>
+          <div class="ms-bar"><div class="ms-fill" style="width:${reached ? 100 : Math.min(100, (current / target) * 100)}%"></div></div>
+        </div>
+      </div>`;
+    }).join('');
+    document.getElementById('milestoneList').innerHTML = milestoneHtml;
+
+    // Insight
+    const noInterestMonths = calcMonthsToGoal(goal, current, monthly, 0).months;
+    const savedMonths = noInterestMonths - result.months;
+    const insightEl = document.getElementById('insightText');
+    if (apy >= 4) {
+      insightEl.innerHTML = `At ${apy}% APY, interest earns you <span class="ib-num">${fmt(result.interest)}</span> — saving you ${savedMonths > 0 ? savedMonths + ' months' : 'time'} compared to a regular savings account with 0.5% APY. A high-yield savings account makes a meaningful difference on goals over $5,000.`;
+    } else if (apy < 1) {
+      insightEl.innerHTML = `At ${apy}% APY, interest contributes very little. Consider moving to a high-yield savings account — current HYSA rates of 4–5% APY would earn you significantly more on this same goal and reduce your timeline.`;
+    } else {
+      insightEl.innerHTML = `Your monthly contribution of <span class="ib-num">${fmt(monthly)}</span> reaches <span class="ib-num">${fmt(goal)}</span> in ${monthsToText(result.months)}. Increasing your contribution by $50/month would save ${Math.max(0, result.months - calcMonthsToGoal(goal, current, monthly + 50, apy).months)} months.`;
+    }
+
+    // Comparison table
+    document.getElementById('cmpContrib').textContent = Math.round(monthly).toLocaleString();
+    document.getElementById('compareBody').innerHTML = accountTypes.map(acc => {
+      const r = calcMonthsToGoal(goal, current, monthly, acc.apy);
+      return `<tr>
+        <td><span class="ct-name">${acc.name}${acc.badge ? '<span class="best-badge">Best</span>' : ''}</span></td>
+        <td><span class="ct-apy ${acc.badge ? 'best' : ''}">${acc.apy.toFixed(1)}%</span></td>
+        <td><span class="ct-time">${monthsToText(r.months)}</span></td>
+        <td><span class="ct-earned">${fmt(r.interest)}</span></td>
+        <td>${acc.badge ? `<a href="${acc.link}" class="cta-link">See accounts →</a>` : ''}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  calculate();
+</script>
+</body>
+</html>

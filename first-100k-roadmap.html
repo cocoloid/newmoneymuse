@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your First $100K Roadmap | New Money Muse</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --gold-dim: rgba(201,168,76,0.15);
+    --dark: #0A0A0A;
+    --dark2: #111111;
+    --dark3: #1A1A1A;
+    --dark4: #222222;
+    --text: #F0EDE6;
+    --text-muted: #8A8478;
+    --green: #4CAF7D;
+    --green-dim: rgba(76,175,125,0.12);
+    --radius: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 80% 60% at 20% 0%, rgba(201,168,76,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(76,175,125,0.04) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 56px 0 40px;
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .brand {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .brand::before, .brand::after {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.4;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 6vw, 52px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .subtitle {
+    font-size: 16px;
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.6;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* Calculator Card */
+  .calc-card {
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px;
+    padding: 36px;
+    margin-top: 36px;
+    animation: fadeUp 0.7s 0.15s ease both;
+  }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  @media (max-width: 520px) {
+    .input-grid { grid-template-columns: 1fr; }
+    .calc-card { padding: 24px 20px; }
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .input-group label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  .input-wrap {
+    position: relative;
+  }
+
+  .input-wrap span {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold);
+    font-size: 14px;
+    font-weight: 600;
+    pointer-events: none;
+  }
+
+  .input-wrap input {
+    width: 100%;
+    background: var(--dark3);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius);
+    padding: 13px 14px 13px 30px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    -moz-appearance: textfield;
+  }
+
+  .input-wrap input::-webkit-outer-spin-button,
+  .input-wrap input::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+  .input-wrap input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px var(--gold-dim);
+  }
+
+  .input-group.full { grid-column: 1 / -1; }
+
+  .range-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .range-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .range-header label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  .range-val {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gold);
+  }
+
+  input[type="range"] {
+    width: 100%;
+    height: 4px;
+    -webkit-appearance: none;
+    background: var(--dark4);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 3px solid var(--dark2);
+    box-shadow: 0 0 8px rgba(201,168,76,0.4);
+  }
+
+  .calc-btn {
+    width: 100%;
+    margin-top: 24px;
+    padding: 16px;
+    background: var(--gold);
+    color: var(--dark);
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .calc-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: white;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .calc-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(201,168,76,0.3); }
+  .calc-btn:hover::after { opacity: 0.08; }
+  .calc-btn:active { transform: translateY(0); }
+
+  /* Results */
+  .results {
+    display: none;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .results.show { display: block; }
+
+  .result-hero {
+    background: linear-gradient(135deg, var(--dark2) 0%, #141410 100%);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 20px;
+    padding: 36px;
+    margin-top: 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .result-hero::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .result-eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .result-timeline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 10vw, 72px);
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .result-timeline span {
+    font-size: 0.35em;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    color: var(--text-muted);
+    display: block;
+    margin-top: 4px;
+  }
+
+  .result-date {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-top: 10px;
+  }
+
+  .result-date strong { color: var(--text); font-weight: 600; }
+
+  /* Milestones */
+  .milestones {
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px;
+    padding: 28px;
+    margin-top: 16px;
+  }
+
+  .milestone-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    opacity: 0;
+    transform: translateX(-12px);
+    transition: opacity 0.4s, transform 0.4s;
+  }
+
+  .milestone-row:last-child { border-bottom: none; }
+  .milestone-row.visible { opacity: 1; transform: translateX(0); }
+
+  .milestone-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--gold-dim);
+    border: 1px solid rgba(201,168,76,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .milestone-info { flex: 1; }
+  .milestone-amount { font-size: 15px; font-weight: 600; }
+  .milestone-date { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  .milestone-bar-wrap {
+    width: 80px;
+    height: 4px;
+    background: var(--dark4);
+    border-radius: 2px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .milestone-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Insight */
+  .insight-card {
+    background: var(--green-dim);
+    border: 1px solid rgba(76,175,125,0.2);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-top: 16px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .insight-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+
+  .insight-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+
+  .insight-text strong { color: var(--green); font-weight: 600; }
+
+  /* Email Capture */
+  .email-card {
+    background: var(--dark2);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 20px;
+    padding: 36px;
+    margin-top: 16px;
+    text-align: center;
+  }
+
+  .email-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .email-card h3 em { color: var(--gold); font-style: italic; }
+
+  .email-card p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 24px;
+    max-width: 380px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .email-form {
+    display: flex;
+    gap: 10px;
+    max-width: 420px;
+    margin: 0 auto 12px;
+  }
+
+  @media (max-width: 480px) {
+    .email-form { flex-direction: column; }
+  }
+
+  .email-form input {
+    flex: 1;
+    background: var(--dark3);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius);
+    padding: 13px 16px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .email-form input:focus { border-color: var(--gold); }
+  .email-form input::placeholder { color: var(--text-muted); }
+
+  .email-btn {
+    padding: 13px 22px;
+    background: var(--gold);
+    color: var(--dark);
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .email-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(201,168,76,0.3); }
+
+  .email-fine {
+    font-size: 11px;
+    color: var(--text-muted);
+    opacity: 0.6;
+  }
+
+  .success-msg {
+    display: none;
+    padding: 16px;
+    background: var(--green-dim);
+    border: 1px solid rgba(76,175,125,0.3);
+    border-radius: var(--radius);
+    color: var(--green);
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  /* Recalculate */
+  .recalc-btn {
+    display: block;
+    width: fit-content;
+    margin: 20px auto 0;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--text-muted);
+    border-radius: var(--radius);
+    padding: 10px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .recalc-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    font-size: 12px;
+    color: var(--text-muted);
+    opacity: 0.5;
+  }
+
+  .footer a { color: var(--gold); text-decoration: none; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="brand">New Money Muse</div>
+    <h1>Your First <em>$100K</em><br>Roadmap</h1>
+    <p class="subtitle">Enter your numbers below and see exactly when you'll hit your first $100,000 — and what's standing in your way.</p>
+  </div>
+
+  <!-- Calculator -->
+  <div class="calc-card" id="calcCard">
+    <div class="section-label">Your Financial Snapshot</div>
+
+    <div class="input-grid">
+      <div class="input-group">
+        <label>Current Savings / Investments</label>
+        <div class="input-wrap">
+          <span>$</span>
+          <input type="number" id="currentSavings" placeholder="2,500" value="">
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Monthly Take-Home Income</label>
+        <div class="input-wrap">
+          <span>$</span>
+          <input type="number" id="monthlyIncome" placeholder="4,000" value="">
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Monthly Expenses</label>
+        <div class="input-wrap">
+          <span>$</span>
+          <input type="number" id="monthlyExpenses" placeholder="3,200" value="">
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Monthly Investment Amount</label>
+        <div class="input-wrap">
+          <span>$</span>
+          <input type="number" id="monthlyInvest" placeholder="400" value="">
+        </div>
+      </div>
+
+      <div class="input-group full">
+        <div class="range-wrap">
+          <div class="range-header">
+            <label>Expected Annual Return Rate</label>
+            <span class="range-val" id="returnVal">7%</span>
+          </div>
+          <input type="range" id="returnRate" min="3" max="15" value="7" step="0.5">
+        </div>
+      </div>
+    </div>
+
+    <button class="calc-btn" onclick="calculate()">Calculate My $100K Roadmap →</button>
+  </div>
+
+  <!-- Results -->
+  <div class="results" id="results">
+
+    <!-- Hero Result -->
+    <div class="result-hero">
+      <div class="result-eyebrow">At your current pace, you'll hit $100K in</div>
+      <div class="result-timeline" id="timelineDisplay">
+        <span id="timelineText">—</span>
+      </div>
+      <div class="result-date">Projected milestone: <strong id="targetDate">—</strong></div>
+    </div>
+
+    <!-- Milestones -->
+    <div class="milestones">
+      <div class="section-label">Your Milestone Map</div>
+      <div id="milestoneList"></div>
+    </div>
+
+    <!-- Insight -->
+    <div class="insight-card" id="insightCard">
+      <div class="insight-icon">💡</div>
+      <div class="insight-text" id="insightText"></div>
+    </div>
+
+    <!-- Email Capture -->
+    <div class="email-card">
+      <h3>Get Your Free <em>$100K Roadmap</em> PDF</h3>
+      <p>Recommended accounts, apps, and exact moves matched to your timeline — straight to your inbox.</p>
+
+      <div class="email-form" id="emailForm">
+        <input type="email" id="emailInput" placeholder="your@email.com">
+        <button class="email-btn" onclick="submitEmail()">Send My Roadmap</button>
+      </div>
+      <div class="success-msg" id="successMsg">
+        ✓ You're in! Check your inbox for your personalized $100K Roadmap.
+      </div>
+      <p class="email-fine">No spam. Unsubscribe anytime. New Money Muse respects your inbox.</p>
+    </div>
+
+    <button class="recalc-btn" onclick="recalculate()">← Adjust My Numbers</button>
+  </div>
+
+  <div class="footer">
+    © 2025 <a href="#">New Money Muse</a> · Not financial advice. Results are projections based on consistent contributions and assumed returns.
+  </div>
+
+</div>
+
+<script>
+  // Range display
+  const returnRate = document.getElementById('returnRate');
+  const returnVal = document.getElementById('returnVal');
+  returnRate.addEventListener('input', () => {
+    returnVal.textContent = returnRate.value + '%';
+  });
+
+  function calculate() {
+    const current = parseFloat(document.getElementById('currentSavings').value) || 0;
+    const income = parseFloat(document.getElementById('monthlyIncome').value) || 0;
+    const expenses = parseFloat(document.getElementById('monthlyExpenses').value) || 0;
+    const invest = parseFloat(document.getElementById('monthlyInvest').value) || 0;
+    const annualRate = parseFloat(returnRate.value) / 100;
+    const monthlyRate = annualRate / 12;
+
+    const monthlySavings = Math.max(invest, income - expenses > 0 ? invest : 0);
+
+    if (monthlySavings <= 0 && current < 100000) {
+      alert("Please enter a monthly investment amount greater than $0 to see your roadmap.");
+      return;
+    }
+
+    // Calculate months to reach milestones
+    const milestones = [10000, 25000, 50000, 100000];
+    const milestoneResults = [];
+
+    milestones.forEach(target => {
+      if (current >= target) {
+        milestoneResults.push({ amount: target, months: 0, already: true });
+        return;
+      }
+      let balance = current;
+      let months = 0;
+      while (balance < target && months < 600) {
+        balance = balance * (1 + monthlyRate) + monthlySavings;
+        months++;
+      }
+      milestoneResults.push({ amount: target, months, already: false });
+    });
+
+    const to100k = milestoneResults.find(m => m.amount === 100000);
+    const months100k = to100k.months;
+
+    // Timeline display
+    const years = Math.floor(months100k / 12);
+    const remainMonths = months100k % 12;
+    let timelineStr = '';
+    if (years > 0 && remainMonths > 0) timelineStr = `${years}y ${remainMonths}mo`;
+    else if (years > 0) timelineStr = `${years} ${years === 1 ? 'year' : 'years'}`;
+    else timelineStr = `${months100k} months`;
+
+    document.getElementById('timelineDisplay').innerHTML = timelineStr + '<span>to $100,000</span>';
+
+    // Target date
+    const targetDate = new Date();
+    targetDate.setMonth(targetDate.getMonth() + months100k);
+    document.getElementById('targetDate').textContent = targetDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+    // Milestones
+    const icons = ['🌱', '📈', '🔑', '🏆'];
+    const milestoneList = document.getElementById('milestoneList');
+    milestoneList.innerHTML = '';
+
+    milestoneResults.forEach((m, i) => {
+      const d = new Date();
+      d.setMonth(d.getMonth() + m.months);
+      const dateStr = m.already ? 'Already there!' : d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+      const pct = Math.min(100, Math.round((i + 1) / milestoneResults.length * 100));
+
+      const row = document.createElement('div');
+      row.className = 'milestone-row';
+      row.innerHTML = `
+        <div class="milestone-icon">${icons[i]}</div>
+        <div class="milestone-info">
+          <div class="milestone-amount">$${m.amount.toLocaleString()}</div>
+          <div class="milestone-date">${dateStr}</div>
+        </div>
+        <div class="milestone-bar-wrap">
+          <div class="milestone-bar" data-pct="${pct}"></div>
+        </div>
+      `;
+      milestoneList.appendChild(row);
+    });
+
+    // Animate milestones in
+    setTimeout(() => {
+      const rows = milestoneList.querySelectorAll('.milestone-row');
+      rows.forEach((row, i) => {
+        setTimeout(() => {
+          row.classList.add('visible');
+          const bar = row.querySelector('.milestone-bar');
+          if (bar) bar.style.width = bar.dataset.pct + '%';
+        }, i * 120);
+      });
+    }, 100);
+
+    // Insight — what if they saved $200 more/month
+    const extra = 200;
+    let balanceExtra = current;
+    let monthsExtra = 0;
+    while (balanceExtra < 100000 && monthsExtra < 600) {
+      balanceExtra = balanceExtra * (1 + monthlyRate) + (monthlySavings + extra);
+      monthsExtra++;
+    }
+    const diff = months100k - monthsExtra;
+    const insightText = document.getElementById('insightText');
+    if (diff > 0) {
+      insightText.innerHTML = `<strong>⚡ Speed up your timeline:</strong> If you invested just $${extra} more per month, you'd reach $100K <strong>${diff} months sooner</strong> — hitting your goal in ${timelineStr.replace(/\d+y /, m => m)} instead.`;
+    } else {
+      insightText.innerHTML = `<strong>🎯 You're on a strong path.</strong> Staying consistent with your current contributions is the most powerful thing you can do. Compound interest is working in your favor every single month.`;
+    }
+
+    // Show results
+    document.getElementById('calcCard').style.display = 'none';
+    document.getElementById('results').classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function recalculate() {
+    document.getElementById('results').classList.remove('show');
+    document.getElementById('calcCard').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function submitEmail() {
+    const email = document.getElementById('emailInput').value;
+    if (!email || !email.includes('@')) {
+      document.getElementById('emailInput').style.borderColor = '#e05555';
+      setTimeout(() => document.getElementById('emailInput').style.borderColor = '', 1500);
+      return;
+    }
+    // Wire to your email provider here (Mailchimp, ConvertKit, etc.)
+    // fetch('/subscribe', { method: 'POST', body: JSON.stringify({ email }) })
+    document.getElementById('emailForm').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+  }
+</script>
+</body>
+</html>

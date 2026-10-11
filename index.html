@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KNK5M4QRXB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KNK5M4QRXB');
+</script><head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Money for the 1099 Life</title>
+  <meta name="description" content="Money strategies for freelancers, gig workers, and creatives. Real financial advice built for the 1099 life. Free tools, calculators, and weekly videos" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #F0D98B;
+      --gold-dim: #8C6D28;
+      --ink: #0D0D0D;
+      --ink-soft: #1A1A1A;
+      --paper: #FAFAF7;
+      --paper-warm: #F5F3EE;
+      --mist: #E8E5DC;
+      --green: #1E7A5A;
+      --green-light: #2EAA7E;
+      --green-dim: #D0EFE6;
+      --text-body: #3A3A3A;
+      --text-muted: #7A7870;
+      --radius: 4px;
+      --radius-lg: 12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--paper);
+      color: var(--text-body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    /* ── TYPOGRAPHY ── */
+    .font-display { font-family: 'Playfair Display', Georgia, serif; }
+    .font-mono { font-family: 'DM Mono', monospace; }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(250,250,247,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--mist);
+      transition: all 0.3s ease;
+    }
+    header.scrolled {
+      box-shadow: 0 2px 24px rgba(0,0,0,0.06);
+    }
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Logo */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 40px; height: 40px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #1E7A5A 0%, #2EAA7E 100%);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-icon svg { width: 22px; height: 22px; fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; }
+    .logo-text { line-height: 1; }
+    .logo-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--ink);
+      display: block;
+    }
+    .logo-sub {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+    }
+
+    /* Nav */
+    nav { display: flex; align-items: center; gap: 0; }
+    nav a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: var(--radius);
+      transition: color 0.2s, background 0.2s;
+    }
+    nav a:hover { color: var(--green); background: var(--green-dim); }
+
+    .header-actions { display: flex; align-items: center; gap: 10px; }
+    .btn-subscribe-sm {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #fff;
+      background: var(--green);
+      border: none;
+      padding: 9px 20px;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      text-decoration: none;
+    }
+    .btn-subscribe-sm:hover { background: var(--green-light); transform: translateY(-1px); }
+
+    /* Mobile menu */
+    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 6px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--ink); margin: 5px 0; border-radius: 2px; transition: all 0.3s; }
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: var(--paper);
+      border-top: 1px solid var(--mist);
+      padding: 1rem 2rem 1.5rem;
+      position: fixed;
+      top: 68px; left: 0; right: 0;
+      z-index: 99;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { padding: 12px 0; font-weight: 500; color: var(--text-body); text-decoration: none; border-bottom: 1px solid var(--mist); font-size: 0.95rem; }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* ── HERO ── */
+    .hero {
+      padding-top: 120px;
+      padding-bottom: 80px;
+      background: var(--paper-warm);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--mist), transparent);
+    }
+    /* decorative large "$" background */
+    .hero-bg-glyph {
+      position: absolute;
+      right: -2%;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(200px, 28vw, 420px);
+      font-weight: 900;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(201,168,76,0.12);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    .hero-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green-dim);
+      color: var(--green);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      font-weight: 900;
+      color: var(--ink);
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--green);
+      position: relative;
+    }
+    .hero h1 em::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      border-radius: 2px;
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      max-width: 480px;
+      line-height: 1.7;
+    }
+    .hero-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 14px 28px;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s;
+      box-shadow: 0 4px 20px rgba(30,122,90,0.3);
+    }
+    .btn-primary:hover { background: var(--green-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(30,122,90,0.35); }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-body);
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 14px 0;
+      text-decoration: none;
+      border-bottom: 1px solid var(--mist);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--green); border-color: var(--green); }
+
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--mist);
+    }
+    .stat { }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Hero visual */
+    .hero-visual {
+      position: relative;
+    }
+    .hero-card-stack {
+      position: relative;
+    }
+    .hero-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    .hero-card-back {
+      position: absolute;
+      top: -12px; right: -12px;
+      left: 12px;
+      height: 100%;
+      background: linear-gradient(135deg, #C9A84C22, #C9A84C44);
+      border: 1px solid var(--gold-light);
+      border-radius: var(--radius-lg);
+      z-index: 0;
+    }
+    .hero-card { z-index: 1; }
+    .card-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .card-amount {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+    .card-meta { font-size: 0.85rem; color: var(--text-muted); }
+    .card-bar {
+      margin-top: 1.25rem;
+      height: 8px;
+      background: var(--mist);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .card-bar-fill {
+      height: 100%;
+      width: 68%;
+      background: linear-gradient(90deg, var(--green), var(--green-light));
+      border-radius: 4px;
+      animation: growBar 1.5s ease-out 0.5s both;
+    }
+    @keyframes growBar { from{width:0} to{width:68%} }
+    .card-items { margin-top: 1.25rem; display: flex; flex-direction: column; gap: 10px; }
+    .card-item {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.85rem;
+    }
+    .card-item-label { color: var(--text-muted); }
+    .card-item-val { font-weight: 600; color: var(--ink); }
+    .card-item-val.green { color: var(--green); }
+
+    /* floating badge */
+    .hero-badge {
+      position: absolute;
+      bottom: -20px; left: -20px;
+      background: var(--ink);
+      color: #fff;
+      border-radius: var(--radius-lg);
+      padding: 14px 18px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      display: flex; align-items: center; gap: 10px;
+      z-index: 2;
+      animation: floatBadge 3s ease-in-out infinite;
+    }
+    @keyframes floatBadge { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+    .badge-icon {
+      width: 36px; height: 36px;
+      background: var(--green);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .badge-text { line-height: 1.2; }
+    .badge-main { font-size: 0.9rem; font-weight: 600; }
+    .badge-sub { font-size: 0.7rem; color: rgba(255,255,255,0.6); }
+
+    /* ── TICKER ── */
+    .ticker {
+      background: var(--ink);
+      color: #fff;
+      padding: 12px 0;
+      overflow: hidden;
+    }
+    .ticker-track {
+      display: flex;
+      gap: 3rem;
+      width: max-content;
+      animation: tickerScroll 30s linear infinite;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    @keyframes tickerScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    .ticker-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.75);
+    }
+    .ticker-item span.label {
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .ticker-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.2); }
+
+    /* ── SECTION SHARED ── */
+    section { position: relative; z-index: 1; }
+    .section-inner { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+    .section-header { margin-bottom: 3rem; }
+    .section-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+    .section-sub { font-size: 1rem; color: var(--text-muted); margin-top: 0.5rem; }
+
+    /* ── CATEGORIES ── */
+    .categories { padding: 60px 0; background: #fff; }
+    .categories-grid {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .cat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: 100px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1.5px solid transparent;
+    }
+    .cat-pill svg { width: 16px; height: 16px; }
+    .cat-green { background: var(--green-dim); color: var(--green); border-color: #B8E4D4; }
+    .cat-green:hover { background: var(--green); color: #fff; border-color: var(--green); }
+    .cat-blue { background: #E8F0FD; color: #2563EB; border-color: #BDD3FB; }
+    .cat-blue:hover { background: #2563EB; color: #fff; border-color: #2563EB; }
+    .cat-purple { background: #F0EAFB; color: #7C3AED; border-color: #D5C4F7; }
+    .cat-purple:hover { background: #7C3AED; color: #fff; border-color: #7C3AED; }
+    .cat-indigo { background: #EEF0FD; color: #4F46E5; border-color: #C7CBF8; }
+    .cat-indigo:hover { background: #4F46E5; color: #fff; border-color: #4F46E5; }
+    .cat-gold { background: #FDF6E3; color: var(--gold-dim); border-color: #F0D98B; }
+    .cat-gold:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
+
+    /* ── TRENDING ── */
+    .trending { padding: 80px 0; background: var(--paper-warm); }
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .article-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--mist);
+      transition: all 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+    }
+    .article-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+      border-color: transparent;
+    }
+    .article-img {
+      height: 180px;
+      overflow: hidden;
+      position: relative;
+    }
+    .article-img-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+    .article-img-placeholder.g1 { background: linear-gradient(135deg, #D0EFE6, #A8D5C2); }
+    .article-img-placeholder.g2 { background: linear-gradient(135deg, #DBEAFE, #BFDBFE); }
+    .article-img-placeholder.g3 { background: linear-gradient(135deg, #EDE9FE, #DDD6FE); }
+    .article-img-placeholder.g4 { background: linear-gradient(135deg, #FEF3C7, #FDE68A); }
+
+    .article-cat-badge {
+      position: absolute;
+      bottom: 12px; left: 12px;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 4px 10px;
+      border-radius: 100px;
+    }
+    .article-body { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; }
+    .article-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.4;
+      margin-bottom: 0.6rem;
+      flex: 1;
+    }
+    .article-card:hover .article-title { color: var(--green); }
+    .article-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1rem; }
+    .article-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--mist);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .read-time { display: flex; align-items: center; gap: 4px; }
+
+    /* ── FEATURED ── */
+    .featured { padding: 80px 0; background: #fff; }
+    .featured-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .featured-main {
+      background: var(--ink);
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2.5rem;
+      text-decoration: none;
+      transition: transform 0.3s;
+    }
+    .featured-main:hover { transform: scale(1.01); }
+    .featured-main-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #0D2B1F 0%, #1E7A5A 50%, #0D2B1F 100%);
+    }
+    .featured-main-pattern {
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.01) 0px,
+        rgba(255,255,255,0.01) 1px,
+        transparent 1px,
+        transparent 16px
+      );
+    }
+    .featured-main-glow {
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(201,168,76,0.3) 0%, transparent 70%);
+    }
+    .featured-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--gold);
+      color: var(--ink);
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      padding: 5px 12px;
+      border-radius: 100px;
+      margin-bottom: 1rem;
+      position: relative;
+      width: fit-content;
+    }
+    .featured-main h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+      position: relative;
+    }
+    .featured-main p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.65);
+      position: relative;
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+    }
+    .featured-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--gold-light);
+      font-size: 0.85rem;
+      font-weight: 600;
+      position: relative;
+      transition: gap 0.2s;
+    }
+    .featured-main:hover .featured-link { gap: 10px; }
+
+    .featured-side { display: flex; flex-direction: column; gap: 16px; }
+    .side-card {
+      display: flex;
+      gap: 1rem;
+      background: var(--paper-warm);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1px solid var(--mist);
+    }
+    .side-card:hover { background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,0.07); border-color: transparent; }
+    .side-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--mist);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 32px;
+      margin-top: -4px;
+    }
+    .side-card:hover .side-num { color: var(--green-dim); }
+    .side-cat {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--gold-dim);
+      margin-bottom: 4px;
+    }
+    .side-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.4;
+    }
+    .side-card:hover .side-title { color: var(--green); }
+
+    /* ── TOOLS ── */
+    .tools { padding: 80px 0; background: var(--paper-warm); }
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .tool-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      border: 1px solid var(--mist);
+      transition: all 0.25s;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .tool-card:hover {
+      border-color: var(--green);
+      box-shadow: 0 8px 32px rgba(30,122,90,0.12);
+      transform: translateY(-3px);
+    }
+    .tool-icon {
+      width: 48px; height: 48px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+    .tool-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+    .tool-desc { font-size: 0.84rem; color: var(--text-muted); line-height: 1.5; }
+    .tool-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--green);
+    }
+
+    /* ── QUIZ STRIP ── */
+    .quiz-strip {
+      padding: 80px 0;
+      background: var(--ink);
+      position: relative;
+      overflow: hidden;
+    }
+    .quiz-strip::before {
+      content: '';
+      position: absolute;
+      top: -100px; left: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(30,122,90,0.25) 0%, transparent 70%);
+    }
+    .quiz-strip::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; right: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%);
+    }
+    .quiz-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .quiz-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(201,168,76,0.15);
+      color: var(--gold-light);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      border: 1px solid rgba(201,168,76,0.3);
+      margin-bottom: 1.25rem;
+      width: fit-content;
+    }
+    .quiz-inner h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .quiz-inner p {
+      color: rgba(255,255,255,0.6);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+    .btn-gold {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 14px 28px;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s;
+      box-shadow: 0 4px 20px rgba(201,168,76,0.35);
+    }
+    .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,0.5); }
+
+    /* Quiz widget */
+    .quiz-widget {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 2rem;
+      backdrop-filter: blur(8px);
+    }
+    .quiz-step { display: none; }
+    .quiz-step.active { display: block; }
+    .quiz-q {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: #fff;
+      margin-bottom: 1.25rem;
+      line-height: 1.4;
+    }
+    .quiz-options { display: flex; flex-direction: column; gap: 10px; }
+    .quiz-opt {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: rgba(255,255,255,0.8);
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: left;
+    }
+    .quiz-opt:hover { background: rgba(30,122,90,0.3); border-color: var(--green); color: #fff; }
+    .quiz-progress {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+    .quiz-step-indicator {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .quiz-dots { display: flex; gap: 6px; }
+    .quiz-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.2); }
+    .quiz-dot.active { background: var(--gold); }
+    .quiz-result {
+      text-align: center;
+      padding: 1rem 0;
+    }
+    .quiz-result-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .quiz-result h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .quiz-result p { font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-bottom: 1.25rem; }
+
+    /* ── NEWSLETTER ── */
+    .newsletter { padding: 80px 0; background: #fff; }
+    .newsletter-box {
+      background: var(--paper-warm);
+      border: 1px solid var(--mist);
+      border-radius: 20px;
+      padding: 3.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .newsletter-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--gold-dim);
+      margin-bottom: 0.75rem;
+    }
+    .newsletter h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.25;
+      margin-bottom: 1rem;
+    }
+    .newsletter-perks { display: flex; flex-direction: column; gap: 10px; margin-top: 1.25rem; }
+    .perk {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: var(--text-body);
+    }
+    .perk-check {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--green-dim);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: var(--green);
+      font-size: 0.65rem;
+    }
+    .newsletter-form { display: flex; flex-direction: column; gap: 14px; }
+    .newsletter-form input {
+      width: 100%;
+      padding: 14px 20px;
+      border: 1.5px solid var(--mist);
+      border-radius: 100px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem;
+      color: var(--ink);
+      background: #fff;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .newsletter-form input:focus { border-color: var(--green); }
+    .newsletter-form input::placeholder { color: var(--text-muted); }
+    .newsletter-disclaimer {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+    .newsletter-social-proof {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 1rem;
+    }
+    .avatars { display: flex; }
+    .avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      margin-left: -8px;
+      font-size: 0.65rem;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700;
+      color: #fff;
+    }
+    .avatar:first-child { margin-left: 0; }
+    .social-proof-text { font-size: 0.78rem; color: var(--text-muted); }
+    .social-proof-text strong { color: var(--ink); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink-soft);
+      color: rgba(255,255,255,0.6);
+      padding: 60px 0 30px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 2rem;
+    }
+    .footer-brand p {
+      font-size: 0.84rem;
+      line-height: 1.7;
+      max-width: 240px;
+      margin-top: 1rem;
+    }
+    .footer-col h4 {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 1.25rem;
+    }
+    .footer-col nav { display: flex; flex-direction: column; gap: 10px; }
+    .footer-col nav a {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col nav a:hover { color: var(--gold-light); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.3);
+    }
+    .footer-logo-sm {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .footer-logo-sm span { color: var(--gold); }
+
+    /* ── ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-up-d1 { transition-delay: 0.1s; }
+    .fade-up-d2 { transition-delay: 0.2s; }
+    .fade-up-d3 { transition-delay: 0.3s; }
+    .fade-up-d4 { transition-delay: 0.4s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .articles-grid { grid-template-columns: repeat(2, 1fr); }
+      .tools-grid { grid-template-columns: repeat(2, 1fr); }
+      .featured-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      nav { display: none; }
+      .hamburger { display: block; }
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .hero-bg-glyph { display: none; }
+      .quiz-inner { grid-template-columns: 1fr; }
+      .newsletter-box { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .articles-grid { grid-template-columns: 1fr; }
+      .tools-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.25rem; }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .newsletter-box { padding: 2rem 1.5rem; }
+      .hero { padding-top: 100px; }
+    }
+  </style>
+  <link rel="stylesheet" href="/components/nav.css" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KNK5M4QRXB"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-KNK5M4QRXB');</script>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<script src="/components/nav.js"></script>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg-glyph">$</div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-tag">New articles weekly</div>
+      <h1 class="font-display">Money for the 1099 Life. <em>Live Smarter.</em></h1>
+      <p class="hero-sub">No W-2. No steady paycheck. No problem. Practical money strategies and real financial tools built for the 1099 life.</p>
+      <div class="hero-actions">
+        <a href="/tools/side-hustle-quiz/" class="btn-primary">
+          Find Your Side Hustle
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#trending" class="btn-ghost">
+          Browse Articles
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num font-display">100K+</div>
+          <div class="stat-label">Subscribers</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num font-display">500+</div>
+          <div class="stat-label">Articles</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num font-display">$2.4M</div>
+          <div class="stat-label">Saved by readers</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card-stack">
+        <div class="hero-card-back"></div>
+        <div class="hero-card">
+          <div class="card-label">Monthly Budget Overview</div>
+          <div class="card-amount font-display">$4,200</div>
+          <div class="card-meta">Monthly income tracked</div>
+          <div class="card-bar"><div class="card-bar-fill"></div></div>
+          <div class="card-items">
+            <div class="card-item">
+              <span class="card-item-label">Housing</span>
+              <span class="card-item-val">$1,260</span>
+            </div>
+            <div class="card-item">
+              <span class="card-item-label">Side Hustle Income</span>
+              <span class="card-item-val green">+$850/mo</span>
+            </div>
+            <div class="card-item">
+              <span class="card-item-label">Saved This Month</span>
+              <span class="card-item-val green">+$640 ↑</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-badge">
+          <div class="badge-icon">🚀</div>
+          <div class="badge-text">
+            <div class="badge-main">Side hustle found!</div>
+            <div class="badge-sub">$500–$800 / week potential</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TICKER ── -->
+<div class="ticker">
+  <div class="ticker-track" id="ticker">
+    <div class="ticker-item"><span class="label">Make Money</span> 10 Side Hustles Paying $500+/Week Right Now</div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item"><span class="label">Save Money</span> The 52-Week Challenge That Actually Works</div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item"><span class="label">Deals</span> Today's Best Cashback Offers — Updated Daily</div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item"><span class="label">Smart Spend</span> Cut Your Grocery Bill by 40% With These Hacks</div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item"><span class="label">Investing</span> How to Start Investing With Just $100</div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item"><span class="label">Make Money</span> 10 Side Hustles Paying $500+/Week Right Now</div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item"><span class="label">Save Money</span> The 52-Week Challenge That Actually Works</div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item"><span class="label">Deals</span> Today's Best Cashback Offers — Updated Daily</div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item"><span class="label">Smart Spend</span> Cut Your Grocery Bill by 40% With These Hacks</div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item"><span class="label">Investing</span> How to Start Investing With Just $100</div>
+    <div class="ticker-dot"></div>
+  </div>
+</div>
+
+<!-- ── CATEGORIES ── -->
+<section class="categories">
+  <div class="section-inner">
+    <div class="categories-grid">
+      <a href="/make-money/best-gig-economy-platforms/" class="cat-pill cat-green">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Make Money
+      </a>
+      <a href="/blog/how-to-build-emergency-fund/" class="cat-pill cat-blue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 11.5 3c-.69 0-1.35.13-1.96.37M14 14v5a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h2l2-3 2 3h2a2 2 0 0 1 2 2z"/></svg>
+        Save Money
+      </a>
+      <a href="/blog/52-week-savings-challenge/" class="cat-pill cat-purple">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        Smart Spending
+      </a>
+      <a href="/tools/budget-calculator/" class="cat-pill cat-indigo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        Manage Money
+      </a>
+      <a href="/make-money/best-gig-economy-platforms/" class="cat-pill cat-gold">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+        Today's Deals
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── TRENDING ── -->
+<section class="trending" id="trending">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <div class="section-eyebrow">What's Hot</div>
+      <h2 class="section-title font-display">Trending Money Tips</h2>
+      <p class="section-sub">Popular articles our readers are loving right now</p>
+    </div>
+    <div class="articles-grid">
+      <a href="/make-money/best-gig-economy-platforms/" class="article-card fade-up fade-up-d1">
+        <div class="article-img">
+          <div class="article-img-placeholder g1">💸</div>
+          <div class="article-cat-badge">Make Money</div>
+        </div>
+        <div class="article-body">
+          <h3 class="article-title font-display">10 Side Hustles That Pay $500+ Per Week</h3>
+          <p class="article-desc">Discover proven ways to earn extra income on your own schedule, no experience needed.</p>
+          <div class="article-footer">
+            <span class="read-time">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              5 min read
+            </span>
+            <span>→</span>
+          </div>
+        </div>
+      </a>
+      <a href="/blog/how-to-build-emergency-fund/" class="article-card fade-up fade-up-d2">
+        <div class="article-img">
+          <div class="article-img-placeholder g2">🐷</div>
+          <div class="article-cat-badge">Save Money</div>
+        </div>
+        <div class="article-body">
+          <h3 class="article-title font-display">The 52-Week Money Challenge That Works</h3>
+          <p class="article-desc">Save over $1,000 this year with this simple weekly plan anyone can follow.</p>
+          <div class="article-footer">
+            <span class="read-time">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              4 min read
+            </span>
+            <span>→</span>
+          </div>
+        </div>
+      </a>
+      <a href="/blog/52-week-savings-challenge/" class="article-card fade-up fade-up-d3">
+        <div class="article-img">
+          <div class="article-img-placeholder g3">🛒</div>
+          <div class="article-cat-badge">Smart Spending</div>
+        </div>
+        <div class="article-body">
+          <h3 class="article-title font-display">How to Cut Your Grocery Bill by 40%</h3>
+          <p class="article-desc">Smart shopping strategies used by real families that add up to serious savings.</p>
+          <div class="article-footer">
+            <span class="read-time">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              6 min read
+            </span>
+            <span>→</span>
+          </div>
+        </div>
+      </a>
+      <a href="/make-money/best-side-hustle-apps/" class="article-card fade-up fade-up-d4">
+        <div class="article-img">
+          <div class="article-img-placeholder g4">🏷</div>
+          <div class="article-cat-badge">Deals</div>
+        </div>
+        <div class="article-body">
+          <h3 class="article-title font-display">Today's Best Cash Back Offers</h3>
+          <p class="article-desc">Get paid to shop with these exclusive deals and cashback offers updated daily.</p>
+          <div class="article-footer">
+            <span class="read-time">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              3 min read
+            </span>
+            <span>→</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEATURED ── -->
+<section class="featured">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <div class="section-eyebrow">Editor's Picks</div>
+      <h2 class="section-title font-display">Must-Read This Week</h2>
+    </div>
+    <div class="featured-grid fade-up">
+      <a href="/make-money/best-side-hustle-apps/" class="featured-main">
+        <div class="featured-main-bg"></div>
+        <div class="featured-main-pattern"></div>
+        <div class="featured-main-glow"></div>
+        <div class="featured-badge">⭐ Editor's Pick</div>
+        <h2>How to Build Passive Income as a Creative in 2025</h2>
+        <p>From digital products to licensing deals — a complete roadmap for turning your skills into recurring revenue streams that work while you sleep.</p>
+        <div class="featured-link">Read the full guide →</div>
+      </a>
+      <div class="featured-side">
+        <a href="/blog/how-to-build-emergency-fund/" class="side-card">
+          <div class="side-num font-display">01</div>
+          <div>
+            <div class="side-cat">Save Money</div>
+            <div class="side-title font-display">The 50/30/20 Budget Rule: A Beginner's Complete Guide</div>
+          </div>
+        </a>
+        <a href="/make-money/best-side-hustle-apps/" class="side-card">
+          <div class="side-num font-display">02</div>
+          <div>
+            <div class="side-cat">Make Money</div>
+            <div class="side-title font-display">Phone-Based Side Hustles That Pay Real Money</div>
+          </div>
+        </a>
+        <a href="/blog/how-to-build-emergency-fund/" class="side-card">
+          <div class="side-num font-display">03</div>
+          <div>
+            <div class="side-cat">Manage Money</div>
+            <div class="side-title font-display">How to Build an Emergency Fund From Zero</div>
+          </div>
+        </a>
+        <a href="/blog/52-week-savings-challenge/" class="side-card">
+          <div class="side-num font-display">04</div>
+          <div>
+            <div class="side-cat">Smart Spending</div>
+            <div class="side-title font-display">Temu vs Amazon: Which Actually Saves You More?</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TOOLS ── -->
+<section class="tools">
+  <div class="section-inner">
+    <div class="section-header fade-up" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1rem;">
+      <div>
+        <div class="section-eyebrow">Free Tools</div>
+        <h2 class="section-title font-display">Calculate Your Way to Wealth</h2>
+      </div>
+      <a href="/tools/side-hustle-quiz/" class="btn-ghost" style="margin-bottom:0.25rem">View all tools →</a>
+    </div>
+    <div class="tools-grid">
+      <a href="/tools/savings-calculator/" class="tool-card fade-up fade-up-d1">
+        <div class="tool-icon" style="background:#D0EFE6;">💰</div>
+        <div class="tool-title font-display">Savings Calculator</div>
+        <div class="tool-desc">See exactly how much you could save with any strategy — visualized month by month.</div>
+        <div class="tool-cta">Try it free →</div>
+      </a>
+      <a href="/tools/debt-payoff-planner/" class="tool-card fade-up fade-up-d2">
+        <div class="tool-icon" style="background:#DBEAFE;">🏠</div>
+        <div class="tool-title font-display">Mortgage Calculator</div>
+        <div class="tool-desc">Know your true monthly payment before you sign anything — including PMI and taxes.</div>
+        <div class="tool-cta">Try it free →</div>
+      </a>
+      <a href="/tools/debt-payoff-planner/" class="tool-card fade-up fade-up-d3">
+        <div class="tool-icon" style="background:#F0EAFB;">💳</div>
+        <div class="tool-title font-display">Debt Payoff Planner</div>
+        <div class="tool-desc">Avalanche vs snowball — find the fastest path out of debt with a personalized plan.</div>
+        <div class="tool-cta">Try it free →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── QUIZ ── -->
+<section class="quiz-strip">
+  <div class="quiz-inner">
+    <div>
+      <div class="quiz-tag">✨ 2-Minute Quiz</div>
+      <h2>What's Your Perfect Side Hustle?</h2>
+      <p>Answer 3 quick questions and we'll match you with the best side hustle for your skills, schedule, and income goals. Over 50,000 people have found theirs.</p>
+      <a href="/tools/side-hustle-quiz/" class="btn-gold">
+        Take the Quiz Free
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="quiz-widget">
+      <div id="quizContainer">
+        <!-- Step 1 -->
+        <div class="quiz-step active" id="step1">
+          <div class="quiz-progress">
+            <span class="quiz-step-indicator">Question 1 of 3</span>
+            <div class="quiz-dots">
+              <div class="quiz-dot active"></div>
+              <div class="quiz-dot"></div>
+              <div class="quiz-dot"></div>
+            </div>
+          </div>
+          <div class="quiz-q font-display">How much time can you dedicate per week?</div>
+          <div class="quiz-options">
+            <button class="quiz-opt" onclick="nextStep(2, 'flexible')">⚡ 1–5 hours (super flexible)</button>
+            <button class="quiz-opt" onclick="nextStep(2, 'moderate')">🕐 5–15 hours (part-time pace)</button>
+            <button class="quiz-opt" onclick="nextStep(2, 'serious')">💪 15+ hours (serious grind)</button>
+          </div>
+        </div>
+        <!-- Step 2 -->
+        <div class="quiz-step" id="step2">
+          <div class="quiz-progress">
+            <span class="quiz-step-indicator">Question 2 of 3</span>
+            <div class="quiz-dots">
+              <div class="quiz-dot"></div>
+              <div class="quiz-dot active"></div>
+              <div class="quiz-dot"></div>
+            </div>
+          </div>
+          <div class="quiz-q font-display">What's your strongest skill?</div>
+          <div class="quiz-options">
+            <button class="quiz-opt" onclick="nextStep(3, 'creative')">🎨 Creative (writing, design, music)</button>
+            <button class="quiz-opt" onclick="nextStep(3, 'tech')">💻 Tech (coding, data, marketing)</button>
+            <button class="quiz-opt" onclick="nextStep(3, 'people')">🤝 People (sales, teaching, service)</button>
+          </div>
+        </div>
+        <!-- Step 3 -->
+        <div class="quiz-step" id="step3">
+          <div class="quiz-progress">
+            <span class="quiz-step-indicator">Question 3 of 3</span>
+            <div class="quiz-dots">
+              <div class="quiz-dot"></div>
+              <div class="quiz-dot"></div>
+              <div class="quiz-dot active"></div>
+            </div>
+          </div>
+          <div class="quiz-q font-display">What's your income goal per month?</div>
+          <div class="quiz-options">
+            <button class="quiz-opt" onclick="showResult()">💵 $200–$500 (extra cushion)</button>
+            <button class="quiz-opt" onclick="showResult()">💰 $500–$2,000 (real money)</button>
+            <button class="quiz-opt" onclick="showResult()">🚀 $2,000+ (replace my job)</button>
+          </div>
+        </div>
+        <!-- Result -->
+        <div class="quiz-step" id="result">
+          <div class="quiz-result">
+            <div class="quiz-result-icon">🎯</div>
+            <h3 class="font-display">Your Match: Freelance Content Creator</h3>
+            <p>Based on your answers, content creation fits your schedule, skills, and income goals — with $800–$3,000/month potential.</p>
+            <a href="/tools/side-hustle-quiz/" class="btn-gold" style="font-size:0.82rem; padding:10px 22px;">See Full Results + Guide →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── NEWSLETTER ── -->
+<section class="newsletter" id="newsletter">
+  <div class="section-inner">
+    <div class="newsletter-box fade-up">
+      <div>
+        <div class="newsletter-eyebrow">Daily Money Muse</div>
+        <h2 class="font-display">The Financial Wisdom That Changes Everything</h2>
+        <div class="newsletter-perks">
+          <div class="perk">
+            <div class="perk-check">✓</div>
+            Daily money tips & side hustle ideas — actually actionable
+          </div>
+          <div class="perk">
+            <div class="perk-check">✓</div>
+            Exclusive deals and cashback alerts before they expire
+          </div>
+          <div class="perk">
+            <div class="perk-check">✓</div>
+            Free access to our calculator suite and subscriber dashboard
+          </div>
+        </div>
+        <div class="newsletter-social-proof">
+          <div class="avatars">
+            <div class="avatar" style="background:#1E7A5A">JR</div>
+            <div class="avatar" style="background:#2563EB">MT</div>
+            <div class="avatar" style="background:#7C3AED">SP</div>
+            <div class="avatar" style="background:#C9A84C">AL</div>
+          </div>
+          <div class="social-proof-text">Join <strong>100,000+ readers</strong> getting smarter about money</div>
+        </div>
+      </div>
+      <div>
+        <!-- MailerLite Signup Form -->
+<div id="mlb2-40075059" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-40075059">
+  <div class="ml-form-embedWrapper embedForm" style="background:transparent;border:none;padding:0;max-width:100%;width:100%;">
+    <div class="ml-form-embedBody ml-form-embedBodyDefault row-form" style="padding:0;">
+      <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/2275523/forms/185022460045821856/subscribe" data-code="" method="post" target="_blank" style="margin:0;width:100%;">
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <input aria-label="email" aria-required="true" type="email" name="fields[email]" placeholder="Your email address"
+            style="width:100%;padding:15px 18px;border:1.5px solid #E8E5DC;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.95rem;color:#3A3A3A;background:#fff;outline:none;box-sizing:border-box;"
+            onfocus="this.style.borderColor='#1E7A5A'" onblur="this.style.borderColor='#E8E5DC'" />
+          <input type="hidden" name="ml-submit" value="1">
+          <input type="hidden" name="anticsrf" value="true">
+          <button type="submit" class="primary btn-primary"
+            style="width:100%;justify-content:center;border-radius:100px;padding:15px;border:none;cursor:pointer;background:#1E7A5A;color:#fff;font-family:'DM Sans',sans-serif;font-size:0.95rem;font-weight:700;display:flex;align-items:center;gap:8px;transition:background 0.2s;"
+            onmouseover="this.style.background='#2EAA7E'" onmouseout="this.style.background='#1E7A5A'">
+            Subscribe Free — No Spam Ever
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="ml-form-successBody row-success" style="display:none;text-align:center;padding:2rem;">
+      <div style="font-size:2rem;margin-bottom:0.5rem;">🎉</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:#1E7A5A;margin-bottom:0.5rem;">You're in!</div>
+      <div style="font-size:0.88rem;color:#7A7870;">Check your inbox for a welcome email from New Money Muse.</div>
+    </div>
+  </div>
+</div>
+<script>
+function ml_webform_success_40075059() {
+  var $ = ml_jQuery || jQuery;
+  $('.ml-subscribe-form-40075059 .row-success').show();
+  $('.ml-subscribe-form-40075059 .row-form').hide();
+}
+</script>
+<script src="https://groot.mailerlite.com/js/w/webforms.min.js?v95037e5bac78f29ed026832ca21a7c7b" type="text/javascript"></script>
+<script>fetch("https://assets.mailerlite.com/jsonp/2275523/forms/185022460045821856/takel")</script>
+        <p class="newsletter-disclaimer">100% free. Unsubscribe anytime. We respect your inbox.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<script src="/components/footer.js"></script>
+
+<script>
+  // Header scroll
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Quiz
+  let answers = {};
+  function nextStep(step, answer) {
+    answers[step - 1] = answer;
+    document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+    document.getElementById('step' + step).classList.add('active');
+  }
+  function showResult() {
+    document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+    document.getElementById('result').classList.add('active');
+  }
+
+  // Newsletter
+  function handleSubscribe(btn) {
+    btn.textContent = '✓ You\'re on the list!';
+    btn.style.background = '#1E7A5A';
+    btn.style.pointerEvents = 'none';
+  }
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+</body>
+</html>

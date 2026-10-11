@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Debt Payoff Planner – Avalanche vs Snowball | New Money Muse</title>
+  <meta name="description" content="Enter your debts and see exactly when you'll be debt-free. Compare avalanche and snowball methods side by side with a real payoff timeline." />
+  <link rel="canonical" href="https://newmoneymuse.com/tools/debt-payoff-planner/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9A84C; --gold-light: #F0D98B; --gold-dim: #8C6D28;
+      --ink: #0D0D0D; --ink-soft: #1A1A1A;
+      --paper: #FAFAF7; --paper-warm: #F5F3EE; --mist: #E8E5DC;
+      --green: #1E7A5A; --green-light: #2EAA7E; --green-dim: #D0EFE6;
+      --text-body: #3A3A3A; --text-muted: #7A7870;
+      --red: #DC2626; --red-dim: #FEE2E2;
+      --orange: #E8621A; --orange-dim: #FDE8DA;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--text-body); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .font-display { font-family: 'Playfair Display', Georgia, serif; }
+    .font-mono { font-family: 'DM Mono', monospace; }
+
+    header { position: sticky; top: 0; z-index: 100; background: rgba(250,250,247,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--mist); height: 60px; display: flex; align-items: center; }
+    .header-inner { max-width: 960px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .logo-icon { width: 32px; height: 32px; border-radius: 6px; background: linear-gradient(135deg, #1E7A5A, #2EAA7E); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 0.9rem; }
+    .logo-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--ink); }
+    .logo-name span { color: var(--gold); }
+    .header-back { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .header-back:hover { color: var(--green); }
+
+    .page-hero { background: var(--ink); padding: 48px 0 40px; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 50%, rgba(220,38,38,0.15) 0%, transparent 55%), radial-gradient(ellipse at 10% 80%, rgba(30,122,90,0.2) 0%, transparent 50%); }
+    .hero-inner { max-width: 960px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
+    .page-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.25); color: var(--gold-light); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; padding: 5px 12px; border-radius: 100px; margin-bottom: 1rem; }
+    .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3.5vw, 2.6rem); font-weight: 900; color: #fff; line-height: 1.15; margin-bottom: 0.6rem; }
+    .page-hero p { font-size: 0.93rem; color: rgba(255,255,255,0.55); max-width: 540px; }
+
+    .tool-body { max-width: 960px; margin: 0 auto; padding: 2.5rem 2rem 5rem; }
+    .tool-grid { display: grid; grid-template-columns: 380px 1fr; gap: 2rem; align-items: start; }
+
+    /* Input panel */
+    .input-panel { position: sticky; top: 80px; }
+    .panel-card { background: #fff; border: 1px solid var(--mist); border-radius: 14px; overflow: hidden; margin-bottom: 1rem; }
+    .panel-header { background: var(--ink); padding: 1rem 1.25rem; display: flex; justify-content: space-between; align-items: center; }
+    .panel-title { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; color: #fff; }
+    .panel-action { font-size: 0.75rem; color: var(--gold-light); cursor: pointer; background: none; border: none; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+    .panel-body { padding: 1.25rem; }
+
+    /* Extra payment */
+    .extra-row { margin-bottom: 1rem; }
+    .extra-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 6px; display: flex; justify-content: space-between; }
+    .extra-label span { color: var(--green); font-family: 'DM Mono', monospace; }
+    input[type=range] { width: 100%; accent-color: var(--green); cursor: pointer; }
+    .field-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
+    .field-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
+    .field-input { padding: 9px 12px; border: 1.5px solid var(--mist); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--ink); outline: none; transition: border-color 0.2s; width: 100%; }
+    .field-input:focus { border-color: var(--green); }
+
+    /* Debt list */
+    .debt-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1rem; }
+    .debt-item { background: var(--paper-warm); border: 1px solid var(--mist); border-radius: 10px; padding: 12px; position: relative; }
+    .debt-item-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+    .debt-name-input { font-weight: 700; font-size: 0.88rem; color: var(--ink); background: none; border: none; outline: none; font-family: 'DM Sans', sans-serif; width: 140px; }
+    .debt-remove { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1rem; padding: 0; transition: color 0.2s; }
+    .debt-remove:hover { color: var(--red); }
+    .debt-fields { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+    .mini-field { display: flex; flex-direction: column; gap: 3px; }
+    .mini-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+    .mini-input { padding: 7px 8px; border: 1.5px solid var(--mist); border-radius: 6px; font-family: 'DM Mono', monospace; font-size: 0.85rem; color: var(--ink); outline: none; transition: border-color 0.2s; width: 100%; background: #fff; }
+    .mini-input:focus { border-color: var(--green); }
+    .add-debt-btn { width: 100%; padding: 10px; background: none; border: 1.5px dashed var(--mist); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; color: var(--text-muted); cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .add-debt-btn:hover { border-color: var(--green); color: var(--green); background: var(--green-dim); }
+    .calculate-btn { width: 100%; padding: 13px; background: var(--green); color: #fff; font-weight: 700; font-size: 0.92rem; border: none; border-radius: 100px; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 16px rgba(30,122,90,0.25); margin-top: 1rem; }
+    .calculate-btn:hover { background: var(--green-light); transform: translateY(-1px); }
+
+    /* Results panel */
+    .results-panel { min-height: 400px; }
+    .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 400px; text-align: center; color: var(--text-muted); }
+    .empty-state-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
+    .empty-state p { font-size: 0.9rem; max-width: 280px; }
+
+    /* Method tabs */
+    .method-tabs { display: flex; gap: 8px; margin-bottom: 1.5rem; }
+    .method-tab { flex: 1; padding: 11px; border-radius: 10px; border: 1.5px solid var(--mist); background: #fff; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: all 0.2s; text-align: center; }
+    .method-tab.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+    /* Summary cards */
+    .summary-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1.5rem; }
+    .summary-card { background: #fff; border: 1px solid var(--mist); border-radius: 12px; padding: 1.1rem; text-align: center; }
+    .summary-card.highlight { background: var(--green-dim); border-color: #B8E4D4; }
+    .sc-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); margin-bottom: 5px; }
+    .sc-val { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; color: var(--ink); }
+    .sc-val.green { color: var(--green); }
+    .sc-val.red { color: var(--red); }
+    .sc-sub { font-size: 0.72rem; color: var(--text-muted); margin-top: 3px; }
+
+    /* Method comparison */
+    .method-compare { background: var(--paper-warm); border: 1px solid var(--mist); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem; }
+    .compare-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); margin-bottom: 1rem; }
+    .compare-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+    .compare-col { }
+    .compare-col-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+    .col-metric { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--mist); font-size: 0.82rem; }
+    .col-metric:last-child { border-bottom: none; }
+    .metric-name { color: var(--text-muted); }
+    .metric-val { font-weight: 700; color: var(--ink); font-family: 'DM Mono', monospace; font-size: 0.8rem; }
+    .winner-badge { display: inline-block; background: var(--green); color: #fff; font-size: 0.6rem; font-weight: 700; padding: 1px 6px; border-radius: 100px; margin-left: 4px; vertical-align: middle; }
+
+    /* Payoff order */
+    .payoff-order { margin-bottom: 1.5rem; }
+    .po-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); margin-bottom: 0.75rem; }
+    .debt-row { display: flex; align-items: center; gap: 12px; padding: 12px; background: #fff; border: 1px solid var(--mist); border-radius: 10px; margin-bottom: 6px; }
+    .debt-row-num { width: 26px; height: 26px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 0.72rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .debt-row-info { flex: 1; }
+    .debt-row-name { font-weight: 700; font-size: 0.88rem; color: var(--ink); }
+    .debt-row-detail { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+    .debt-progress { height: 6px; background: var(--mist); border-radius: 3px; overflow: hidden; margin-top: 6px; }
+    .debt-progress-fill { height: 100%; border-radius: 3px; }
+    .debt-row-payoff { text-align: right; font-family: 'DM Mono', monospace; font-size: 0.8rem; font-weight: 600; color: var(--green); }
+
+    /* Callout */
+    .insight-box { background: var(--ink); border-radius: 12px; padding: 1.25rem 1.5rem; color: #fff; margin-bottom: 1.5rem; }
+    .insight-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 6px; }
+    .insight-text { font-size: 0.88rem; color: rgba(255,255,255,0.8); line-height: 1.6; }
+    .insight-num { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--gold-light); }
+
+    /* Email capture */
+    .email-capture { background: var(--green-dim); border: 1.5px solid #B8E4D4; border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; }
+    .ec-title { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 0.3rem; }
+    .ec-sub { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem; }
+    .ec-form { display: flex; gap: 8px; }
+    .ec-input { flex: 1; padding: 10px 14px; border: 1.5px solid #B8E4D4; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; outline: none; }
+    .ec-input:focus { border-color: var(--green); }
+    .ec-btn { padding: 10px 18px; background: var(--green); color: #fff; font-weight: 700; font-size: 0.8rem; border: none; border-radius: 100px; cursor: pointer; font-family: 'DM Sans', sans-serif; white-space: nowrap; }
+
+    .page-footer { background: var(--ink-soft, #1A1A1A); color: rgba(255,255,255,0.4); padding: 2rem; text-align: center; font-size: 0.78rem; margin-top: 3rem; }
+    .page-footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    .footer-links { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+
+    @media (max-width: 800px) {
+      .tool-grid { grid-template-columns: 1fr; }
+      .input-panel { position: static; }
+      .summary-row { grid-template-columns: repeat(2, 1fr); }
+      .compare-row { grid-template-columns: 1fr; gap: 0.75rem; }
+    }
+    @media (max-width: 480px) {
+      .summary-row { grid-template-columns: 1fr 1fr; }
+      .ec-form { flex-direction: column; }
+    }
+  </style>
+  <link rel="stylesheet" href="/components/nav.css" />
+</head>
+<body>
+
+<script src="/components/nav.js"></script>
+
+<div class="page-hero">
+  <div class="hero-inner">
+    <div class="page-tag">Free Tool</div>
+    <h1 class="font-display">Debt Payoff Planner</h1>
+    <p>Enter your debts and see exactly when you'll be free of them — with avalanche and snowball methods compared side by side.</p>
+  </div>
+</div>
+
+<div class="tool-body">
+  <div class="tool-grid">
+
+    <!-- INPUT PANEL -->
+    <div class="input-panel">
+
+      <div class="panel-card">
+        <div class="panel-header">
+          <div class="panel-title font-display">Your Debts</div>
+          <button class="panel-action" onclick="loadExample()">Load example</button>
+        </div>
+        <div class="panel-body">
+          <div class="debt-list" id="debtList"></div>
+          <button class="add-debt-btn" onclick="addDebt()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            Add a debt
+          </button>
+        </div>
+      </div>
+
+      <div class="panel-card">
+        <div class="panel-header">
+          <div class="panel-title font-display">Extra Monthly Payment</div>
+        </div>
+        <div class="panel-body">
+          <div class="extra-row">
+            <div class="extra-label">Extra toward debt each month <span id="extraVal">$100</span></div>
+            <input type="range" min="0" max="1000" step="25" value="100" id="extraSlider" oninput="updateExtra()" />
+          </div>
+          <p style="font-size:0.78rem; color:var(--text-muted); line-height:1.5;">This is how much you add on top of your minimum payments each month. Even $50–$100 extra makes a significant difference on the timeline.</p>
+        </div>
+      </div>
+
+      <button class="calculate-btn" onclick="calculate()">
+        Calculate My Payoff Plan
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="results-panel" id="resultsPanel">
+      <div class="empty-state" id="emptyState">
+        <div class="empty-state-icon">📊</div>
+        <p>Add your debts and click Calculate to see your personalized payoff plan.</p>
+      </div>
+      <div id="resultsContent" style="display:none;">
+        <div class="method-tabs">
+          <button class="method-tab active" id="tabAvalanche" onclick="switchMethod('avalanche')">❄️ Avalanche Method</button>
+          <button class="method-tab" id="tabSnowball" onclick="switchMethod('snowball')">❄️ Snowball Method</button>
+        </div>
+
+        <div class="summary-row">
+          <div class="summary-card highlight">
+            <div class="sc-label">Debt-Free Date</div>
+            <div class="sc-val green font-display" id="sumFreeDate">—</div>
+            <div class="sc-sub" id="sumMonths">— months away</div>
+          </div>
+          <div class="summary-card">
+            <div class="sc-label">Total Interest</div>
+            <div class="sc-val red" id="sumInterest">—</div>
+            <div class="sc-sub">you'll pay</div>
+          </div>
+          <div class="summary-card">
+            <div class="sc-label">Total Paid</div>
+            <div class="sc-val" id="sumTotal">—</div>
+            <div class="sc-sub">principal + interest</div>
+          </div>
+        </div>
+
+        <div class="method-compare" id="methodCompare">
+          <div class="compare-title">Method Comparison</div>
+          <div class="compare-row">
+            <div class="compare-col">
+              <div class="compare-col-label" style="color:var(--blue, #1D4ED8);">❄️ Avalanche</div>
+              <div class="col-metric"><span class="metric-name">Months</span><span class="metric-val" id="cmpAvMonths">—</span></div>
+              <div class="col-metric"><span class="metric-name">Interest</span><span class="metric-val" id="cmpAvInterest">—</span></div>
+            </div>
+            <div class="compare-col">
+              <div class="compare-col-label" style="color:var(--orange);">⛄ Snowball</div>
+              <div class="col-metric"><span class="metric-name">Months</span><span class="metric-val" id="cmpSbMonths">—</span></div>
+              <div class="col-metric"><span class="metric-name">Interest</span><span class="metric-val" id="cmpSbInterest">—</span></div>
+            </div>
+            <div class="compare-col">
+              <div class="compare-col-label" style="color:var(--green);">Avalanche saves</div>
+              <div class="col-metric"><span class="metric-name">Interest saved</span><span class="metric-val green" id="cmpSaved">—</span></div>
+              <div class="col-metric"><span class="metric-name">Time saved</span><span class="metric-val" id="cmpTimeSaved">—</span></div>
+            </div>
+          </div>
+          <p style="font-size:0.78rem; color:var(--text-muted); margin-top:0.75rem; line-height:1.55;">Avalanche saves the most money. Snowball pays the smallest debt first — which some people find more motivating. Both work. The best method is the one you'll stick with.</p>
+        </div>
+
+        <div class="insight-box" id="insightBox">
+          <div class="insight-label">💡 Your Key Insight</div>
+          <div class="insight-text" id="insightText">—</div>
+        </div>
+
+        <div class="payoff-order">
+          <div class="po-title">Payoff Order — <span id="methodLabel">Avalanche</span></div>
+          <div id="debtOrder"></div>
+        </div>
+
+        <div class="email-capture">
+          <div class="ec-title font-display">Save your payoff plan</div>
+          <div class="ec-sub">We'll email you your full schedule plus weekly tips to stay on track.</div>
+          <div class="ec-form">
+            <input type="email" class="ec-input" placeholder="your@email.com" />
+            <button class="ec-btn" onclick="this.textContent='✓ Sent!'">Send Plan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="/components/footer.js"></script>
+<script>
+  let debts = [];
+  let debtCounter = 0;
+  let currentMethod = 'avalanche';
+  let calcResults = null;
+
+  const COLORS = ['#1E7A5A','#1D4ED8','#E8621A','#7C3AED','#C9A84C','#DC2626'];
+
+  function addDebt(name='', balance='', rate='', minPay='') {
+    debtCounter++;
+    const id = 'debt_' + debtCounter;
+    const color = COLORS[(debtCounter - 1) % COLORS.length];
+    debts.push({ id, name: name || 'Debt ' + debtCounter, balance: balance || '', rate: rate || '', minPay: minPay || '', color });
+    renderDebts();
+  }
+
+  function removeDebt(id) {
+    debts = debts.filter(d => d.id !== id);
+    renderDebts();
+  }
+
+  function renderDebts() {
+    const list = document.getElementById('debtList');
+    if (debts.length === 0) { list.innerHTML = ''; return; }
+    list.innerHTML = debts.map(d => `
+      <div class="debt-item" id="${d.id}">
+        <div class="debt-item-top">
+          <input class="debt-name-input" value="${d.name}" oninput="updateDebtField('${d.id}','name',this.value)" />
+          <button class="debt-remove" onclick="removeDebt('${d.id}')">✕</button>
+        </div>
+        <div class="debt-fields">
+          <div class="mini-field">
+            <div class="mini-label">Balance ($)</div>
+            <input class="mini-input" type="number" placeholder="5000" value="${d.balance}" oninput="updateDebtField('${d.id}','balance',this.value)" />
+          </div>
+          <div class="mini-field">
+            <div class="mini-label">APR (%)</div>
+            <input class="mini-input" type="number" placeholder="19.9" step="0.1" value="${d.rate}" oninput="updateDebtField('${d.id}','rate',this.value)" />
+          </div>
+          <div class="mini-field">
+            <div class="mini-label">Min Pay ($)</div>
+            <input class="mini-input" type="number" placeholder="100" value="${d.minPay}" oninput="updateDebtField('${d.id}','minPay',this.value)" />
+          </div>
+        </div>
+      </div>`).join('');
+  }
+
+  function updateDebtField(id, field, value) {
+    const d = debts.find(x => x.id === id);
+    if (d) d[field] = value;
+  }
+
+  function updateExtra() {
+    const val = document.getElementById('extraSlider').value;
+    document.getElementById('extraVal').textContent = '$' + parseInt(val).toLocaleString();
+  }
+
+  function loadExample() {
+    debts = []; debtCounter = 0;
+    addDebt('Credit Card', 4800, 22.99, 96);
+    addDebt('Car Loan', 8200, 6.5, 220);
+    addDebt('Student Loan', 12500, 5.8, 180);
+    addDebt('Medical Bill', 1200, 0, 50);
+  }
+
+  function payoffSimulate(sortedDebts, extraPayment) {
+    let remaining = sortedDebts.map(d => ({ ...d, balance: parseFloat(d.balance), rate: parseFloat(d.rate) / 100 / 12, minPay: parseFloat(d.minPay), paidOff: false, paidOffMonth: 0 }));
+    let month = 0;
+    let totalInterest = 0;
+    const maxMonths = 600;
+
+    while (remaining.some(d => !d.paidOff) && month < maxMonths) {
+      month++;
+      let availableExtra = extraPayment;
+
+      remaining.forEach(d => {
+        if (d.paidOff) return;
+        const interest = d.balance * d.rate;
+        totalInterest += interest;
+        d.balance += interest;
+        const pay = Math.min(d.balance, d.minPay);
+        d.balance -= pay;
+        if (d.balance <= 0) { d.paidOff = true; d.paidOffMonth = month; }
+      });
+
+      const firstUnpaid = remaining.find(d => !d.paidOff);
+      if (firstUnpaid && availableExtra > 0) {
+        const extra = Math.min(firstUnpaid.balance, availableExtra);
+        firstUnpaid.balance -= extra;
+        if (firstUnpaid.balance <= 0) { firstUnpaid.paidOff = true; firstUnpaid.paidOffMonth = month; }
+      }
+    }
+
+    return { months: month, totalInterest, debts: remaining };
+  }
+
+  function calculate() {
+    const extra = parseInt(document.getElementById('extraSlider').value) || 0;
+    const valid = debts.filter(d => d.balance && d.rate && d.minPay && parseFloat(d.balance) > 0);
+    if (valid.length === 0) { alert('Please add at least one debt with balance, APR, and minimum payment.'); return; }
+
+    const avalancheOrder = [...valid].sort((a, b) => parseFloat(b.rate) - parseFloat(a.rate));
+    const snowballOrder = [...valid].sort((a, b) => parseFloat(a.balance) - parseFloat(b.balance));
+
+    const avResult = payoffSimulate(avalancheOrder, extra);
+    const sbResult = payoffSimulate(snowballOrder, extra);
+
+    calcResults = { avalanche: { result: avResult, order: avalancheOrder }, snowball: { result: sbResult, order: snowballOrder } };
+
+    document.getElementById('emptyState').style.display = 'none';
+    document.getElementById('resultsContent').style.display = 'block';
+
+    updateDisplay();
+  }
+
+  function updateDisplay() {
+    if (!calcResults) return;
+    const data = calcResults[currentMethod];
+    const { result, order } = data;
+
+    const now = new Date();
+    const freeDate = new Date(now.getFullYear(), now.getMonth() + result.months, 1);
+    const freeDateStr = freeDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+    document.getElementById('sumFreeDate').textContent = freeDateStr;
+    document.getElementById('sumMonths').textContent = result.months + ' months away';
+    document.getElementById('sumInterest').textContent = '$' + Math.round(result.totalInterest).toLocaleString();
+    const totalBalance = debts.filter(d => d.balance).reduce((s, d) => s + parseFloat(d.balance), 0);
+    document.getElementById('sumTotal').textContent = '$' + Math.round(totalBalance + result.totalInterest).toLocaleString();
+
+    const av = calcResults.avalanche.result;
+    const sb = calcResults.snowball.result;
+    document.getElementById('cmpAvMonths').textContent = av.months + ' mo';
+    document.getElementById('cmpAvInterest').textContent = '$' + Math.round(av.totalInterest).toLocaleString();
+    document.getElementById('cmpSbMonths').textContent = sb.months + ' mo';
+    document.getElementById('cmpSbInterest').textContent = '$' + Math.round(sb.totalInterest).toLocaleString();
+    const saved = Math.round(sb.totalInterest - av.totalInterest);
+    const timeSaved = sb.months - av.months;
+    document.getElementById('cmpSaved').textContent = saved > 0 ? '$' + saved.toLocaleString() : '$0';
+    document.getElementById('cmpTimeSaved').textContent = timeSaved > 0 ? timeSaved + ' months' : 'Same';
+
+    document.getElementById('methodLabel').textContent = currentMethod === 'avalanche' ? 'Avalanche (highest rate first)' : 'Snowball (lowest balance first)';
+
+    const extra = parseInt(document.getElementById('extraSlider').value) || 0;
+    const interestSaved = Math.round(result.totalInterest * 0.15);
+    document.getElementById('insightText').innerHTML = extra > 0
+      ? `Your <span class="insight-num">$${extra.toLocaleString()}/mo</span> extra payment gets you debt-free in <span class="insight-num">${result.months} months</span>. Without it, you'd take an estimated ${Math.round(result.months * 1.4)} months and pay significantly more in interest.`
+      : `Adding just $100/month extra to your payments could eliminate your debt months sooner. Use the slider above to see the impact.`;
+
+    const totalBal = debts.filter(d => d.balance).reduce((s, d) => s + parseFloat(d.balance || 0), 0);
+    document.getElementById('debtOrder').innerHTML = order.map((d, i) => {
+      const pct = Math.round((parseFloat(d.balance) / totalBal) * 100);
+      const paidMonth = result.debts.find(x => x.id === d.id)?.paidOffMonth || result.months;
+      const paidDate = new Date();
+      paidDate.setMonth(paidDate.getMonth() + paidMonth);
+      const paidStr = paidDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+      return `<div class="debt-row">
+        <div class="debt-row-num" style="background:${d.color || '#0D0D0D'}">${i + 1}</div>
+        <div class="debt-row-info">
+          <div class="debt-row-name">${d.name}</div>
+          <div class="debt-row-detail">$${parseFloat(d.balance).toLocaleString()} · ${parseFloat(d.rate).toFixed(1)}% APR · $${d.minPay}/mo minimum</div>
+          <div class="debt-progress"><div class="debt-progress-fill" style="width:${pct}%;background:${d.color || '#1E7A5A'}"></div></div>
+        </div>
+        <div class="debt-row-payoff">Paid off<br>${paidStr}</div>
+      </div>`;
+    }).join('');
+  }
+
+  function switchMethod(method) {
+    currentMethod = method;
+    document.getElementById('tabAvalanche').classList.toggle('active', method === 'avalanche');
+    document.getElementById('tabSnowball').classList.toggle('active', method === 'snowball');
+    if (calcResults) updateDisplay();
+  }
+
+  // Init with one empty debt
+  addDebt();
+</script>
+</body>
+</html>

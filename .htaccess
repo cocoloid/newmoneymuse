@@ -1,0 +1,24 @@
+DirectoryIndex index.html index.php
+
+RewriteEngine On
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Serve index.html from subfolders (clean URLs)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}/index.html -f
+RewriteRule ^(.+?)/?$ /$1/index.html [L]
+
+# If folder exists serve its index.html
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^(.+?)/?$ /$1/index.html [L]
+
+ErrorDocument 404 /404.html
+
+# Block direct web access to the secrets file
+<Files "secrets.php">
+  Require all denied
+</Files>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page Not Found – New Money Muse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/components/nav.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --green:#1E7A5A; --gold:#C9A84C; --ink:#0D0D0D; --paper:#FAFAF7; --mist:#E8E5DC; --text-muted:#7A7870; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; display: flex; flex-direction: column; }
+    .not-found { flex: 1; display: flex; align-items: center; justify-content: center; padding: 4rem 2rem; text-align: center; }
+    .nf-inner { max-width: 480px; }
+    .nf-code { font-family: 'Playfair Display', serif; font-size: 6rem; font-weight: 900; color: var(--mist); line-height: 1; margin-bottom: 1rem; }
+    .nf-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--ink); margin-bottom: 0.75rem; }
+    .nf-sub { font-size: 1rem; color: var(--text-muted); margin-bottom: 2rem; line-height: 1.6; }
+    .nf-links { display: flex; flex-direction: column; gap: 10px; max-width: 280px; margin: 0 auto; }
+    .nf-btn-primary { display: block; padding: 13px; background: var(--green); color: #fff; font-weight: 700; font-size: 0.9rem; border-radius: 100px; text-decoration: none; transition: all 0.2s; }
+    .nf-btn-primary:hover { background: #2EAA7E; }
+    .nf-btn-ghost { display: block; padding: 12px; background: none; border: 1.5px solid var(--mist); color: var(--ink); font-size: 0.88rem; font-weight: 600; border-radius: 100px; text-decoration: none; transition: all 0.2s; }
+    .nf-btn-ghost:hover { border-color: var(--green); color: var(--green); }
+  </style>
+</head>
+<body>
+<script src="/components/nav.js"></script>
+<div class="not-found">
+  <div class="nf-inner">
+    <div class="nf-code">404</div>
+    <div class="nf-title font-display">Page not found</div>
+    <div class="nf-sub">The page you're looking for doesn't exist or may have moved. Let's get you back on track.</div>
+    <div class="nf-links">
+      <a href="/" class="nf-btn-primary">← Back to Home</a>
+      <a href="/tools/side-hustle-quiz/" class="nf-btn-ghost">Take the Side Hustle Quiz</a>
+      <a href="/tools/" class="nf-btn-ghost">Browse Free Tools</a>
+      <a href="/blog/" class="nf-btn-ghost">Read the Blog</a>
+    </div>
+  </div>
+</div>
+<script src="/components/footer.js"></script>
+</body>
+</html>

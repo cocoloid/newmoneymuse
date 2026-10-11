@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Side Hustle Finder Quiz – New Money Muse</title>
+  <meta name="description" content="Answer 6 questions and find your best-matched side hustle based on your skills, schedule, and income goals. Free and takes under 2 minutes." />
+  <link rel="canonical" href="https://newmoneymuse.com/tools/side-hustle-quiz/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9A84C; --gold-light: #F0D98B; --gold-dim: #8C6D28;
+      --ink: #0D0D0D; --ink-soft: #1A1A1A;
+      --paper: #FAFAF7; --paper-warm: #F5F3EE; --mist: #E8E5DC;
+      --green: #1E7A5A; --green-light: #2EAA7E; --green-dim: #D0EFE6;
+      --text-body: #3A3A3A; --text-muted: #7A7870;
+      --orange: #E8621A; --orange-dim: #FDE8DA;
+      --blue: #1D4ED8; --blue-dim: #DBEAFE;
+      --purple: #7C3AED; --purple-dim: #EDE9FE;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--text-body); line-height: 1.6; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+
+    header { position: sticky; top: 0; z-index: 100; background: rgba(250,250,247,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--mist); height: 60px; display: flex; align-items: center; }
+    .header-inner { max-width: 860px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .logo-icon { width: 32px; height: 32px; border-radius: 6px; background: linear-gradient(135deg, #1E7A5A, #2EAA7E); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 0.9rem; }
+    .logo-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--ink); }
+    .logo-name span { color: var(--gold); }
+    .header-back { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .header-back:hover { color: var(--green); }
+
+    /* Quiz wrapper */
+    .quiz-wrapper { max-width: 680px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+    /* Intro */
+    .quiz-intro { text-align: center; margin-bottom: 3rem; }
+    .intro-tag { display: inline-flex; align-items: center; gap: 6px; background: var(--green-dim); border: 1px solid #B8E4D4; color: var(--green); font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; padding: 5px 14px; border-radius: 100px; margin-bottom: 1.25rem; }
+    .quiz-intro h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; color: var(--ink); line-height: 1.15; margin-bottom: 1rem; }
+    .quiz-intro h1 em { font-style: italic; color: var(--green); }
+    .quiz-intro p { font-size: 1rem; color: var(--text-muted); max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.65; }
+    .quiz-meta { display: flex; align-items: center; justify-content: center; gap: 1.5rem; font-size: 0.8rem; color: var(--text-muted); }
+    .quiz-meta span { display: flex; align-items: center; gap: 5px; }
+
+    /* Progress */
+    .progress-wrap { margin-bottom: 2rem; }
+    .progress-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 0.78rem; }
+    .progress-label { color: var(--text-muted); font-weight: 600; }
+    .progress-count { color: var(--ink); font-weight: 700; font-family: 'DM Mono', monospace; }
+    .progress-bar { height: 6px; background: var(--mist); border-radius: 3px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--green-light)); border-radius: 3px; transition: width 0.4s ease; }
+
+    /* Question card */
+    .question-card { background: #fff; border: 1px solid var(--mist); border-radius: 16px; padding: 2rem; margin-bottom: 1rem; }
+    .question-card.active { display: block; }
+    .question-card:not(.active) { display: none; }
+    .q-number { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gold-dim); margin-bottom: 0.75rem; }
+    .q-text { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--ink); line-height: 1.35; margin-bottom: 1.5rem; }
+    .options { display: flex; flex-direction: column; gap: 10px; }
+    .option {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 16px; border-radius: 10px;
+      border: 1.5px solid var(--mist); background: var(--paper-warm);
+      cursor: pointer; transition: all 0.18s; text-align: left;
+      font-family: 'DM Sans', sans-serif; font-size: 0.92rem; color: var(--text-body);
+      width: 100%;
+    }
+    .option:hover { border-color: var(--green); background: var(--green-dim); color: var(--ink); }
+    .option.selected { border-color: var(--green); background: var(--green-dim); color: var(--ink); }
+    .option-emoji { font-size: 1.3rem; flex-shrink: 0; width: 32px; text-align: center; }
+    .option-text { flex: 1; font-weight: 500; line-height: 1.4; }
+    .option-check { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--mist); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.18s; }
+    .option.selected .option-check { background: var(--green); border-color: var(--green); color: #fff; font-size: 0.65rem; }
+    .option.selected .option-check::after { content: '✓'; }
+
+    /* Nav buttons */
+    .q-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; }
+    .btn-back { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: color 0.2s; font-family: 'DM Sans', sans-serif; }
+    .btn-back:hover { color: var(--ink); }
+    .btn-next { display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: #fff; font-weight: 700; font-size: 0.88rem; padding: 11px 24px; border-radius: 100px; border: none; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+    .btn-next:hover { background: var(--green); }
+    .btn-next:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* Result */
+    .result-card { display: none; }
+    .result-card.show { display: block; }
+    .result-header { background: var(--ink); border-radius: 16px 16px 0 0; padding: 2.5rem 2rem; text-align: center; position: relative; overflow: hidden; }
+    .result-header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 30%, rgba(201,168,76,0.2) 0%, transparent 60%), radial-gradient(ellipse at 20% 80%, rgba(30,122,90,0.2) 0%, transparent 50%); }
+    .result-match-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; color: var(--gold); margin-bottom: 0.75rem; position: relative; }
+    .result-title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; color: #fff; line-height: 1.2; margin-bottom: 0.5rem; position: relative; }
+    .result-earn { font-family: 'DM Mono', monospace; font-size: 1rem; color: var(--gold-light); position: relative; }
+    .result-body { background: #fff; border: 1px solid var(--mist); border-top: none; border-radius: 0 0 16px 16px; padding: 2rem; }
+    .result-desc { font-size: 0.95rem; color: var(--text-body); line-height: 1.7; margin-bottom: 1.5rem; }
+    .result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1.5rem; }
+    .result-stat { background: var(--paper-warm); border: 1px solid var(--mist); border-radius: 10px; padding: 1rem; text-align: center; }
+    .rs-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); margin-bottom: 4px; }
+    .rs-val { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--ink); }
+    .rs-val.green { color: var(--green); }
+    .result-steps { margin-bottom: 1.5rem; }
+    .rs-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); margin-bottom: 0.75rem; }
+    .step-list { display: flex; flex-direction: column; gap: 8px; }
+    .step-item { display: flex; align-items: flex-start; gap: 10px; font-size: 0.88rem; color: var(--text-body); }
+    .step-num { width: 22px; height: 22px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 0.65rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .result-cta { display: flex; flex-direction: column; gap: 10px; }
+    .btn-primary-full { display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--green); color: #fff; font-weight: 700; font-size: 0.92rem; padding: 14px; border-radius: 100px; text-decoration: none; transition: all 0.2s; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; box-shadow: 0 4px 16px rgba(30,122,90,0.25); }
+    .btn-primary-full:hover { background: var(--green-light); transform: translateY(-1px); }
+    .btn-ghost-full { display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--paper-warm); color: var(--text-body); font-weight: 600; font-size: 0.88rem; padding: 13px; border-radius: 100px; border: 1.5px solid var(--mist); cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
+    .btn-ghost-full:hover { border-color: var(--ink); color: var(--ink); }
+
+    /* Email capture */
+    .email-capture { background: var(--paper-warm); border: 1px solid var(--mist); border-radius: 14px; padding: 1.5rem; margin-top: 1.5rem; }
+    .ec-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 0.4rem; }
+    .ec-sub { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .ec-form { display: flex; gap: 8px; }
+    .ec-input { flex: 1; padding: 11px 14px; border: 1.5px solid var(--mist); border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--ink); outline: none; transition: border-color 0.2s; }
+    .ec-input:focus { border-color: var(--green); }
+    .ec-btn { padding: 11px 20px; background: var(--green); color: #fff; font-weight: 700; font-size: 0.82rem; border: none; border-radius: 100px; cursor: pointer; transition: background 0.2s; font-family: 'DM Sans', sans-serif; white-space: nowrap; }
+    .ec-btn:hover { background: var(--green-light); }
+    .ec-note { font-size: 0.72rem; color: var(--text-muted); margin-top: 6px; }
+
+    /* All results grid */
+    .all-results { margin-top: 3rem; }
+    .ar-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--ink); margin-bottom: 0.4rem; }
+    .ar-sub { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+    .hustles-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .hustle-card { background: #fff; border: 1px solid var(--mist); border-radius: 12px; padding: 1.1rem; text-decoration: none; transition: all 0.2s; display: block; }
+    .hustle-card:hover { border-color: var(--green); box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+    .hc-name { font-weight: 700; color: var(--ink); font-size: 0.9rem; margin-bottom: 3px; }
+    .hc-earn { font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--green); margin-bottom: 6px; }
+    .hc-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+    .hc-tag { font-size: 0.65rem; font-weight: 600; padding: 2px 7px; border-radius: 100px; }
+
+    .page-footer { background: var(--ink-soft, #1A1A1A); color: rgba(255,255,255,0.4); padding: 2rem; text-align: center; font-size: 0.78rem; margin-top: 4rem; }
+    .page-footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    .footer-links { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+
+    @media (max-width: 560px) {
+      .result-grid { grid-template-columns: repeat(2, 1fr); }
+      .hustles-grid { grid-template-columns: 1fr; }
+      .ec-form { flex-direction: column; }
+      .quiz-meta { flex-direction: column; gap: 8px; }
+    }
+  </style>
+  <link rel="stylesheet" href="/components/nav.css" />
+</head>
+<body>
+
+<script src="/components/nav.js"></script>
+
+<div class="quiz-wrapper">
+
+  <!-- INTRO -->
+  <div class="quiz-intro" id="quizIntro">
+    <div class="intro-tag">✨ Free Quiz · 2 Minutes</div>
+    <h1 class="font-display">Find Your <em>Perfect</em> Side Hustle</h1>
+    <p>Answer 6 questions about your skills, schedule, and goals. We'll match you to the side hustle most likely to work for your actual situation.</p>
+    <div class="quiz-meta">
+      <span>⏱ Takes about 2 minutes</span>
+      <span>📊 6 questions</span>
+      <span>🎯 Personalized result</span>
+    </div>
+    <button class="btn-next" style="margin: 1.5rem auto 0; display:flex;" onclick="startQuiz()">
+      Start the Quiz
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quizMain" style="display:none;">
+    <div class="progress-wrap">
+      <div class="progress-top">
+        <span class="progress-label" id="progressLabel">Question 1 of 6</span>
+        <span class="progress-count" id="progressCount">1 / 6</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width:16.6%"></div>
+      </div>
+    </div>
+
+    <!-- Q1 -->
+    <div class="question-card active" id="q1">
+      <div class="q-number">Question 1</div>
+      <div class="q-text font-display">How much time can you realistically commit each week?</div>
+      <div class="options">
+        <button class="option" onclick="selectOption(this, 1, 'low')">
+          <span class="option-emoji">⚡</span>
+          <span class="option-text">1–5 hours — I have very little spare time</span>
+          <span class="option-check"></span>
+        </button>
+        <button class="option" onclick="selectOption(this, 1, 'medium')">
+          <span class="option-emoji">🕐</span>
+          <span class="option-text">5–15 hours — a few evenings or a weekend day</span>
+          <span class="option-check"></span>
+        </button>
+        <button class="option" onclick="selectOption(this, 1, 'high')">
+          <span class="option-emoji">💪</span>
+          <span class="option-text">15–30 hours — I'm serious about building income</span>
+          <span class="option-check"></span>
+        </button>
+        <button class="option" onclick="selectOption(this, 1, 'fulltime')">
+          <span class="option-emoji">🚀</span>
+          <span class="option-text">30+ hours — I want this to become my main income</span>
+          <span class="option-check"></span>
+        </button>
+      </div>
+      <div class="q-nav">
+        <div></div>
+        <button class="btn-next" id="next1" disabled onclick="goNext(2)">Next <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question-card" id="q2">
+      <div class="q-number">Question 2</div>
+      <div class="q-text font-display">What best describes your strongest ability?</div>
+      <div class="options">
+        <button class="option" onclick="selectOption(this, 2, 'creative')">
+          <span class="option-emoji">🎨</span>
+          <span class="option-text">Creative — writing, design, video, photography, music</span>
+          <span class="option-check"></span>
+        </button>
+        <button class="option" onclick="selectOption(this, 2, 'tech')">
+          <span class="option-emoji">💻</span>
+          <span class="option-text">Tech — coding, data, marketing, analytics</span>
+          <span class="option-check"></span>
+        </button>
+        <button class="option" onclick="selectOption(this, 2, 'people')">
+          <span class="option-emoji">🤝</span>
+          <span class="option-text">People — teaching, coaching, sales, customer service</span>
+          <span class="option-check"></span>
+        </button>
+        <button class="option" onclick="selectOption(this, 2, 'physical')">
+          <span class="option-emoji">🔧</span>
+          <span class="option-text">Hands-on — driving, tasks, repair, labor, delivery</span>
+          <span class="option-check"></span>
+        </button>
+        <button class="option" onclick="selectOption(this, 2, 'none')">
+          <span class="option-emoji">🌱</span>
+          <span class="option-text">I'm not sure — I'm open to learning something new</span>
+          <span class="option-check"></span>
+        </button>
+      </div>
+      <div class="q-nav">
+        <button class="btn-back" onclick="goBack(1)">← Back</button>
+        <button class="btn-next" id="next2" disabled onclick="goNext(3)">Next <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question-card" id="q3">
+      <div class="q-number">Question 3</div>
+      <div class="q-text font-display">What's your income goal from a side hustle?</div>
+      <div class="options">
+        <button class="option" onclick="selectOption(this, 3, 'low')">
+          <span class="option-emoji">💵</span>
+          <span class="option-text">$200–$500/month — a little extra breathing room</span>
+          <span class="option-check"></span>
+        </button>
+        <button class="option" onclick="selectOption(this, 3, 'medium')">
+          <span class="option-emoji">💰</span>
+          <span class="option-text">$500–$1,500/month — meaningful supplemental income</span>
+          <span class="option-check"></span>
+        </button>
+        <button class="option" onclick="selectOption(this, 3, 'high')">
+          <span class="option-emoji">🏦</span>
+          <span class="option-text">$1,500–$3,000/month — a real second income</span>
+          <span class="option-check"></span>
+        </button>
+        <button class="option" onclick="selectOption(this, 3, 'replace')">
+          <span class="option-emoji">🎯</span>
+          <span class="option-text">$3,000+/month — I want to replace or exceed my job</span>
+          <span class="option-check"></span>
+        </button>
+      </div>
+      <div class="q-nav">
+        <button class="btn-back" onclick="goBack(2)">← Back</button>
+        <button class="btn-next" id="next3" disabled onclick="goNext(4)">Next <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question-card" id="q4">
+      <div class="q-number">Question 4</div>
+      <div class="q-text font-display">How quickly do you need to start earning?</div>
+      <div class="options">
+        <button class="option" onclick="selectOption(this, 4, 'now')">
+          <span class="option-emoji">⚡</span>
+          <span class="option-text">This week — I need income as soon as possible</span>
+          <span class="option-check"></span>
+        </button>
+        <button class="option" onclick="selectOption(this, 4, 'month')">
+          <span class="option-emoji">📅</span>
+          <span class="option-text">Within a month — I can wait a bit to set things up</span>
+          <span class="option-check"></span>
+        </button>
+        <button class="option" onclick="selectOption(this, 4, 'slow')">
+          <span class="option-emoji">🌱</span>
+          <span class="option-text">3–6 months — I'm building for the longer term</span>
+          <span class="option-check"></span>
+        </button>
+      </div>
+      <div class="q-nav">
+        <button class="btn-back" onclick="goBack(3)">← Back</button>
+        <button class="btn-next" id="next4" disabled onclick="goNext(5)">Next <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="question-card" id="q5">
+      <div class="q-number">Question 5</div>
+      <div class="q-text font-display">Do you have a car available for work?</div>
+      <div class="options">
+        <button class="option" onclick="selectOption(this, 5, 'yes')">
+          <span class="option-emoji">🚗</span>
+          <span class="option-text">Yes — I have a reliable car I can use for work</span>
+          <span class="option-check"></span>
+        </button>
+        <button class="option" onclick="selectOption(this, 5, 'bike')">
+          <span class="option-emoji">🚲</span>
+          <span class="option-text">Bike or scooter — no car but I have wheels</span>
+          <span class="option-check"></span>
+        </button>
+        <button class="option" onclick="selectOption(this, 5, 'no')">
+          <span class="option-emoji">🚶</span>
+          <span class="option-text">No car — I need something that doesn't require one</span>
+          <span class="option-check"></span>
+        </button>
+      </div>
+      <div class="q-nav">
+        <button class="btn-back" onclick="goBack(4)">← Back</button>
+        <button class="btn-next" id="next5" disabled onclick="goNext(6)">Next <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="question-card" id="q6">
+      <div class="q-number">Question 6</div>
+      <div class="q-text font-display">What matters most to you in a side hustle?</div>
+      <div class="options">
+        <button class="option" onclick="selectOption(this, 6, 'flexible')">
+          <span class="option-emoji">🗓</span>
+          <span class="option-text">Flexibility — I work when I want, no fixed schedule</span>
+          <span class="option-check"></span>
+        </button>
+        <button class="option" onclick="selectOption(this, 6, 'scalable')">
+          <span class="option-emoji">📈</span>
+          <span class="option-text">Growth potential — it can scale into real income</span>
+          <span class="option-check"></span>
+        </button>
+        <button class="option" onclick="selectOption(this, 6, 'passive')">
+          <span class="option-emoji">😴</span>
+          <span class="option-text">Passive income — earn while I'm not actively working</span>
+          <span class="option-check"></span>
+        </button>
+        <button class="option" onclick="selectOption(this, 6, 'simple')">
+          <span class="option-emoji">✅</span>
+          <span class="option-text">Simplicity — easy to start, low learning curve</span>
+          <span class="option-check"></span>
+        </button>
+      </div>
+      <div class="q-nav">
+        <button class="btn-back" onclick="goBack(5)">← Back</button>
+        <button class="btn-next" id="next6" disabled onclick="showResult()">See My Results <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="quizResult" class="result-card">
+    <div class="result-header">
+      <div class="result-match-label">🎯 Your Best Match</div>
+      <div class="result-title font-display" id="resultTitle">Freelance Content Writer</div>
+      <div class="result-earn" id="resultEarn">$35–$75/hr · $1,500–$4,000/month potential</div>
+    </div>
+    <div class="result-body">
+      <p class="result-desc" id="resultDesc">Based on your answers, freelance writing aligns well with your skills, schedule, and income goals. It's one of the most accessible freelance paths — you can start on Fiverr with no experience and build toward higher-paying Upwork contracts over 6–12 months.</p>
+
+      <div class="result-grid">
+        <div class="result-stat">
+          <div class="rs-label">Time to first $</div>
+          <div class="rs-val" id="resultTime">3–6 weeks</div>
+        </div>
+        <div class="result-stat">
+          <div class="rs-label">Startup cost</div>
+          <div class="rs-val green" id="resultCost">$0</div>
+        </div>
+        <div class="result-stat">
+          <div class="rs-label">Income ceiling</div>
+          <div class="rs-val" id="resultCeiling">High</div>
+        </div>
+      </div>
+
+      <div class="result-steps">
+        <div class="rs-title">Your next 3 steps</div>
+        <div class="step-list" id="resultSteps">
+          <div class="step-item"><div class="step-num">1</div><span>Create a free Fiverr account and set up your first gig</span></div>
+          <div class="step-item"><div class="step-num">2</div><span>Write 3 sample pieces to use as portfolio work</span></div>
+          <div class="step-item"><div class="step-num">3</div><span>Price 30–40% below market for your first 5 orders to build reviews</span></div>
+        </div>
+      </div>
+
+      <div class="result-cta">
+        <a href="/make-money/best-side-hustle-apps/" class="btn-primary-full" id="resultCTA">
+          Read the Full Platform Guide
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <button class="btn-ghost-full" onclick="restartQuiz()">Retake Quiz</button>
+      </div>
+
+      <div class="email-capture">
+        <div class="ec-title font-display">Get your personalized hustle roadmap</div>
+        <div class="ec-sub">We'll send a step-by-step guide tailored to your result, plus weekly earning tips.</div>
+        <div class="ec-form">
+          <input type="email" class="ec-input" placeholder="your@email.com" id="ecEmail" />
+          <button class="ec-btn" onclick="submitEmail()">Send It Free</button>
+        </div>
+        <div class="ec-note">No spam. Unsubscribe anytime.</div>
+      </div>
+    </div>
+
+    <div class="all-results">
+      <div class="ar-title font-display">All Side Hustle Matches</div>
+      <div class="ar-sub">Other options that might fit your profile — ranked by how well they match your answers.</div>
+      <div class="hustles-grid" id="allHustles"></div>
+    </div>
+  </div>
+
+</div>
+
+<script src="/components/footer.js"></script>
+<script>
+  const answers = {};
+
+  const hustles = [
+    {
+      id: 'freelance-writing',
+      name: 'Freelance Writing',
+      earn: '$35–$75/hr',
+      monthly: '$1,500–$4,000',
+      time: '3–6 weeks',
+      cost: '$0',
+      ceiling: 'High',
+      car: false,
+      skills: ['creative', 'none'],
+      speed: ['month', 'slow'],
+      desc: 'Content writing is one of the most accessible freelance skills. Start on Fiverr with sample work, build reviews, then move to higher-paying Upwork contracts. Writing skills compound over time — better portfolio means higher rates.',
+      steps: ['Create a free Fiverr account and publish your first writing gig', 'Write 3–5 sample articles in a niche you know well', 'Price below market for your first 10 orders to build reviews fast'],
+      cta: '/make-money/best-side-hustle-apps/',
+      ctaLabel: 'Read: Best Freelance Platforms',
+      tags: [{ label: 'No car', color: 'background:#D0EFE6;color:#1E7A5A' }, { label: 'Remote', color: 'background:#DBEAFE;color:#1D4ED8' }]
+    },
+    {
+      id: 'food-delivery',
+      name: 'Food Delivery (DoorDash)',
+      earn: '$15–$22/hr gross',
+      monthly: '$800–$1,800',
+      time: 'This week',
+      cost: 'Gas + vehicle',
+      ceiling: 'Medium',
+      car: true,
+      skills: ['physical', 'none'],
+      speed: ['now', 'month'],
+      desc: 'DoorDash is the fastest way to start earning — most drivers are active within a week of applying. Earnings are consistent but not spectacular. Best as a short-term income source while building something else.',
+      steps: ['Apply on DoorDash (takes 10 minutes, approval 2–5 days)', 'Download a mileage tracker app before your first delivery', 'Work lunch and dinner peaks (11am–2pm, 5–9pm) for best hourly rate'],
+      cta: '/make-money/best-gig-economy-platforms/',
+      ctaLabel: 'Read: Best Gig Platforms',
+      tags: [{ label: 'Car required', color: 'background:#FDE8DA;color:#E8621A' }, { label: 'Fast start', color: 'background:#D0EFE6;color:#1E7A5A' }]
+    },
+    {
+      id: 'virtual-assistant',
+      name: 'Virtual Assistant',
+      earn: '$15–$35/hr',
+      monthly: '$800–$2,500',
+      time: '2–4 weeks',
+      cost: '$0',
+      ceiling: 'Medium',
+      car: false,
+      skills: ['people', 'none'],
+      speed: ['month', 'slow'],
+      desc: 'Virtual assistants handle email management, scheduling, research, and admin tasks for busy professionals and businesses. Low barrier to entry, steady demand, and work can be done entirely from home on your schedule.',
+      steps: ['Create profiles on Fiverr and Upwork listing your VA services', 'Pick 2–3 specific services to focus on (e.g., email management + research)', 'Join VA Facebook groups to find your first clients faster'],
+      cta: '/make-money/best-side-hustle-apps/',
+      ctaLabel: 'Read: Best Freelance Platforms',
+      tags: [{ label: 'No car', color: 'background:#D0EFE6;color:#1E7A5A' }, { label: 'Flexible', color: 'background:#EDE9FE;color:#7C3AED' }]
+    },
+    {
+      id: 'graphic-design',
+      name: 'Freelance Design',
+      earn: '$35–$100/hr',
+      monthly: '$1,500–$6,000',
+      time: '4–8 weeks',
+      cost: 'Design software',
+      ceiling: 'High',
+      car: false,
+      skills: ['creative'],
+      speed: ['month', 'slow'],
+      desc: 'Graphic designers are in consistent demand on both Fiverr and 99designs. Logo design, social media graphics, and brand identity work are the highest-demand categories. Build a strong portfolio of 5–8 samples before launching.',
+      steps: ['Build a portfolio of 5–8 strong sample designs across different categories', 'Create a Fiverr gig focused on one specific design service', 'Enter 3–5 "guaranteed" contests on 99designs to build a paid portfolio'],
+      cta: '/make-money/best-side-hustle-apps/',
+      ctaLabel: 'Read: Best Side Hustle Platforms',
+      tags: [{ label: 'No car', color: 'background:#D0EFE6;color:#1E7A5A' }, { label: 'High ceiling', color: 'background:#FEF3C7;color:#8C6D28' }]
+    },
+    {
+      id: 'taskrabbit',
+      name: 'TaskRabbit (Handyman / Tasks)',
+      earn: '$25–$60/hr',
+      monthly: '$800–$3,000',
+      time: '1–2 weeks',
+      cost: '$25 registration',
+      ceiling: 'Medium–High',
+      car: false,
+      skills: ['physical', 'people'],
+      speed: ['now', 'month'],
+      desc: 'TaskRabbit connects you with local clients who need help with home tasks — furniture assembly, TV mounting, moving, cleaning. You set your own hourly rate. IKEA furniture assembly is the single highest-demand task on the platform.',
+      steps: ['Register on TaskRabbit ($25 fee) and complete onboarding', 'Set a competitive starting rate (check what others charge in your city)', 'Enable furniture assembly as a task category — it\'s the most requested'],
+      cta: '/make-money/best-gig-economy-platforms/',
+      ctaLabel: 'Read: Best Gig Platforms',
+      tags: [{ label: 'Local', color: 'background:#FDE8DA;color:#E8621A' }, { label: 'Set own rate', color: 'background:#D0EFE6;color:#1E7A5A' }]
+    },
+    {
+      id: 'instacart',
+      name: 'Instacart Shopping',
+      earn: '$15–$22/hr',
+      monthly: '$600–$1,500',
+      time: 'This week',
+      cost: 'Minimal',
+      ceiling: 'Low–Medium',
+      car: false,
+      skills: ['physical', 'none'],
+      speed: ['now'],
+      desc: 'Instacart\'s in-store shopper role requires no car — you shop at grocery stores and Instacart handles delivery separately. Fastest approval of any major platform. Good for immediate income while you build something more scalable.',
+      steps: ['Apply for the in-store shopper role at Instacart (no car needed)', 'Download the shopper app and complete the onboarding batch', 'Work morning grocery hours (10am–2pm) when batch availability is highest'],
+      cta: '/make-money/best-gig-economy-platforms/',
+      ctaLabel: 'Read: Best Gig Platforms',
+      tags: [{ label: 'No car needed', color: 'background:#D0EFE6;color:#1E7A5A' }, { label: 'Fastest start', color: 'background:#DBEAFE;color:#1D4ED8' }]
+    },
+  ];
+
+  function startQuiz() {
+    document.getElementById('quizIntro').style.display = 'none';
+    document.getElementById('quizMain').style.display = 'block';
+  }
+
+  function selectOption(btn, qNum, value) {
+    const card = document.getElementById('q' + qNum);
+    card.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    btn.classList.add('selected');
+    answers[qNum] = value;
+    document.getElementById('next' + qNum).disabled = false;
+  }
+
+  function goNext(qNum) {
+    document.getElementById('q' + (qNum - 1)).classList.remove('active');
+    document.getElementById('q' + qNum).classList.add('active');
+    updateProgress(qNum);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function goBack(qNum) {
+    document.getElementById('q' + (qNum + 1)).classList.remove('active');
+    document.getElementById('q' + qNum).classList.add('active');
+    updateProgress(qNum);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updateProgress(qNum) {
+    document.getElementById('progressLabel').textContent = 'Question ' + qNum + ' of 6';
+    document.getElementById('progressCount').textContent = qNum + ' / 6';
+    document.getElementById('progressFill').style.width = (qNum / 6 * 100) + '%';
+  }
+
+  function scoreHustles() {
+    const skill = answers[2];
+    const speed = answers[4];
+    const car = answers[5];
+    return hustles.map(h => {
+      let score = 0;
+      if (h.skills.includes(skill)) score += 3;
+      if (h.speed.includes(speed)) score += 2;
+      if (car === 'yes') score += 1;
+      else if (car !== 'yes' && !h.car) score += 2;
+      return { ...h, score };
+    }).sort((a, b) => b.score - a.score);
+  }
+
+  function showResult() {
+    document.getElementById('quizMain').style.display = 'none';
+    const result = document.getElementById('quizResult');
+    result.classList.add('show');
+
+    const ranked = scoreHustles();
+    const top = ranked[0];
+
+    document.getElementById('resultTitle').textContent = top.name;
+    document.getElementById('resultEarn').textContent = top.earn + ' · ' + top.monthly + '/month potential';
+    document.getElementById('resultDesc').textContent = top.desc;
+    document.getElementById('resultTime').textContent = top.time;
+    document.getElementById('resultCost').textContent = top.cost;
+    document.getElementById('resultCeiling').textContent = top.ceiling;
+    document.getElementById('resultCTA').href = top.cta;
+    document.getElementById('resultCTA').querySelector('span') ? null : null;
+    document.getElementById('resultCTA').childNodes[0].textContent = top.ctaLabel + ' ';
+
+    const stepsEl = document.getElementById('resultSteps');
+    stepsEl.innerHTML = top.steps.map((s, i) =>
+      `<div class="step-item"><div class="step-num">${i + 1}</div><span>${s}</span></div>`
+    ).join('');
+
+    const allEl = document.getElementById('allHustles');
+    allEl.innerHTML = ranked.slice(1, 5).map(h =>
+      `<a href="${h.cta}" class="hustle-card">
+        <div class="hc-name">${h.name}</div>
+        <div class="hc-earn">${h.earn}</div>
+        <div class="hc-tags">${h.tags.map(t => `<span class="hc-tag" style="${t.color}">${t.label}</span>`).join('')}</div>
+      </a>`
+    ).join('');
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function restartQuiz() {
+    answers = {};
+    document.getElementById('quizResult').classList.remove('show');
+    document.getElementById('quizIntro').style.display = 'block';
+    document.querySelectorAll('.question-card').forEach((c, i) => {
+      c.classList.toggle('active', i === 0);
+      c.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+      const nextBtn = c.querySelector('.btn-next');
+      if (nextBtn) nextBtn.disabled = true;
+    });
+    updateProgress(1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function submitEmail() {
+    const btn = document.querySelector('.ec-btn');
+    btn.textContent = '✓ Sent!';
+    btn.style.background = '#1E7A5A';
+    btn.disabled = true;
+  }
+</script>
+</body>
+</html>

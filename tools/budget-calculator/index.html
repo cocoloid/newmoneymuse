@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Budget Calculator – 50/30/20 Rule | New Money Muse</title>
+  <meta name="description" content="Enter your income and see exactly how to allocate it using the 50/30/20 budget rule. Free, instant, no sign-up required." />
+  <link rel="canonical" href="https://newmoneymuse.com/tools/budget-calculator/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9A84C; --gold-light: #F0D98B; --gold-dim: #8C6D28;
+      --ink: #0D0D0D; --ink-soft: #1A1A1A;
+      --paper: #FAFAF7; --paper-warm: #F5F3EE; --mist: #E8E5DC;
+      --green: #1E7A5A; --green-light: #2EAA7E; --green-dim: #D0EFE6;
+      --text-body: #3A3A3A; --text-muted: #7A7870;
+      --blue: #1D4ED8; --blue-dim: #DBEAFE;
+      --purple: #7C3AED; --purple-dim: #EDE9FE;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--text-body); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .font-display { font-family: 'Playfair Display', Georgia, serif; }
+    .font-mono { font-family: 'DM Mono', monospace; }
+
+    header { position: sticky; top: 0; z-index: 100; background: rgba(250,250,247,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--mist); height: 60px; display: flex; align-items: center; }
+    .header-inner { max-width: 960px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .logo-icon { width: 32px; height: 32px; border-radius: 6px; background: linear-gradient(135deg, #1E7A5A, #2EAA7E); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 0.9rem; }
+    .logo-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--ink); }
+    .logo-name span { color: var(--gold); }
+    .header-back { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .header-back:hover { color: var(--green); }
+
+    .page-hero { background: var(--ink); padding: 48px 0 40px; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 40%, rgba(30,122,90,0.2) 0%, transparent 55%), radial-gradient(ellipse at 10% 80%, rgba(201,168,76,0.15) 0%, transparent 50%); }
+    .hero-inner { max-width: 960px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
+    .page-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.25); color: var(--gold-light); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; padding: 5px 12px; border-radius: 100px; margin-bottom: 1rem; }
+    .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3.5vw, 2.6rem); font-weight: 900; color: #fff; line-height: 1.15; margin-bottom: 0.6rem; }
+    .page-hero p { font-size: 0.93rem; color: rgba(255,255,255,0.55); max-width: 500px; }
+
+    .tool-body { max-width: 960px; margin: 0 auto; padding: 2.5rem 2rem 5rem; }
+
+    /* Income input */
+    .income-section { background: #fff; border: 1px solid var(--mist); border-radius: 14px; padding: 2rem; margin-bottom: 2rem; }
+    .income-top { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; align-items: end; margin-bottom: 1.5rem; }
+    .income-field { }
+    .if-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 6px; }
+    .if-input-wrap { position: relative; }
+    .if-prefix { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-weight: 700; color: var(--text-muted); font-size: 0.95rem; }
+    .if-input { width: 100%; padding: 13px 14px 13px 28px; border: 1.5px solid var(--mist); border-radius: 10px; font-family: 'DM Mono', monospace; font-size: 1.1rem; color: var(--ink); font-weight: 600; outline: none; transition: border-color 0.2s; background: var(--paper-warm); }
+    .if-input:focus { border-color: var(--green); background: #fff; }
+    .if-select { width: 100%; padding: 13px 14px; border: 1.5px solid var(--mist); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--ink); outline: none; transition: border-color 0.2s; background: var(--paper-warm); cursor: pointer; }
+    .if-select:focus { border-color: var(--green); }
+
+    /* Rule explainer */
+    .rule-explainer { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .rule-card { border-radius: 12px; padding: 1.25rem; text-align: center; }
+    .rc-needs { background: #EBF9F3; border: 1px solid #B8E4D4; }
+    .rc-wants { background: #EEF0FD; border: 1px solid #C7CBF8; }
+    .rc-savings { background: #FEF3C7; border: 1px solid #F0D98B; }
+    .rc-pct { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; line-height: 1; margin-bottom: 4px; }
+    .rc-needs .rc-pct { color: var(--green); }
+    .rc-wants .rc-pct { color: var(--purple); }
+    .rc-savings .rc-pct { color: var(--gold-dim); }
+    .rc-label { font-weight: 700; font-size: 0.88rem; color: var(--ink); margin-bottom: 3px; }
+    .rc-desc { font-size: 0.75rem; color: var(--text-muted); line-height: 1.4; }
+    .rc-amount { font-family: 'DM Mono', monospace; font-size: 1.2rem; font-weight: 600; margin-top: 8px; }
+    .rc-needs .rc-amount { color: var(--green); }
+    .rc-wants .rc-amount { color: var(--purple); }
+    .rc-savings .rc-amount { color: var(--gold-dim); }
+
+    /* Visual bar */
+    .budget-bar-wrap { margin: 1.5rem 0; }
+    .budget-bar { height: 20px; border-radius: 100px; overflow: hidden; display: flex; }
+    .bar-needs { background: var(--green); transition: width 0.5s ease; }
+    .bar-wants { background: var(--purple); transition: width 0.5s ease; }
+    .bar-savings { background: var(--gold); transition: width 0.5s ease; }
+    .bar-legend { display: flex; gap: 1.5rem; margin-top: 8px; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--text-muted); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+    /* Category breakdown */
+    .breakdown-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 2rem; }
+    .breakdown-col { }
+    .bc-header { display: flex; align-items: center; gap: 8px; margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 2px solid; }
+    .bc-header.needs { border-color: var(--green); }
+    .bc-header.wants { border-color: var(--purple); }
+    .bc-header.savings { border-color: var(--gold); }
+    .bc-title { font-weight: 700; color: var(--ink); font-size: 0.9rem; }
+    .bc-total { font-family: 'DM Mono', monospace; font-size: 0.88rem; font-weight: 600; margin-left: auto; }
+    .needs .bc-total { color: var(--green); }
+    .wants .bc-total { color: var(--purple); }
+    .savings .bc-total { color: var(--gold-dim); }
+    .category-list { display: flex; flex-direction: column; gap: 6px; }
+    .category-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; border-radius: 8px; background: var(--paper-warm); border: 1px solid var(--mist); }
+    .ci-name { font-size: 0.82rem; color: var(--text-body); }
+    .ci-amount { font-family: 'DM Mono', monospace; font-size: 0.8rem; font-weight: 600; color: var(--ink); }
+    .ci-input { font-family: 'DM Mono', monospace; font-size: 0.8rem; font-weight: 600; color: var(--ink); background: none; border: none; outline: none; width: 72px; text-align: right; }
+
+    /* Status indicator */
+    .status-bar { background: var(--paper-warm); border: 1px solid var(--mist); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+    .status-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .status-text { font-size: 0.9rem; color: var(--text-body); line-height: 1.5; }
+    .status-text strong { color: var(--ink); }
+
+    /* Customize section */
+    .customize-note { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .custom-sliders { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 1rem; }
+    .cs-item { }
+    .cs-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; display: flex; justify-content: space-between; }
+    .cs-label span { font-family: 'DM Mono', monospace; }
+    .cs-needs .cs-label { color: var(--green); }
+    .cs-wants .cs-label { color: var(--purple); }
+    .cs-savings .cs-label { color: var(--gold-dim); }
+    input[type=range] { width: 100%; cursor: pointer; }
+    .needs-range { accent-color: var(--green); }
+    .wants-range { accent-color: var(--purple); }
+    .savings-range { accent-color: var(--gold); }
+    .reset-btn { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); background: none; border: 1px solid var(--mist); padding: 7px 16px; border-radius: 100px; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+    .reset-btn:hover { border-color: var(--ink); color: var(--ink); }
+
+    /* Email capture */
+    .email-capture { background: var(--green-dim); border: 1.5px solid #B8E4D4; border-radius: 12px; padding: 1.25rem; margin-top: 1.5rem; }
+    .ec-title { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 0.3rem; }
+    .ec-sub { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem; }
+    .ec-form { display: flex; gap: 8px; }
+    .ec-input { flex: 1; padding: 10px 14px; border: 1.5px solid #B8E4D4; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; outline: none; }
+    .ec-btn { padding: 10px 18px; background: var(--green); color: #fff; font-weight: 700; font-size: 0.8rem; border: none; border-radius: 100px; cursor: pointer; font-family: 'DM Sans', sans-serif; white-space: nowrap; }
+
+    .page-footer { background: var(--ink-soft, #1A1A1A); color: rgba(255,255,255,0.4); padding: 2rem; text-align: center; font-size: 0.78rem; margin-top: 1rem; }
+    .page-footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    .footer-links { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+
+    @media (max-width: 760px) {
+      .income-top { grid-template-columns: 1fr 1fr; }
+      .rule-explainer { grid-template-columns: 1fr; }
+      .breakdown-grid { grid-template-columns: 1fr; }
+      .custom-sliders { grid-template-columns: 1fr; }
+      .ec-form { flex-direction: column; }
+    }
+  </style>
+  <link rel="stylesheet" href="/components/nav.css" />
+</head>
+<body>
+
+<script src="/components/nav.js"></script>
+
+<div class="page-hero">
+  <div class="hero-inner">
+    <div class="page-tag">Free Tool</div>
+    <h1 class="font-display">Budget Calculator</h1>
+    <p>Enter your income and see exactly how to split it using the 50/30/20 rule — or customize the split to fit your life.</p>
+  </div>
+</div>
+
+<div class="tool-body">
+
+  <!-- INCOME INPUT -->
+  <div class="income-section">
+    <div class="income-top">
+      <div class="income-field">
+        <div class="if-label">Take-home income</div>
+        <div class="if-input-wrap">
+          <span class="if-prefix">$</span>
+          <input type="number" class="if-input" id="incomeInput" placeholder="4,500" value="4500" oninput="calculate()" />
+        </div>
+      </div>
+      <div class="income-field">
+        <div class="if-label">Pay period</div>
+        <select class="if-select" id="periodSelect" onchange="calculate()">
+          <option value="1">Monthly</option>
+          <option value="2">Twice a month (24x/yr)</option>
+          <option value="2.167">Bi-weekly (26x/yr)</option>
+          <option value="4.333">Weekly</option>
+          <option value="12">Annual</option>
+        </select>
+      </div>
+      <div class="income-field">
+        <div class="if-label">Monthly income</div>
+        <div class="if-input-wrap">
+          <span class="if-prefix">$</span>
+          <input type="text" class="if-input" id="monthlyDisplay" readonly style="background:#f5f3ee; cursor:default;" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Budget bar -->
+    <div class="budget-bar-wrap">
+      <div class="budget-bar">
+        <div class="bar-needs" id="barNeeds" style="width:50%"></div>
+        <div class="bar-wants" id="barWants" style="width:30%"></div>
+        <div class="bar-savings" id="barSavings" style="width:20%"></div>
+      </div>
+      <div class="bar-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>Needs (<span id="lgNeeds">50%</span>)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div>Wants (<span id="lgWants">30%</span>)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div>Savings (<span id="lgSavings">20%</span>)</div>
+      </div>
+    </div>
+
+    <!-- Three buckets -->
+    <div class="rule-explainer">
+      <div class="rule-card rc-needs">
+        <div class="rc-pct" id="pctNeeds">50%</div>
+        <div class="rc-label">Needs</div>
+        <div class="rc-desc">Housing, food, utilities, transport, insurance, minimum debt payments</div>
+        <div class="rc-amount" id="amtNeeds">$2,250</div>
+      </div>
+      <div class="rule-card rc-wants">
+        <div class="rc-pct" id="pctWants">30%</div>
+        <div class="rc-label">Wants</div>
+        <div class="rc-desc">Dining out, entertainment, subscriptions, hobbies, clothing beyond basics</div>
+        <div class="rc-amount" id="amtWants">$1,350</div>
+      </div>
+      <div class="rule-card rc-savings">
+        <div class="rc-pct" id="pctSavings">20%</div>
+        <div class="rc-label">Savings & Debt</div>
+        <div class="rc-desc">Emergency fund, retirement contributions, extra debt payments, investments</div>
+        <div class="rc-amount" id="amtSavings">$900</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATUS -->
+  <div class="status-bar" id="statusBar">
+    <div class="status-icon">✅</div>
+    <div class="status-text" id="statusText">Enter your income above to see your personalized budget breakdown.</div>
+  </div>
+
+  <!-- BREAKDOWN -->
+  <div class="breakdown-grid">
+    <div class="breakdown-col">
+      <div class="bc-header needs">
+        <span class="bc-title">Needs</span>
+        <span class="bc-total needs" id="bcNeeds">$2,250/mo</span>
+      </div>
+      <div class="category-list">
+        <div class="category-item"><span class="ci-name">🏠 Rent / Mortgage</span><span class="ci-amount" id="catRent">$1,125</span></div>
+        <div class="category-item"><span class="ci-name">🚗 Transportation</span><span class="ci-amount" id="catTransport">$338</span></div>
+        <div class="category-item"><span class="ci-name">🛒 Groceries</span><span class="ci-amount" id="catGroceries">$338</span></div>
+        <div class="category-item"><span class="ci-name">⚡ Utilities</span><span class="ci-amount" id="catUtilities">$225</span></div>
+        <div class="category-item"><span class="ci-name">🏥 Insurance</span><span class="ci-amount" id="catInsurance">$225</span></div>
+      </div>
+    </div>
+    <div class="breakdown-col">
+      <div class="bc-header wants">
+        <span class="bc-title">Wants</span>
+        <span class="bc-total wants" id="bcWants">$1,350/mo</span>
+      </div>
+      <div class="category-list">
+        <div class="category-item"><span class="ci-name">🍽 Dining out</span><span class="ci-amount" id="catDining">$405</span></div>
+        <div class="category-item"><span class="ci-name">🎬 Entertainment</span><span class="ci-amount" id="catEntertain">$270</span></div>
+        <div class="category-item"><span class="ci-name">📱 Subscriptions</span><span class="ci-amount" id="catSubs">$135</span></div>
+        <div class="category-item"><span class="ci-name">👕 Clothing</span><span class="ci-amount" id="catClothing">$270</span></div>
+        <div class="category-item"><span class="ci-name">🎯 Personal / Other</span><span class="ci-amount" id="catPersonal">$270</span></div>
+      </div>
+    </div>
+    <div class="breakdown-col">
+      <div class="bc-header savings">
+        <span class="bc-title">Savings & Debt</span>
+        <span class="bc-total savings" id="bcSavings">$900/mo</span>
+      </div>
+      <div class="category-list">
+        <div class="category-item"><span class="ci-name">🆘 Emergency Fund</span><span class="ci-amount" id="catEmergency">$270</span></div>
+        <div class="category-item"><span class="ci-name">🏦 Retirement (401k/IRA)</span><span class="ci-amount" id="catRetirement">$360</span></div>
+        <div class="category-item"><span class="ci-name">💳 Extra Debt Payments</span><span class="ci-amount" id="catDebt">$180</span></div>
+        <div class="category-item"><span class="ci-name">📈 Investments</span><span class="ci-amount" id="catInvest">$90</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CUSTOMIZE -->
+  <div style="background:#fff; border:1px solid var(--mist); border-radius:14px; padding:1.5rem; margin-bottom:2rem;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+      <div style="font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; color:var(--ink);">Customize Your Split</div>
+      <button class="reset-btn" onclick="resetSplit()">Reset to 50/30/20</button>
+    </div>
+    <p class="customize-note">The 50/30/20 rule is a starting point — not a rule. Adjust the sliders to match your actual situation.</p>
+    <div class="custom-sliders">
+      <div class="cs-item cs-needs">
+        <div class="cs-label">Needs <span id="slNeeds">50%</span></div>
+        <input type="range" class="needs-range" min="20" max="80" value="50" id="sliderNeeds" oninput="updateSplit()" />
+      </div>
+      <div class="cs-item cs-wants">
+        <div class="cs-label">Wants <span id="slWants">30%</span></div>
+        <input type="range" class="wants-range" min="10" max="60" value="30" id="sliderWants" oninput="updateSplit()" />
+      </div>
+      <div class="cs-item cs-savings">
+        <div class="cs-label">Savings <span id="slSavings">20%</span></div>
+        <input type="range" class="savings-range" min="5" max="50" value="20" id="sliderSavings" oninput="updateSplit()" />
+      </div>
+    </div>
+  </div>
+
+  <!-- EMAIL CAPTURE -->
+  <div class="email-capture">
+    <div class="ec-title font-display">Get your budget as a printable PDF</div>
+    <div class="ec-sub">We'll email your personalized budget breakdown plus weekly saving tips.</div>
+    <div class="ec-form">
+      <input type="email" class="ec-input" placeholder="your@email.com" />
+      <button class="ec-btn" onclick="this.textContent='✓ Sent!'">Send My Budget</button>
+    </div>
+  </div>
+
+</div>
+
+<script src="/components/footer.js"></script>
+<script>
+  let needsPct = 50, wantsPct = 30, savingsPct = 20;
+
+  function getMonthlyIncome() {
+    const raw = parseFloat(document.getElementById('incomeInput').value) || 0;
+    const period = parseFloat(document.getElementById('periodSelect').value) || 1;
+    if (period === 12) return raw / 12;
+    return raw * period;
+  }
+
+  function fmt(n) { return '$' + Math.round(n).toLocaleString(); }
+
+  function calculate() {
+    const monthly = getMonthlyIncome();
+    document.getElementById('monthlyDisplay').value = Math.round(monthly).toLocaleString();
+
+    const needs = monthly * needsPct / 100;
+    const wants = monthly * wantsPct / 100;
+    const savings = monthly * savingsPct / 100;
+
+    document.getElementById('amtNeeds').textContent = fmt(needs);
+    document.getElementById('amtWants').textContent = fmt(wants);
+    document.getElementById('amtSavings').textContent = fmt(savings);
+    document.getElementById('pctNeeds').textContent = needsPct + '%';
+    document.getElementById('pctWants').textContent = wantsPct + '%';
+    document.getElementById('pctSavings').textContent = savingsPct + '%';
+
+    document.getElementById('barNeeds').style.width = needsPct + '%';
+    document.getElementById('barWants').style.width = wantsPct + '%';
+    document.getElementById('barSavings').style.width = savingsPct + '%';
+
+    document.getElementById('lgNeeds').textContent = needsPct + '%';
+    document.getElementById('lgWants').textContent = wantsPct + '%';
+    document.getElementById('lgSavings').textContent = savingsPct + '%';
+
+    document.getElementById('bcNeeds').textContent = fmt(needs) + '/mo';
+    document.getElementById('bcWants').textContent = fmt(wants) + '/mo';
+    document.getElementById('bcSavings').textContent = fmt(savings) + '/mo';
+
+    // Needs breakdown
+    document.getElementById('catRent').textContent = fmt(needs * 0.5);
+    document.getElementById('catTransport').textContent = fmt(needs * 0.15);
+    document.getElementById('catGroceries').textContent = fmt(needs * 0.15);
+    document.getElementById('catUtilities').textContent = fmt(needs * 0.1);
+    document.getElementById('catInsurance').textContent = fmt(needs * 0.1);
+
+    // Wants breakdown
+    document.getElementById('catDining').textContent = fmt(wants * 0.3);
+    document.getElementById('catEntertain').textContent = fmt(wants * 0.2);
+    document.getElementById('catSubs').textContent = fmt(wants * 0.1);
+    document.getElementById('catClothing').textContent = fmt(wants * 0.2);
+    document.getElementById('catPersonal').textContent = fmt(wants * 0.2);
+
+    // Savings breakdown
+    document.getElementById('catEmergency').textContent = fmt(savings * 0.3);
+    document.getElementById('catRetirement').textContent = fmt(savings * 0.4);
+    document.getElementById('catDebt').textContent = fmt(savings * 0.2);
+    document.getElementById('catInvest').textContent = fmt(savings * 0.1);
+
+    // Status
+    const statusBar = document.getElementById('statusBar');
+    const statusText = document.getElementById('statusText');
+    const icon = statusBar.querySelector('.status-icon');
+    if (savingsPct >= 20) {
+      icon.textContent = '✅';
+      statusText.innerHTML = `On a <strong>${fmt(monthly)}/month</strong> income, your budget allocates <strong>${fmt(savings)}/month</strong> to savings and debt reduction — meeting the 20% savings benchmark. Well positioned.`;
+    } else if (savingsPct >= 10) {
+      icon.textContent = '⚠️';
+      statusText.innerHTML = `Your current split saves <strong>${fmt(savings)}/month</strong> (${savingsPct}%). The 50/30/20 guideline suggests 20% toward savings. Consider whether you can reduce wants spending to close the gap.`;
+    } else {
+      icon.textContent = '🔴';
+      statusText.innerHTML = `Only ${savingsPct}% (${fmt(savings)}/month) is going toward savings. This is below the recommended minimum. If possible, look for ways to reduce needs or wants spending to increase this.`;
+    }
+  }
+
+  function updateSplit() {
+    needsPct = parseInt(document.getElementById('sliderNeeds').value);
+    wantsPct = parseInt(document.getElementById('sliderWants').value);
+    savingsPct = parseInt(document.getElementById('sliderSavings').value);
+    const total = needsPct + wantsPct + savingsPct;
+    document.getElementById('slNeeds').textContent = needsPct + '%';
+    document.getElementById('slWants').textContent = wantsPct + '%';
+    document.getElementById('slSavings').textContent = savingsPct + '%';
+    if (total !== 100) {
+      const diff = 100 - total;
+      savingsPct = Math.max(5, savingsPct + diff);
+      document.getElementById('sliderSavings').value = savingsPct;
+      document.getElementById('slSavings').textContent = savingsPct + '%';
+    }
+    calculate();
+  }
+
+  function resetSplit() {
+    needsPct = 50; wantsPct = 30; savingsPct = 20;
+    document.getElementById('sliderNeeds').value = 50;
+    document.getElementById('sliderWants').value = 30;
+    document.getElementById('sliderSavings').value = 20;
+    document.getElementById('slNeeds').textContent = '50%';
+    document.getElementById('slWants').textContent = '30%';
+    document.getElementById('slSavings').textContent = '20%';
+    calculate();
+  }
+
+  calculate();
+</script>
+</body>
+</html>

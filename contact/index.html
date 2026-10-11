@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us – New Money Muse</title>
+  <meta name="description" content="Get in touch with the New Money Muse team. Questions, corrections, partnership inquiries, or feedback — we read everything." />
+  <link rel="canonical" href="https://newmoneymuse.com/contact/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/components/nav.css" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GVSW4WXWLK"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVSW4WXWLK');</script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{--gold:#C9A84C;--gold-light:#F0D98B;--gold-dim:#8C6D28;--ink:#0D0D0D;--ink-soft:#1A1A1A;--paper:#FAFAF7;--paper-warm:#F5F3EE;--mist:#E8E5DC;--green:#1E7A5A;--green-light:#2EAA7E;--green-dim:#D0EFE6;--text-body:#3A3A3A;--text-muted:#7A7870;--red:#DC2626;--red-dim:#FEF2F2;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--text-body);line-height:1.7;-webkit-font-smoothing:antialiased;}
+    .font-display{font-family:'Playfair Display',Georgia,serif;}
+
+    .page-hero{background:var(--ink);padding:56px 0 48px;position:relative;overflow:hidden;}
+    .page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 50%,rgba(201,168,76,0.12) 0%,transparent 60%),radial-gradient(ellipse at 10% 80%,rgba(30,122,90,0.15) 0%,transparent 50%);}
+    .hero-inner{max-width:1000px;margin:0 auto;padding:0 2rem;position:relative;z-index:1;}
+    .page-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.25);color:var(--gold-light);font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;padding:5px 12px;border-radius:100px;margin-bottom:1rem;}
+    .page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;color:#fff;line-height:1.15;margin-bottom:0.75rem;}
+    .page-hero p{font-size:0.95rem;color:rgba(255,255,255,0.55);max-width:520px;line-height:1.65;}
+
+    .page-body{max-width:1000px;margin:0 auto;padding:3rem 2rem 5rem;display:grid;grid-template-columns:1fr 300px;gap:3rem;align-items:start;}
+
+    .section-label{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);margin-bottom:1rem;}
+    .contact-type-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:2rem;}
+    .contact-type{background:var(--paper-warm);border:1.5px solid var(--mist);border-radius:10px;padding:1rem;cursor:pointer;transition:all 0.2s;}
+    .contact-type:hover{border-color:#B8E4D4;background:var(--green-dim);}
+    .contact-type.selected{background:var(--green-dim);border-color:var(--green);}
+    .ct-icon{font-size:1.3rem;margin-bottom:5px;}
+    .ct-title{font-weight:700;font-size:0.88rem;color:var(--ink);margin-bottom:2px;}
+    .ct-desc{font-size:0.73rem;color:var(--text-muted);line-height:1.4;}
+
+    .contact-form{display:flex;flex-direction:column;gap:16px;}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    .form-group{display:flex;flex-direction:column;gap:5px;}
+    .form-label{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);}
+    .form-label .req{color:var(--red);margin-left:2px;}
+    .form-input,.form-textarea{padding:12px 14px;border:1.5px solid var(--mist);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.9rem;color:var(--ink);background:#fff;outline:none;transition:border-color 0.2s,box-shadow 0.2s;width:100%;}
+    .form-input:focus,.form-textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(30,122,90,0.08);}
+    .form-input.error,.form-textarea.error{border-color:var(--red);}
+    .form-input::placeholder,.form-textarea::placeholder{color:#C0BDB8;}
+    .form-textarea{resize:vertical;min-height:140px;line-height:1.6;}
+    .field-error{font-size:0.72rem;color:var(--red);margin-top:3px;display:none;}
+    .field-error.show{display:block;}
+    .char-count{font-size:0.7rem;color:var(--text-muted);text-align:right;margin-top:3px;font-family:'DM Mono',monospace;}
+    .hp-field{position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden;}
+
+    .form-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-top:4px;}
+    .form-btn{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;font-weight:700;font-size:0.9rem;padding:13px 28px;border-radius:100px;border:none;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 16px rgba(30,122,90,0.25);font-family:'DM Sans',sans-serif;}
+    .form-btn:hover:not(:disabled){background:var(--green-light);transform:translateY(-1px);}
+    .form-btn:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+    .spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;display:none;}
+    .form-btn.loading .spinner{display:block;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+    .form-note{font-size:0.76rem;color:var(--text-muted);line-height:1.5;}
+    .form-note a{color:var(--green);}
+
+    .status-msg{border-radius:10px;padding:1.25rem 1.5rem;margin-top:1rem;display:none;}
+    .status-msg.show{display:block;}
+    .status-msg.success{background:var(--green-dim);border:1.5px solid #B8E4D4;}
+    .status-msg.is-error{background:var(--red-dim);border:1.5px solid #FECACA;}
+    .status-msg h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:4px;}
+    .status-msg.success h3{color:var(--green);}
+    .status-msg.is-error h3{color:var(--red);}
+    .status-msg p{font-size:0.85rem;color:var(--text-body);line-height:1.6;}
+
+    .prose{margin-top:2.5rem;}
+    .prose h2{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--ink);margin:2rem 0 0.65rem;padding-top:1.75rem;border-top:1px solid var(--mist);}
+    .prose h2:first-child{border-top:none;padding-top:0;margin-top:0;}
+    .prose p{font-size:0.92rem;color:var(--text-body);margin-bottom:0.9rem;line-height:1.75;}
+    .prose a{color:var(--green);}
+
+    .sidebar-card{background:var(--paper-warm);border:1px solid var(--mist);border-radius:12px;padding:1.25rem;margin-bottom:1rem;}
+    .sidebar-title{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);margin-bottom:1rem;}
+    .email-row{display:flex;flex-direction:column;gap:14px;}
+    .email-purpose{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:3px;}
+    .email-addr{font-size:0.84rem;color:var(--green);font-weight:600;text-decoration:none;word-break:break-all;}
+    .email-addr:hover{text-decoration:underline;}
+    .rt-item{display:flex;justify-content:space-between;font-size:0.82rem;padding:8px 0;border-bottom:1px solid var(--mist);}
+    .rt-item:last-child{border-bottom:none;}
+    .rt-type{color:var(--text-muted);}
+    .rt-time{color:var(--ink);font-weight:600;}
+    .quick-link{display:flex;justify-content:space-between;align-items:center;font-size:0.84rem;color:var(--text-body);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--mist);transition:color 0.2s;}
+    .quick-link:last-child{border-bottom:none;}
+    .quick-link:hover{color:var(--green);}
+
+    .fade-up{opacity:0;transform:translateY(18px);transition:opacity 0.5s,transform 0.5s;}
+    .fade-up.visible{opacity:1;transform:translateY(0);}
+
+    @media(max-width:768px){.page-body{grid-template-columns:1fr;}.form-row{grid-template-columns:1fr;}.contact-type-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:480px){.contact-type-grid{grid-template-columns:1fr;}.form-footer{flex-direction:column;align-items:flex-start;}}
+  </style>
+</head>
+<body>
+
+<script src="/components/nav.js"></script>
+
+<div class="page-hero">
+  <div class="hero-inner">
+    <div class="page-tag">Contact Us</div>
+    <h1 class="font-display">Get in Touch</h1>
+    <p>Questions, corrections, partnership inquiries, or feedback — we read everything and respond within 2 business days.</p>
+  </div>
+</div>
+
+<div class="page-body">
+  <main class="fade-up">
+
+    <div class="section-label">What are you getting in touch about?</div>
+
+    <div class="contact-type-grid">
+      <div class="contact-type selected" onclick="selectType(this,'general')">
+        <div class="ct-icon">💬</div>
+        <div class="ct-title">General question</div>
+        <div class="ct-desc">Ask us anything about the site</div>
+      </div>
+      <div class="contact-type" onclick="selectType(this,'correction')">
+        <div class="ct-icon">✏️</div>
+        <div class="ct-title">Correction or error</div>
+        <div class="ct-desc">Found something wrong or outdated</div>
+      </div>
+      <div class="contact-type" onclick="selectType(this,'partnership')">
+        <div class="ct-icon">🤝</div>
+        <div class="ct-title">Partnership or sponsorship</div>
+        <div class="ct-desc">Brand collaborations and affiliate</div>
+      </div>
+      <div class="contact-type" onclick="selectType(this,'press')">
+        <div class="ct-icon">📰</div>
+        <div class="ct-title">Press or media</div>
+        <div class="ct-desc">Interviews, quotes, media requests</div>
+      </div>
+    </div>
+
+    <div class="contact-form" id="contactForm">
+      <div class="hp-field" aria-hidden="true">
+        <input type="text" name="website" id="hpField" tabindex="-1" autocomplete="off" />
+      </div>
+      <input type="hidden" id="inquiryType" value="general" />
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="firstName">First name <span class="req">*</span></label>
+          <input type="text" class="form-input" id="firstName" placeholder="Your first name" autocomplete="given-name" />
+          <div class="field-error" id="err-firstName">Please enter your first name</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="lastName">Last name <span class="req">*</span></label>
+          <input type="text" class="form-input" id="lastName" placeholder="Your last name" autocomplete="family-name" />
+          <div class="field-error" id="err-lastName">Please enter your last name</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="email">Email address <span class="req">*</span></label>
+        <input type="email" class="form-input" id="email" placeholder="you@example.com" autocomplete="email" />
+        <div class="field-error" id="err-email">Please enter a valid email address</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="subject">Subject <span class="req">*</span></label>
+        <input type="text" class="form-input" id="subject" placeholder="Brief subject line" maxlength="120" />
+        <div class="field-error" id="err-subject">Please enter a subject</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="message">Message <span class="req">*</span></label>
+        <textarea class="form-textarea" id="message" placeholder="Tell us what's on your mind..." maxlength="2000" oninput="updateCharCount(this)"></textarea>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div class="field-error" id="err-message">Please enter a message (at least 20 characters)</div>
+          <div class="char-count" id="charCount">0 / 2000</div>
+        </div>
+      </div>
+
+      <div class="form-footer">
+        <button class="form-btn" id="submitBtn" onclick="submitForm()">
+          <div class="spinner"></div>
+          <span class="btn-text">Send Message →</span>
+        </button>
+        <div class="form-note">
+          We respond within 2 business days.<br>
+          Or email directly: <a href="mailto:hello@newmoneymuse.com">hello@newmoneymuse.com</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="status-msg success" id="successMsg">
+      <h3 class="font-display">✓ Message received</h3>
+      <p>Thanks for reaching out. We'll get back to you at the email you provided within 2 business days.</p>
+    </div>
+
+    <div class="status-msg is-error" id="errorMsg">
+      <h3 class="font-display">Something went wrong</h3>
+      <p>Your message couldn't be sent right now. Please email us directly at <a href="mailto:hello@newmoneymuse.com" style="color:var(--red);">hello@newmoneymuse.com</a></p>
+    </div>
+
+    <div class="prose">
+      <h2>Correction Policy</h2>
+      <p>We take accuracy seriously. If you've found something on the site that is factually wrong, outdated, or misleading — please tell us. Include the URL of the page, the specific claim you believe is incorrect, and any source for the correct information. We review every correction and publish updates when warranted.</p>
+      <h2>Partnership Inquiries</h2>
+      <p>We work with a limited number of brand partners whose products genuinely serve our readers. We do not accept payment for editorial rankings or reviews. If you're interested in sponsored content or affiliate partnerships, select "Partnership or sponsorship" above and include a brief description of what you have in mind.</p>
+    </div>
+  </main>
+
+  <aside>
+    <div class="sidebar-card fade-up">
+      <div class="sidebar-title">Direct Email</div>
+      <div class="email-row">
+        <div>
+          <div class="email-purpose">General Inquiries</div>
+          <a href="mailto:hello@newmoneymuse.com" class="email-addr">hello@newmoneymuse.com</a>
+        </div>
+        <div>
+          <div class="email-purpose">Editorial & Corrections</div>
+          <a href="mailto:editorial@newmoneymuse.com" class="email-addr">editorial@newmoneymuse.com</a>
+        </div>
+        <div>
+          <div class="email-purpose">Partnerships</div>
+          <a href="mailto:partnerships@newmoneymuse.com" class="email-addr">partnerships@newmoneymuse.com</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-card fade-up">
+      <div class="sidebar-title">Response Times</div>
+      <div class="rt-item"><span class="rt-type">Corrections</span><span class="rt-time">1–2 days</span></div>
+      <div class="rt-item"><span class="rt-type">General questions</span><span class="rt-time">2–3 days</span></div>
+      <div class="rt-item"><span class="rt-type">Partnerships</span><span class="rt-time">3–5 days</span></div>
+      <div class="rt-item"><span class="rt-type">Press requests</span><span class="rt-time">1–2 days</span></div>
+    </div>
+
+    <div class="sidebar-card fade-up">
+      <div class="sidebar-title">Quick Links</div>
+      <a href="/about/" class="quick-link">About Us <span>→</span></a>
+      <a href="/affiliate-disclosure/" class="quick-link">Affiliate Disclosure <span>→</span></a>
+      <a href="/privacy/" class="quick-link">Privacy Policy <span>→</span></a>
+      <a href="/disclaimer/" class="quick-link">Disclaimer <span>→</span></a>
+    </div>
+  </aside>
+</div>
+
+<script src="/components/footer.js"></script>
+
+<script>
+  const placeholders = {
+    general:     'Tell us what you have in mind...',
+    correction:  'Please include: the page URL, the specific claim you believe is incorrect, and your source for the correct information.',
+    partnership: 'Tell us about your product, your audience, and the type of partnership you have in mind.',
+    press:       "Tell us about your publication, the story you're working on, and your deadline."
+  };
+
+  function selectType(el, type) {
+    document.querySelectorAll('.contact-type').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('inquiryType').value = type;
+    document.getElementById('message').placeholder = placeholders[type] || placeholders.general;
+  }
+
+  function updateCharCount(el) {
+    document.getElementById('charCount').textContent = el.value.length + ' / 2000';
+  }
+
+  function validate() {
+    let valid = true;
+    const fields = [
+      { id: 'firstName', check: v => v.trim().length > 0 },
+      { id: 'lastName',  check: v => v.trim().length > 0 },
+      { id: 'email',     check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) },
+      { id: 'subject',   check: v => v.trim().length > 0 },
+      { id: 'message',   check: v => v.trim().length >= 20 },
+    ];
+    fields.forEach(f => {
+      const el  = document.getElementById(f.id);
+      const err = document.getElementById('err-' + f.id);
+      const ok  = f.check(el.value);
+      el.classList.toggle('error', !ok);
+      if (err) err.classList.toggle('show', !ok);
+      if (!ok) valid = false;
+    });
+    return valid;
+  }
+
+  async function submitForm() {
+    if (document.getElementById('hpField').value) return;
+    if (!validate()) return;
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.classList.add('loading');
+    btn.querySelector('.btn-text').textContent = 'Sending...';
+
+    const payload = {
+      type:      document.getElementById('inquiryType').value,
+      firstName: document.getElementById('firstName').value.trim(),
+      lastName:  document.getElementById('lastName').value.trim(),
+      email:     document.getElementById('email').value.trim(),
+      subject:   document.getElementById('subject').value.trim(),
+      message:   document.getElementById('message').value.trim(),
+    };
+
+    try {
+      const res  = await fetch('/api/contact.php', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(payload)
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        document.getElementById('contactForm').style.display = 'none';
+        document.getElementById('successMsg').classList.add('show');
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'contact_form_submit', { inquiry_type: payload.type });
+        }
+      } else {
+        throw new Error(data.error || 'Send failed');
+      }
+    } catch (err) {
+      document.getElementById('errorMsg').classList.add('show');
+      btn.disabled = false;
+      btn.classList.remove('loading');
+      btn.querySelector('.btn-text').textContent = 'Try Again →';
+    }
+  }
+
+  ['firstName','lastName','email','subject','message'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', () => {
+      el.classList.remove('error');
+      const err = document.getElementById('err-' + id);
+      if (err) err.classList.remove('show');
+    });
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+/* ── NEW MONEY MUSE SHARED NAV ── */
+#nmm-header {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(250,250,247,0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #E8E5DC;
+  transition: box-shadow 0.3s;
+}
+#nmm-header.scrolled {
+  box-shadow: 0 2px 24px rgba(0,0,0,0.07);
+}
+.nmm-header-inner {
+  max-width: 1280px; margin: 0 auto;
+  padding: 0 2rem; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem;
+}
+.nmm-logo {
+  display: flex; align-items: center; gap: 9px;
+  text-decoration: none; flex-shrink: 0;
+}
+.nmm-logo-icon {
+  width: 34px; height: 34px; border-radius: 7px;
+  background: linear-gradient(135deg, #1E7A5A, #2EAA7E);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-weight: 900; font-size: 0.95rem;
+}
+.nmm-logo-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem; font-weight: 700; color: #0D0D0D;
+}
+.nmm-logo-name span { color: #C9A84C; }
+.nmm-main-nav {
+  display: flex; align-items: center; gap: 2px; flex: 1;
+  justify-content: center;
+}
+.nmm-main-nav a {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.84rem; font-weight: 500;
+  color: #7A7870; text-decoration: none;
+  padding: 6px 13px; border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.nmm-main-nav a:hover { color: #1E7A5A; background: #D0EFE6; }
+.nmm-main-nav a.active { color: #1E7A5A; background: #D0EFE6; font-weight: 600; }
+.nmm-header-actions {
+  display: flex; align-items: center; gap: 10px; flex-shrink: 0;
+}
+.nmm-dash-btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem; font-weight: 700;
+  color: #fff; background: #1E7A5A;
+  padding: 9px 20px; border-radius: 100px;
+  text-decoration: none; white-space: nowrap;
+  transition: background 0.2s, transform 0.1s;
+}
+.nmm-dash-btn:hover { background: #2EAA7E; transform: translateY(-1px); }
+.nmm-hamburger {
+  display: none; background: none; border: none;
+  cursor: pointer; padding: 6px;
+  flex-direction: column; align-items: center; gap: 4px;
+}
+.nmm-hamburger span {
+  display: block; width: 20px; height: 2px;
+  background: #0D0D0D; border-radius: 2px; transition: all 0.3s;
+}
+.nmm-mobile-nav {
+  display: none; flex-direction: column;
+  background: #FAFAF7; border-top: 1px solid #E8E5DC;
+  padding: 0.75rem 2rem 1.25rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+.nmm-mobile-nav.open { display: flex; }
+.nmm-mobile-nav a {
+  font-family: 'DM Sans', sans-serif;
+  padding: 11px 0; font-size: 0.95rem; font-weight: 500;
+  color: #3A3A3A; text-decoration: none;
+  border-bottom: 1px solid #E8E5DC; transition: color 0.2s;
+}
+.nmm-mobile-nav a:last-child { border-bottom: none; }
+.nmm-mobile-nav a:hover { color: #1E7A5A; }
+.nmm-mobile-dash {
+  color: #1E7A5A !important; font-weight: 700 !important;
+  border-bottom: none !important; margin-top: 4px;
+}
+
+/* ── Social icons in header ── */
+.nmm-nav-social {
+  display: flex; align-items: center; gap: 6px;
+  margin-left: 8px; padding-left: 14px;
+  border-left: 1px solid #E8E5DC;
+}
+.nmm-nav-social a {
+  width: 30px; height: 30px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  color: #7A7870; transition: all 0.2s; text-decoration: none;
+  background: transparent;
+}
+.nmm-nav-social a:hover { background: #E8E5DC; color: #0D0D0D; }
+
+/* ── Social icons in footer brand area ── */
+.nmm-social-links {
+  display: flex; gap: 8px; margin-top: 1.25rem;
+}
+.nmm-social-btn {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none; transition: all 0.2s;
+}
+.nmm-social-btn:hover {
+  background: rgba(255,255,255,0.14);
+  color: #fff;
+  transform: translateY(-2px);
+}
+.nmm-social-btn[aria-label="YouTube"]:hover   { background: rgba(255,0,0,0.2);    border-color: rgba(255,0,0,0.3);    color: #ff4444; }
+.nmm-social-btn[aria-label="Instagram"]:hover { background: rgba(225,48,108,0.2); border-color: rgba(225,48,108,0.3); color: #e1306c; }
+.nmm-social-btn[aria-label="Pinterest"]:hover { background: rgba(230,0,35,0.2);   border-color: rgba(230,0,35,0.3);   color: #e60023; }
+
+/* ── Social icons in footer bottom bar ── */
+.nmm-footer-social-bottom {
+  display: flex; align-items: center; gap: 12px;
+}
+.nmm-footer-social-bottom a {
+  color: rgba(255,255,255,0.25); transition: color 0.2s;
+  display: flex; align-items: center;
+}
+.nmm-footer-social-bottom a:hover { color: rgba(255,255,255,0.7); }
+
+/* ── Mobile social icons ── */
+.nmm-mobile-social {
+  display: flex; gap: 12px; padding: 12px 0;
+  border-bottom: 1px solid #E8E5DC;
+}
+.nmm-mobile-social a {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: #F5F3EE; border: 1px solid #E8E5DC;
+  display: flex; align-items: center; justify-content: center;
+  color: #7A7870; transition: all 0.2s; text-decoration: none;
+}
+.nmm-mobile-social a:hover { background: #E8E5DC; color: #0D0D0D; }
+
+/* ── SHARED FOOTER ── */
+#nmm-footer {
+  background: #1A1A1A;
+  color: rgba(255,255,255,0.45);
+  padding: 3.5rem 2rem 2rem;
+  margin-top: 4rem;
+}
+.nmm-footer-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 2.5rem; padding-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 2rem;
+}
+.nmm-footer-brand .nmm-footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; font-weight: 700; color: #fff;
+  margin-bottom: 0.75rem;
+}
+.nmm-footer-brand .nmm-footer-logo span { color: #C9A84C; }
+.nmm-footer-brand p {
+  font-size: 0.84rem; line-height: 1.7;
+  max-width: 220px; color: rgba(255,255,255,0.4);
+}
+.nmm-footer-col h4 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.85); margin-bottom: 1rem;
+}
+.nmm-footer-col nav {
+  display: flex; flex-direction: column; gap: 8px;
+}
+.nmm-footer-col nav a {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.84rem; color: rgba(255,255,255,0.4);
+  text-decoration: none; transition: color 0.2s;
+}
+.nmm-footer-col nav a:hover { color: #F0D98B; }
+.nmm-footer-bottom {
+  max-width: 1280px; margin: 0 auto;
+  display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 1rem;
+  font-size: 0.78rem; color: rgba(255,255,255,0.25);
+}
+.nmm-footer-bottom a {
+  color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s;
+}
+.nmm-footer-bottom a:hover { color: rgba(255,255,255,0.6); }
+
+@media (max-width: 960px) {
+  .nmm-main-nav { display: none; }
+  .nmm-nav-social { display: none; }
+  .nmm-hamburger { display: flex; }
+  .nmm-footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
+}
+@media (max-width: 560px) {
+  .nmm-header-inner { padding: 0 1.25rem; }
+  .nmm-mobile-nav { padding: 0.75rem 1.25rem 1.25rem; }
+  .nmm-footer-inner { grid-template-columns: 1fr; }
+  .nmm-footer-bottom { flex-direction: column; text-align: center; }
+  #nmm-footer { padding: 2.5rem 1.25rem 1.5rem; }
+}

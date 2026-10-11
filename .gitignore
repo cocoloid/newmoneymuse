@@ -1,0 +1,8 @@
+# Server-only secrets (upload by hand via File Manager)
+api/secrets.php
+
+# Old backup copies left on the server
+*!
+.trash/
+
+.DS_Store
